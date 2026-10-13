@@ -143,9 +143,9 @@ Como o pipeline funciona:
 - **Smoke test pós-deploy.** Verifica a saúde da API e do banco, se o ambiente e a versão no ar são os esperados, a leitura pública, o bloqueio de escrita sem login e um ciclo real de escrita no Oracle (cria e apaga um registro). Qualquer falha reprova o job.
 - **Rollback.** Se a API não ficar *healthy* dentro do tempo limite, o `deploy.sh` mostra os logs e volta o container para a imagem que estava rodando antes.
 - **Segredos.** As senhas do Oracle e dos usuários da API vêm dos *secrets* de cada Environment do GitHub (`ORACLE_ADMIN_PASSWORD`, `DB_PASSWORD`, `ECOTRACK_ADMIN_PASSWORD`, `ECOTRACK_USER_PASSWORD`). Se não estiverem cadastrados, o `deploy.sh` gera senhas no host. Nada sensível fica no repositório.
-- **Onde o deploy acontece.** Por padrão os jobs 5 e 6 rodam em runners `ubuntu-latest`: cada deploy cria o ambiente completo (Oracle + API) dentro do runner, valida com o smoke test e o runner é descartado no fim. Para ambientes permanentes, basta registrar uma máquina como *self-hosted runner* e criar a variável de repositório `DEPLOY_RUNNER=self-hosted`. Os mesmos scripts passam a subir staging (8081) e produção (8082) nela.
+- **Onde o deploy acontece.** Por padrão os jobs 5 e 6 rodam em runners `ubuntu-24.04`: cada deploy cria o ambiente completo (Oracle + API) dentro do runner, valida com o smoke test e o runner é descartado no fim. Para ambientes permanentes, basta registrar uma máquina como *self-hosted runner* e criar a variável de repositório `DEPLOY_RUNNER=self-hosted`. Os mesmos scripts passam a subir staging (8081) e produção (8082) nela.
 - **Concorrência.** Execuções do mesmo branch entram em fila (`cancel-in-progress: false`), para nunca interromper um deploy no meio.
-- **Dependabot.** PRs semanais de atualização de Maven, imagens Docker e actions; cada PR passa pelo pipeline.
+- **Dependabot.** PRs de atualização de Maven, imagens Docker e actions (minor e patch agrupadas; versões major ficam de fora, porque exigem migração planejada). Cada PR passa pelo pipeline.
 
 ### Configuração no GitHub (uma vez)
 

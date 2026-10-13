@@ -8,7 +8,7 @@
 #
 # Os deploys rodam o scripts/deploy.sh (Docker Compose) seguido do
 # scripts/smoke-test.sh. O runner dos deploys vem da variável DEPLOY_RUNNER:
-#   - não definida  -> ubuntu-latest (ambiente efêmero criado dentro do runner)
+#   - não definida  -> ubuntu-24.04 (ambiente efêmero criado dentro do runner)
 #   - "self-hosted" -> máquina própria registrada como runner (ambiente permanente)
 # ---------------------------------------------------------------------------
 name: CI/CD EcoTrack
@@ -36,12 +36,12 @@ jobs:
   # -------------------------------------------------------------------------
   build:
     name: "1 · Build"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Configurar JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
@@ -51,7 +51,7 @@ jobs:
         run: mvn -B -ntp package -DskipTests
 
       - name: Publicar o jar como artefato
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ecotrack-api-jar
           path: target/ecotrack-api.jar
@@ -61,11 +61,11 @@ jobs:
   unit-tests:
     name: "2 · Testes unitários"
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
@@ -81,7 +81,7 @@ jobs:
 
       - name: Publicar relatórios
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: relatorio-testes-unitarios
           path: |
@@ -93,11 +93,11 @@ jobs:
   integration-tests:
     name: "3 · Testes de integração (Oracle)"
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
@@ -113,7 +113,7 @@ jobs:
 
       - name: Publicar relatórios
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: relatorio-testes-integracao
           path: target/failsafe-reports/
@@ -124,7 +124,7 @@ jobs:
     name: "4 · Imagem Docker (GHCR)"
     needs: [unit-tests, integration-tests]
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
@@ -132,7 +132,7 @@ jobs:
       image: ${{ steps.meta.outputs.image }}
       version: ${{ steps.meta.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Definir nome, versão e tags da imagem
         id: meta
@@ -149,11 +149,11 @@ jobs:
           echo "created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
 
       # QEMU + Buildx: imagem para amd64 (servidores/GitHub) e arm64 (Mac M1/M2/M3)
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-qemu-action@v4
+      - uses: docker/setup-buildx-action@v4
 
       - name: Login no GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -161,7 +161,7 @@ jobs:
 
       - name: Build e push da imagem
         id: push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -193,7 +193,7 @@ jobs:
   deploy-staging:
     name: "5 · Deploy staging"
     needs: docker-image
-    runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-24.04' }}
     environment:
       name: staging
       url: ${{ vars.STAGING_URL || 'http://localhost:8081' }}
@@ -208,10 +208,10 @@ jobs:
       ECOTRACK_ADMIN_PASSWORD: ${{ secrets.ECOTRACK_ADMIN_PASSWORD }}
       ECOTRACK_USER_PASSWORD: ${{ secrets.ECOTRACK_USER_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Login no GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -234,7 +234,7 @@ jobs:
     name: "6 · Deploy produção"
     needs: [docker-image, deploy-staging]
     if: github.ref == 'refs/heads/main'
-    runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-24.04' }}
     # com "Required reviewers" no Environment production, o job espera aprovação manual aqui
     environment:
       name: production
@@ -249,10 +249,10 @@ jobs:
       ECOTRACK_ADMIN_PASSWORD: ${{ secrets.ECOTRACK_ADMIN_PASSWORD }}
       ECOTRACK_USER_PASSWORD: ${{ secrets.ECOTRACK_USER_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Login no GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}

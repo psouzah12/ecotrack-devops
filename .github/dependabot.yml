@@ -1,16 +1,34 @@
-# Atualizações automáticas de dependências (abre PRs que passam pelo pipeline)
+# Atualizações automáticas de dependências (abre PRs que passam pelo pipeline).
+# Versões major (ex.: Spring Boot 4, Java 25) ficam de fora: exigem migração
+# planejada. Minor e patch chegam agrupadas em um PR por ecossistema.
 version: 2
 updates:
   - package-ecosystem: maven
     directory: /
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      maven-minor-patch:
+        update-types: ["minor", "patch"]
+
   - package-ecosystem: docker
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # a tag da imagem acompanha a versão do Java (21 = LTS usada pelo projeto)
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # a imagem de build fica fixa no JDK 21 (a tag do Maven embute a versão do JDK)
+      - dependency-name: "maven"
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
