@@ -1,0 +1,35 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: ecotrack-oracle
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: oracle123
+      APP_USER: ECOTRACK
+      APP_USER_PASSWORD: ecotrack123
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  app:
+    build: .
+    container_name: ecotrack-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      oracle:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle:1521/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: ECOTRACK
+      SPRING_DATASOURCE_PASSWORD: ecotrack123
+    restart: on-failure
+
+volumes:
+  oracle-data:

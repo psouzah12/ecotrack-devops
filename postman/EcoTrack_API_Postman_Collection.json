@@ -1,0 +1,379 @@
+{
+  "info": {
+    "name": "EcoTrack API - ESG",
+    "description": "Collection da API EcoTrack (Spring Boot + Oracle + Docker).\n\nPra usar:\n1. Sobe o projeto com `docker compose up --build`\n2. Importa essa collection no Postman\n3. A variavel {{baseUrl}} ja aponta pra http://localhost:8080\n4. A auth Basic ja ta configurada na collection (admin@ecotrack.com / admin123)\n\nDados iniciais (Flyway V2):\n- Empresa id=1: Verde Bebidas LTDA\n- Empresa id=2: Solar Tech S.A.\n- Empresa id=3: Empresa Teste Delete (usada no DELETE)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "admin@ecotrack.com",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "admin123",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Empresas",
+      "item": [
+        {
+          "name": "Listar empresas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/empresas"
+          }
+        },
+        {
+          "name": "Buscar empresa por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/empresas/1"
+          }
+        },
+        {
+          "name": "Criar empresa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Green Factory LTDA\",\n  \"cnpj\": \"98.765.432/0001-10\",\n  \"setor\": \"Industria\",\n  \"cidade\": \"Sorocaba\",\n  \"estado\": \"SP\"\n}"
+            },
+            "url": "{{baseUrl}}/api/empresas"
+          }
+        },
+        {
+          "name": "Criar empresa - CNPJ invalido (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Empresa Errada\",\n  \"cnpj\": \"123\",\n  \"setor\": \"Industria\",\n  \"cidade\": \"Sorocaba\",\n  \"estado\": \"SP\"\n}"
+            },
+            "url": "{{baseUrl}}/api/empresas"
+          }
+        },
+        {
+          "name": "Atualizar empresa",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Verde Bebidas LTDA - Atualizada\",\n  \"cnpj\": \"12.345.678/0001-90\",\n  \"setor\": \"Bebidas\",\n  \"cidade\": \"Sao Paulo\",\n  \"estado\": \"SP\"\n}"
+            },
+            "url": "{{baseUrl}}/api/empresas/1"
+          }
+        },
+        {
+          "name": "Deletar empresa (id=3)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/empresas/3"
+          }
+        },
+        {
+          "name": "Buscar empresa inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/empresas/9999"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Indicadores ESG",
+      "item": [
+        {
+          "name": "Listar indicadores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/indicadores"
+          }
+        },
+        {
+          "name": "Listar indicadores por tipo (ENERGIA)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/indicadores?tipo=ENERGIA"
+          }
+        },
+        {
+          "name": "Buscar indicador por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/indicadores/1"
+          }
+        },
+        {
+          "name": "Listar indicadores por empresa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/indicadores/empresa/1"
+          }
+        },
+        {
+          "name": "Criar indicador",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"tipo\": \"ENERGIA\",\n  \"valor\": 9500.75,\n  \"unidadeMedida\": \"kWh\",\n  \"dataReferencia\": \"2026-05-01\",\n  \"observacao\": \"Consumo mensal de energia\"\n}"
+            },
+            "url": "{{baseUrl}}/api/indicadores"
+          }
+        },
+        {
+          "name": "Atualizar indicador",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"tipo\": \"AGUA\",\n  \"valor\": 1450.00,\n  \"unidadeMedida\": \"m3\",\n  \"dataReferencia\": \"2026-05-15\",\n  \"observacao\": \"Consumo mensal atualizado\"\n}"
+            },
+            "url": "{{baseUrl}}/api/indicadores/1"
+          }
+        },
+        {
+          "name": "Deletar indicador",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/indicadores/3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Acoes ESG",
+      "item": [
+        {
+          "name": "Listar acoes ESG",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/acoes-esg"
+          }
+        },
+        {
+          "name": "Listar acoes por status (PLANEJADA)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/acoes-esg?status=PLANEJADA"
+          }
+        },
+        {
+          "name": "Buscar acao por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/acoes-esg/1"
+          }
+        },
+        {
+          "name": "Listar acoes por empresa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/acoes-esg/empresa/1"
+          }
+        },
+        {
+          "name": "Criar acao ESG",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"titulo\": \"Reducao do consumo de agua\",\n  \"descricao\": \"Instalacao de dispositivos economizadores em torneiras e sanitarios.\",\n  \"categoria\": \"REDUCAO_CONSUMO\",\n  \"status\": \"PLANEJADA\",\n  \"impactoEstimado\": 500.00,\n  \"dataInicio\": \"2026-06-01\",\n  \"dataFimPrevista\": \"2026-07-01\"\n}"
+            },
+            "url": "{{baseUrl}}/api/acoes-esg"
+          }
+        },
+        {
+          "name": "Atualizar acao ESG",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empresaId\": 1,\n  \"titulo\": \"Troca de lampadas por LED (revisada)\",\n  \"descricao\": \"Substituicao de lampadas antigas por LED em toda a planta.\",\n  \"categoria\": \"EFICIENCIA_ENERGETICA\",\n  \"status\": \"EM_ANDAMENTO\",\n  \"impactoEstimado\": 1500.00,\n  \"dataInicio\": \"2026-05-10\",\n  \"dataFimPrevista\": \"2026-08-10\"\n}"
+            },
+            "url": "{{baseUrl}}/api/acoes-esg/1"
+          }
+        },
+        {
+          "name": "Atualizar status da acao (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CONCLUIDA\"\n}"
+            },
+            "url": "{{baseUrl}}/api/acoes-esg/1/status"
+          }
+        },
+        {
+          "name": "Deletar acao ESG",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/acoes-esg/2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Relatorios",
+      "item": [
+        {
+          "name": "Resumo geral",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/relatorios/resumo"
+          }
+        },
+        {
+          "name": "Resumo por empresa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/relatorios/empresa/1"
+          }
+        },
+        {
+          "name": "Impacto por acao",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/relatorios/impacto/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testes de Seguranca",
+      "item": [
+        {
+          "name": "POST sem auth (401)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teste\",\n  \"cnpj\": \"00.000.000/0001-00\",\n  \"setor\": \"X\",\n  \"cidade\": \"X\",\n  \"estado\": \"SP\"\n}"
+            },
+            "url": "{{baseUrl}}/api/empresas"
+          }
+        },
+        {
+          "name": "POST com USER (403)",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "user@ecotrack.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "user123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Teste\",\n  \"cnpj\": \"00.000.000/0001-00\",\n  \"setor\": \"X\",\n  \"cidade\": \"X\",\n  \"estado\": \"SP\"\n}"
+            },
+            "url": "{{baseUrl}}/api/empresas"
+          }
+        }
+      ]
+    }
+  ]
+}
