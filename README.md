@@ -1,168 +1,289 @@
-# EcoTrack API
+# EcoTrack API · DevOps
 
-API REST feita em Java/Spring Boot para a entrega com o tema de ESG.
+**Aluno:** Paulo Souza · **RM:** 566228
 
-## Sobre o projeto
+## Projeto
 
-A ideia é centralizar dados ambientais de empresas. Hoje muitas empresas tem dados de sustentabilidade espalhados em planilhas, e fica difícil acompanhar o que de fato está sendo feito e o impacto disso.
+O EcoTrack é uma API REST em Java 21 / Spring Boot que centraliza dados ambientais de empresas: cadastro de empresas, indicadores (água, energia, resíduos, CO2), ações ESG e relatórios consolidados. O banco é Oracle, com o schema versionado pelo Flyway.
 
-O projeto cobre:
+Nesta entrega o projeto da sprint anterior ganhou o ciclo de vida completo de DevOps:
 
-- cadastro de empresas
-- registro de indicadores ambientais (água, energia, resíduos, CO2)
-- acompanhamento de ações ESG (título, categoria, status, impacto estimado)
-- relatórios consolidados
+- **CI/CD no GitHub Actions**: build, testes unitários, testes de integração com Oracle real, imagem Docker publicada no GHCR e deploy automatizado em **staging** e **produção**.
+- **Containerização**: Dockerfile multi-stage, imagem multi-arquitetura (amd64 e arm64), usuário sem root e healthcheck.
+- **Orquestração com Docker Compose**: API + Oracle com redes, volumes e variáveis de ambiente, usando um único `docker-compose.yml` para todos os ambientes.
+- **Mudanças na aplicação para um cenário de produção**: actuator com health e info, profiles por ambiente, credenciais fora do código, tratamento de erros mais correto e uma página de status por ambiente.
 
-## Tecnologias
+### Ambientes
 
-- Java 21
-- Spring Boot 3.3.5
-- Spring Web, Spring Data JPA, Spring Validation, Spring Security
-- Oracle Database Free 23
-- Flyway
-- Springdoc OpenAPI (Swagger)
-- Docker e Docker Compose
+| Ambiente | Como sobe | URL | Profile | Dados |
+|---|---|---|---|---|
+| Local (dev) | `docker compose up --build` | http://localhost:8080 | `default` | dados de exemplo |
+| Staging | pipeline (`develop` e `main`) ou `scripts/deploy.sh staging` | http://localhost:8081 | `staging` | dados de exemplo |
+| Produção | pipeline (`main`, após aprovação) ou `scripts/deploy.sh production` | http://localhost:8082 | `prod` | começa vazio |
 
-## Como rodar
+Cada ambiente é um projeto Compose separado (`ecotrack-staging`, `ecotrack-production`), com containers, rede e volume de banco próprios.
 
-Pelo Docker (recomendado):
+### Estrutura
 
-```bash
-docker compose up --build
+```
+ecotrack-devops/
+├── .github/
+│   ├── workflows/ci-cd.yml        # pipeline CI/CD
+│   └── dependabot.yml             # atualização automática de dependências
+├── Dockerfile                     # imagem multi-stage da API
+├── docker-compose.yml             # API + Oracle (base de todos os ambientes)
+├── docker-compose.override.yml    # ajustes só do ambiente local
+├── .env.example                   # todas as variáveis de ambiente
+├── deploy/
+│   ├── staging.env                # configuração (não secreta) de staging
+│   └── production.env             # configuração (não secreta) de produção
+├── scripts/
+│   ├── deploy.sh                  # deploy de um ambiente (usado pelo pipeline)
+│   ├── smoke-test.sh              # validação pós-deploy
+│   ├── ambiente.sh                # status / logs / parar / remover
+│   └── ci/resumo-testes.sh        # tabela de testes na aba Summary do Actions
+├── src/
+│   ├── main/java/...              # código da API
+│   ├── main/resources/
+│   │   ├── application*.properties
+│   │   ├── db/migration/          # schema (Flyway), todos os ambientes
+│   │   ├── db/seed/               # dados de exemplo, só local e staging
+│   │   └── static/index.html      # página de status do ambiente
+│   └── test/java/...              # testes unitários, web e de integração
+├── postman/                       # collection da API
+├── evidencias/                    # prints e logs de execução
+└── README.md
 ```
 
-Depois que subir:
+## Como executar localmente com Docker
 
-- API: http://localhost:8080
+Pré-requisito: Docker Desktop (ou Docker Engine + Compose v2). Não precisa de Java nem de Maven na máquina, porque o build acontece dentro do container.
+
+```bash
+# 1. (opcional) copiar as variáveis de ambiente; sem o .env valem os defaults
+cp .env.example .env
+
+# 2. subir API + Oracle (o primeiro build baixa as dependências do Maven)
+docker compose up --build -d
+
+# 3. acompanhar até a API ficar healthy (~1 min na primeira vez)
+docker compose ps
+```
+
+Depois de subir:
+
+- Página de status: http://localhost:8080
 - Swagger: http://localhost:8080/swagger-ui.html
-- Banco: localhost:1521/FREEPDB1 (user `ECOTRACK`, senha `ecotrack123`)
+- Health: http://localhost:8080/actuator/health
+- Oracle: `localhost:1521/FREEPDB1`, usuário `ECOTRACK` (só no ambiente local a porta do banco é publicada)
 
-### Rodando sem o container da API
+Usuários locais (Basic Auth): `admin@ecotrack.com / admin123` (ADMIN, pode escrever) e `user@ecotrack.com / user123` (USER, só leitura). Em staging e produção as senhas vêm de secrets.
 
-Se quiser rodar a aplicação no IntelliJ ou pela linha de comando, suba só o Oracle:
+Para parar: `docker compose down` (mantém o banco) ou `docker compose down -v` (apaga o volume do banco).
+
+### Simulando staging e produção na sua máquina
+
+Os mesmos scripts que o pipeline executa podem rodar localmente:
 
 ```bash
-docker compose up oracle -d
-mvn spring-boot:run
+docker build -t ecotrack-api:local .
+
+scripts/deploy.sh staging ecotrack-api:local
+scripts/smoke-test.sh http://localhost:8081 staging
+
+scripts/deploy.sh production ecotrack-api:local
+scripts/smoke-test.sh http://localhost:8082 production
+
+scripts/ambiente.sh production status   # containers + histórico de deploys
+scripts/ambiente.sh production logs     # logs da API
 ```
 
-## Autenticação
+Se as senhas não forem informadas por variável de ambiente, o `deploy.sh` gera senhas fortes na primeira vez e as guarda em `~/.ecotrack/<ambiente>.secrets.env` (permissão 600). Os deploys seguintes reutilizam essas senhas, o que é necessário porque o Oracle só define a senha do usuário quando o volume é criado.
 
-Dois usuários cadastrados em memória no `SecurityConfig`:
+### Rodando os testes
 
-- admin@ecotrack.com / admin123 (ROLE_ADMIN)
-- user@ecotrack.com / user123 (ROLE_USER)
+```bash
+# com Maven + JDK 21 instalados
+mvn test       # unitários + cobertura
+mvn verify     # unitários + integração (precisa do Docker para o Testcontainers)
 
-Regras:
-
-- GET em /api/** é público
-- POST, PUT, PATCH e DELETE precisam de ROLE_ADMIN
-- Swagger é público
-
-## Endpoints
-
-### Empresas
-- GET /api/empresas
-- GET /api/empresas/{id}
-- POST /api/empresas
-- PUT /api/empresas/{id}
-- DELETE /api/empresas/{id}
-
-### Indicadores ESG
-- GET /api/indicadores
-- GET /api/indicadores?tipo=ENERGIA (filtra por tipo)
-- GET /api/indicadores/{id}
-- GET /api/indicadores/empresa/{empresaId}
-- POST /api/indicadores
-- PUT /api/indicadores/{id}
-- DELETE /api/indicadores/{id}
-
-Tipos: AGUA, ENERGIA, RESIDUOS, EMISSAO_CO2.
-
-### Ações ESG
-- GET /api/acoes-esg
-- GET /api/acoes-esg?status=PLANEJADA (filtra por status)
-- GET /api/acoes-esg/{id}
-- GET /api/acoes-esg/empresa/{empresaId}
-- POST /api/acoes-esg
-- PUT /api/acoes-esg/{id}
-- PATCH /api/acoes-esg/{id}/status (atualiza só o status)
-- DELETE /api/acoes-esg/{id}
-
-Status: PLANEJADA, EM_ANDAMENTO, CONCLUIDA, CANCELADA.
-Categorias: REDUCAO_CONSUMO, RECICLAGEM, COMPENSACAO_CARBONO, EFICIENCIA_ENERGETICA, EDUCACAO_AMBIENTAL.
-
-### Relatórios
-- GET /api/relatorios/resumo
-- GET /api/relatorios/empresa/{empresaId}
-- GET /api/relatorios/impacto/{acaoId}
-
-## Exemplos de payload
-
-Criar empresa:
-
-```json
-{
-  "nome": "Green Factory LTDA",
-  "cnpj": "98.765.432/0001-10",
-  "setor": "Industria",
-  "cidade": "Sorocaba",
-  "estado": "SP"
-}
+# sem JDK na máquina, usando o mesmo JDK 21 do pipeline
+docker run --rm -v "$PWD":/workspace -v "$HOME/.m2":/root/.m2 -w /workspace \
+  maven:3.9.9-eclipse-temurin-21 mvn -B test
 ```
 
-Criar indicador:
+## Pipeline CI/CD
 
-```json
-{
-  "empresaId": 1,
-  "tipo": "ENERGIA",
-  "valor": 9500.75,
-  "unidadeMedida": "kWh",
-  "dataReferencia": "2026-05-01",
-  "observacao": "Consumo mensal de energia"
-}
+**Ferramenta:** GitHub Actions ([`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml)). **Registry:** GitHub Container Registry (GHCR), autenticado com o `GITHUB_TOKEN` do próprio run, sem nenhum secret extra.
+
+```
+            ┌──────────────────────┐
+            │ 2 · Testes unitários │
+┌─────────┐ ├──────────────────────┤ ┌──────────────────┐ ┌──────────────────┐ ┌───────────────────┐
+│1 · Build│─┤                      ├─│4 · Imagem Docker │─│5 · Deploy staging│─│6 · Deploy produção│
+└─────────┘ ├──────────────────────┤ │  (GHCR, multi-   │ │  + smoke test    │ │  + smoke test     │
+            │3 · Testes integração │ │   arquitetura)   │ └──────────────────┘ │  (só main, com    │
+            │    (Oracle real)     │ └──────────────────┘                      │   aprovação)      │
+            └──────────────────────┘                                           └───────────────────┘
 ```
 
-Criar ação ESG:
+| Etapa | O que faz | Quando roda |
+|---|---|---|
+| **1 · Build** | `mvn package` com JDK 21 e cache do Maven; publica o `.jar` como artefato | sempre |
+| **2 · Testes unitários** | 49 testes: services (Mockito) e controllers com as regras reais de segurança (MockMvc). JaCoCo exige **80% de cobertura de linhas** ou o job falha. Publica o resumo na aba *Summary* e os relatórios como artefato | sempre |
+| **3 · Testes de integração** | 7 testes com **Testcontainers**: sobe um Oracle Free real, o Flyway cria o schema e a API é chamada via HTTP (CRUD, 401, 409 de chave estrangeira, health) | sempre, em paralelo com o 2 |
+| **4 · Imagem Docker** | Buildx + QEMU gera a imagem `linux/amd64` + `linux/arm64` e publica no GHCR com as tags `sha-<commit>`, `<versão>` e `latest`/`develop`. Usa cache de camadas do GitHub (`type=gha`) | push em `main`/`develop` |
+| **5 · Deploy staging** | Environment `staging`: login no GHCR, `scripts/deploy.sh staging <imagem sha-…>` e `scripts/smoke-test.sh` | push em `main`/`develop` |
+| **6 · Deploy produção** | Environment `production`: mesma imagem já validada em staging, mesmos scripts. Com *Required reviewers* configurado, o job **espera aprovação manual** | só push em `main` |
 
-```json
-{
-  "empresaId": 1,
-  "titulo": "Reducao do consumo de agua",
-  "descricao": "Instalacao de dispositivos economizadores em torneiras e sanitarios.",
-  "categoria": "REDUCAO_CONSUMO",
-  "status": "PLANEJADA",
-  "impactoEstimado": 500.00,
-  "dataInicio": "2026-06-01",
-  "dataFimPrevista": "2026-07-01"
-}
+Como o pipeline funciona:
+
+- **Build once, deploy many.** A imagem é gerada uma vez e identificada pelo commit (`sha-xxxxxxx`). Staging e produção recebem exatamente a mesma imagem; nada é recompilado entre os ambientes.
+- **Portões.** A imagem só é publicada se as duas suítes de teste passarem. Produção só roda se o deploy e o smoke test de staging passarem. Em pull requests rodam apenas build e testes.
+- **Smoke test pós-deploy.** Verifica a saúde da API e do banco, se o ambiente e a versão no ar são os esperados, a leitura pública, o bloqueio de escrita sem login e um ciclo real de escrita no Oracle (cria e apaga um registro). Qualquer falha reprova o job.
+- **Rollback.** Se a API não ficar *healthy* dentro do tempo limite, o `deploy.sh` mostra os logs e volta o container para a imagem que estava rodando antes.
+- **Segredos.** As senhas do Oracle e dos usuários da API vêm dos *secrets* de cada Environment do GitHub (`ORACLE_ADMIN_PASSWORD`, `DB_PASSWORD`, `ECOTRACK_ADMIN_PASSWORD`, `ECOTRACK_USER_PASSWORD`). Se não estiverem cadastrados, o `deploy.sh` gera senhas no host. Nada sensível fica no repositório.
+- **Onde o deploy acontece.** Por padrão os jobs 5 e 6 rodam em runners `ubuntu-latest`: cada deploy cria o ambiente completo (Oracle + API) dentro do runner, valida com o smoke test e o runner é descartado no fim. Para ambientes permanentes, basta registrar uma máquina como *self-hosted runner* e criar a variável de repositório `DEPLOY_RUNNER=self-hosted`. Os mesmos scripts passam a subir staging (8081) e produção (8082) nela.
+- **Concorrência.** Execuções do mesmo branch entram em fila (`cancel-in-progress: false`), para nunca interromper um deploy no meio.
+- **Dependabot.** PRs semanais de atualização de Maven, imagens Docker e actions; cada PR passa pelo pipeline.
+
+### Configuração no GitHub (uma vez)
+
+1. *Settings → Environments*: criar `staging` e `production`. Em `production`, marcar **Required reviewers** para exigir aprovação manual antes do deploy.
+2. (opcional) Cadastrar nos dois Environments os secrets `ORACLE_ADMIN_PASSWORD`, `DB_PASSWORD`, `ECOTRACK_ADMIN_PASSWORD` e `ECOTRACK_USER_PASSWORD`.
+3. (opcional) *Settings → Actions → Runners*: registrar um self-hosted runner e criar a variável `DEPLOY_RUNNER=self-hosted`.
+
+## Containerização
+
+### Dockerfile
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM --platform=$BUILDPLATFORM maven:3.9.9-eclipse-temurin-21 AS build
+WORKDIR /workspace
+
+# 1) dependências primeiro: essa camada só é refeita quando o pom.xml muda
+COPY pom.xml .
+RUN mvn -B -ntp dependency:go-offline
+
+# 2) código-fonte e empacotamento (os testes já rodaram nos jobs anteriores do pipeline)
+COPY src ./src
+RUN mvn -B -ntp package -DskipTests \
+ && java -Djarmode=tools -jar target/ecotrack-api.jar extract --layers --launcher --destination target/extracted
+
+
+FROM eclipse-temurin:21-jre-alpine AS runtime
+
+RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack \
+ && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
+WORKDIR /app
+
+COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
+COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
+COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
+COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/application/ ./
+
+ARG APP_VERSION=dev
+ARG GIT_COMMIT=local
+ARG BUILD_DATE=unknown
+LABEL org.opencontainers.image.title="EcoTrack API" \
+      org.opencontainers.image.version="${APP_VERSION}" \
+      org.opencontainers.image.revision="${GIT_COMMIT}" \
+      org.opencontainers.image.created="${BUILD_DATE}"
+
+ENV APP_COMMIT=${GIT_COMMIT} \
+    JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75 -XX:+ExitOnOutOfMemoryError -Duser.timezone=America/Sao_Paulo -Djava.security.egd=file:/dev/./urandom"
+
+USER ecotrack
+EXPOSE 8080
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=90s --retries=5 \
+  CMD wget -q -O /dev/null http://127.0.0.1:8080/actuator/health/readiness || exit 1
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
 ```
 
-Atualizar status:
+(O arquivo completo, com comentários, está em [`Dockerfile`](Dockerfile).)
 
-```json
-{ "status": "CONCLUIDA" }
-```
+### Estratégias adotadas
 
-## Banco
+| Estratégia | Por quê |
+|---|---|
+| **Multi-stage** | O Maven e o JDK ficam só no estágio de build. A imagem final tem apenas o JRE 21 Alpine e a aplicação: 408 MB, contra 707 MB da imagem da sprint anterior (JRE Ubuntu, jar único), medidas com `docker image ls`. |
+| **Dependências antes do código** | `COPY pom.xml` + `dependency:go-offline` formam uma camada que só muda quando o `pom.xml` muda. Uma alteração no código não baixa as dependências de novo. |
+| **Jar em camadas** (`-Djarmode=tools extract --layers`) | Dependências (≈64 MB) e código da aplicação (≈0,3 MB) viram camadas separadas. Num deploy comum só a camada de 0,3 MB muda, então o push e o pull ficam bem mais rápidos. |
+| **`--platform=$BUILDPLATFORM` no build** | Na imagem multi-arquitetura o Maven roda uma vez, na arquitetura nativa do runner, já que o jar é o mesmo para amd64 e arm64. Só o estágio final é montado por plataforma. |
+| **Usuário sem root (uid 1001)** | Se a aplicação for comprometida, o processo não tem privilégios de root no container. |
+| **HEALTHCHECK no readiness** | `/actuator/health/readiness` inclui o banco. O Docker marca o container como *unhealthy* se a API ou a conexão com o Oracle caírem, e o `docker compose up --wait` do deploy usa isso para aprovar ou reprovar o deploy. |
+| **JVM ciente do container** | `MaxRAMPercentage=75` respeita o limite de memória do Compose; `ExitOnOutOfMemoryError` derruba o processo para o Docker reiniciar em vez de seguir travado. |
+| **Labels OCI + commit na imagem** | Versão e commit ficam gravados na imagem e aparecem em `/actuator/info` e na página de status, então dá para saber exatamente o que está rodando em cada ambiente. |
+| **`.dockerignore` restritivo** | Só `pom.xml` e `src/` entram no contexto de build: menos dados enviados e nenhum `.env` vazando para a imagem. |
 
-O Flyway cria o schema. O Hibernate está com `ddl-auto=validate`, ou seja, ele só confere se as entidades batem com o que o Flyway criou.
+### Orquestração (`docker-compose.yml`)
 
-Migrations:
+- **Serviços:** `oracle` (gvenzl/oracle-free 23) e `app` (EcoTrack API). A `app` só sobe depois que o Oracle está *healthy* (`depends_on: condition: service_healthy`).
+- **Redes:** `frontend`, a única com porta publicada (a da API), e `backend` com `internal: true`, onde fica o Oracle. Em staging e produção o banco não tem porta exposta e nem saída para a internet; só a API o enxerga.
+- **Volumes:** `oracle-data` (dados do banco, persistem entre deploys) e `app-logs` (arquivo de log da API com rotação, `/app/logs`).
+- **Variáveis de ambiente:** tudo que muda entre ambientes é variável: imagem, porta, profile, nome do ambiente, senhas, Swagger, limites de CPU e memória. Os valores não secretos ficam em `deploy/<ambiente>.env`; os secretos, nos secrets do GitHub ou em `~/.ecotrack`.
+- **Robustez:** `restart: unless-stopped`, `stop_grace_period` + `server.shutdown=graceful` (requisições em andamento terminam antes de o container parar), limites de CPU e memória por ambiente e rotação dos logs do Docker (`max-size 10m`, 3 arquivos).
+- **Local × deploy:** `docker-compose.override.yml` (build local, porta 1521 do Oracle, SQL no log) é carregado automaticamente só no `docker compose up`. O `deploy.sh` usa `-f docker-compose.yml` explicitamente, então staging e produção nunca recebem esses ajustes.
 
-- V1__create_tables.sql cria as 3 tabelas (TB_EMPRESA, TB_INDICADOR_ESG, TB_ACAO_ESG)
-- V2__insert_initial_data.sql insere dados de exemplo (3 empresas, 4 indicadores, 3 ações)
+## Prints do funcionamento
 
-## Tratamento de erros
+### Ambientes staging e produção no ar
 
-No `GlobalExceptionHandler`:
+Página de status (`/`) de cada ambiente. Mostra ambiente, saúde da API e do Oracle, versão, commit e o resumo ESG lido do banco:
 
-- 404 quando a entidade não existe
-- 400 em violação de regra de negócio (ex: CNPJ duplicado) e em erro de validação
-- 409 em violação de integridade (ex: deletar empresa com indicador vinculado)
-- 500 fallback
+| Staging (`:8081`) | Produção (`:8082`) |
+|---|---|
+| ![Staging](evidencias/img/staging-pagina-status.png) | ![Produção](evidencias/img/producao-pagina-status.png) |
 
-## Collection do Postman
+Staging mostra os dados de exemplo do `db/seed`. Produção começa vazia; os registros que aparecem foram cadastrados pela própria API com o usuário admin, depois do deploy.
 
-Vai em um zip separado (`ecotrack-collection.zip`). Tem as requisições organizadas em 5 pastas: Empresas, Indicadores ESG, Ações ESG, Relatórios e Testes de Segurança. A auth Basic já está configurada na collection e tem a variável {{baseUrl}} apontando para http://localhost:8080.
+Swagger de cada ambiente:
+
+| Staging | Produção |
+|---|---|
+| ![Swagger staging](evidencias/img/staging-swagger.png) | ![Swagger produção](evidencias/img/producao-swagger.png) |
+
+### Deploy e smoke test
+
+![Deploy staging](evidencias/img/terminal-03-deploy-staging.png)
+
+![Deploy produção](evidencias/img/terminal-04-deploy-production.png)
+
+Containers, volumes, redes (o `backend` é interno), limites de memória, health/info e o log gravado no volume:
+
+![Ambientes](evidencias/img/terminal-05-ambientes.png)
+
+### Testes e imagem
+
+![Testes unitários](evidencias/img/terminal-01-testes-unitarios.png)
+
+![Build da imagem](evidencias/img/terminal-02-docker-build.png)
+
+Os logs em texto estão em [`evidencias/logs/`](evidencias/logs).
+
+## Tecnologias utilizadas
+
+| Camada | Tecnologias |
+|---|---|
+| Aplicação | Java 21, Spring Boot 3.3.5 (Web, Data JPA, Validation, Security, Actuator), Springdoc OpenAPI (Swagger) |
+| Banco | Oracle Database Free 23ai (`gvenzl/oracle-free`), Flyway |
+| Testes | JUnit 5, Mockito, AssertJ, Spring MockMvc, Spring Security Test, Testcontainers (Oracle Free), JaCoCo |
+| Build | Maven 3.9 |
+| Containers | Docker (multi-stage, Buildx, QEMU, multi-arch), Docker Compose v2 |
+| CI/CD | GitHub Actions, GitHub Environments (staging/production, aprovação manual), GitHub Container Registry, Dependabot |
+| Scripts | Bash (deploy, smoke test, operação), curl |
+
+## Checklist de entrega
+
+| Item | OK |
+|---|:---:|
+| Projeto compactado em .ZIP com estrutura organizada | ☑ |
+| Dockerfile funcional | ☑ |
+| docker-compose.yml ou arquivos Kubernetes | ☑ |
+| Pipeline com etapas de build, teste e deploy | ☑ |
+| README.md com instruções e prints | ☑ |
+| Documentação técnica com evidências (PDF ou PPT) | ☑ |
+| Deploy realizado nos ambientes staging e produção | ☑ |
