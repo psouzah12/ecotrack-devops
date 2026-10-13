@@ -1,0 +1,20 @@
+# Ajustes só para desenvolvimento local. O Compose carrega este arquivo
+# automaticamente no "docker compose up"; o scripts/deploy.sh NÃO o carrega
+# (usa -f docker-compose.yml), então staging e produção ficam sem isso.
+services:
+  app:
+    build:
+      context: .
+      args:
+        APP_VERSION: local
+        GIT_COMMIT: local
+    environment:
+      SHOW_SQL: "true"
+
+  oracle:
+    # banco acessível em localhost:1521 para usar no SQL Developer / IntelliJ
+    ports:
+      - "1521:1521"
+    networks:
+      - backend
+      - frontend

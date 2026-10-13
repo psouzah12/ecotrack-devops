@@ -1,35 +1,82 @@
+# ---------------------------------------------------------------------------
+# EcoTrack - orquestração da API + Oracle
+#
+# Este arquivo é a base usada em TODOS os ambientes. O que muda entre eles
+# vem de variáveis de ambiente:
+#   - local:      docker compose up --build   (usa também docker-compose.override.yml)
+#   - staging:    scripts/deploy.sh staging    (deploy/staging.env, porta 8081)
+#   - produção:   scripts/deploy.sh production (deploy/production.env, porta 8082)
+#
+# Cada ambiente roda com um nome de projeto diferente (-p ecotrack-staging,
+# -p ecotrack-production), então containers, redes e volumes ficam isolados.
+# ---------------------------------------------------------------------------
+name: ecotrack
+
 services:
   oracle:
     image: gvenzl/oracle-free:23-slim
-    container_name: ecotrack-oracle
-    ports:
-      - "1521:1521"
     environment:
-      ORACLE_PASSWORD: oracle123
-      APP_USER: ECOTRACK
-      APP_USER_PASSWORD: ecotrack123
+      ORACLE_PASSWORD: ${ORACLE_ADMIN_PASSWORD:-oracle123}
+      APP_USER: ${DB_USER:-ECOTRACK}
+      APP_USER_PASSWORD: ${DB_PASSWORD:-ecotrack123}
     volumes:
       - oracle-data:/opt/oracle/oradata
+    networks:
+      - backend
     healthcheck:
       test: ["CMD", "healthcheck.sh"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 30
       start_period: 60s
+    restart: unless-stopped
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   app:
-    build: .
-    container_name: ecotrack-api
-    ports:
-      - "8080:8080"
+    image: ${ECOTRACK_IMAGE:-ecotrack-api:local}
     depends_on:
       oracle:
         condition: service_healthy
     environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-default}
+      APP_ENV: ${APP_ENV:-local}
       SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle:1521/FREEPDB1
-      SPRING_DATASOURCE_USERNAME: ECOTRACK
-      SPRING_DATASOURCE_PASSWORD: ecotrack123
-    restart: on-failure
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-ECOTRACK}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-ecotrack123}
+      ECOTRACK_ADMIN_USER: ${ECOTRACK_ADMIN_USER:-admin@ecotrack.com}
+      ECOTRACK_ADMIN_PASSWORD: ${ECOTRACK_ADMIN_PASSWORD:-admin123}
+      ECOTRACK_USER: ${ECOTRACK_USER:-user@ecotrack.com}
+      ECOTRACK_USER_PASSWORD: ${ECOTRACK_USER_PASSWORD:-user123}
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-true}
+      SHOW_SQL: ${SHOW_SQL:-false}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - app-logs:/app/logs
+    networks:
+      - frontend
+      - backend
+    # o healthcheck vem do Dockerfile (GET /actuator/health/readiness)
+    restart: unless-stopped
+    stop_grace_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "${APP_CPUS:-1.0}"
+          memory: ${APP_MEM_LIMIT:-768M}
+    logging: *logging
+
+networks:
+  # rede exposta: só a API publica porta para fora
+  frontend:
+  # rede interna: o Oracle não tem porta publicada nem saída para a internet
+  backend:
+    internal: true
 
 volumes:
   oracle-data:
+  app-logs:

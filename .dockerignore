@@ -1,7 +1,17 @@
+# só o pom.xml e o src/ entram no contexto de build
 target/
 .git/
+.github/
 .idea/
-*.iml
 .vscode/
+*.iml
 .DS_Store
-README.md
+deploy/
+scripts/
+postman/
+docs/
+evidencias/
+*.md
+.env
+.env.*
+docker-compose*.yml
