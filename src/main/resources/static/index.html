@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EcoTrack API · Status</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #f4f6f3; --surface: #ffffff; --text: #17201b; --muted: #5d6b63; --line: #dfe5e0;
+    --ok: #1f7a4d; --down: #b42318; --env: #6b7280; --env-bg: #eef0f2;
+  }
+  body[data-env="staging"]  { --env: #b45309; --env-bg: #fef3e2; }
+  body[data-env="producao"] { --env: #1f6f4a; --env-bg: #e3f3ea; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .faixa { height: 6px; background: var(--env); }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 48px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 26px; letter-spacing: -0.01em; }
+  .sub { margin: 2px 0 0; color: var(--muted); }
+  .ambiente { padding: 8px 16px; border-radius: 999px; background: var(--env-bg); color: var(--env);
+              font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px;
+              border: 1px solid var(--env); }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+       margin: 32px 0 12px; font-weight: 600; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .rotulo { color: var(--muted); font-size: 13px; }
+  .valor { font-size: 22px; font-weight: 650; margin-top: 2px; font-variant-numeric: tabular-nums;
+           overflow-wrap: anywhere; }
+  .valor.peq { font-size: 15px; font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .status { display: inline-flex; align-items: center; gap: 8px; }
+  .ponto { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+  .up .ponto { background: var(--ok); } .up { color: var(--ok); }
+  .down .ponto { background: var(--down); } .down { color: var(--down); }
+  ul.links { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  ul.links a { display: inline-block; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line);
+               background: var(--surface); color: var(--text); text-decoration: none; font-weight: 500; }
+  ul.links a:hover { border-color: var(--env); color: var(--env); }
+  footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body data-env="local">
+<div class="faixa"></div>
+<main>
+  <header>
+    <div>
+      <h1>EcoTrack API</h1>
+      <p class="sub">Gestão de indicadores e ações ESG</p>
+    </div>
+    <span class="ambiente" id="ambiente">carregando…</span>
+  </header>
+
+  <h2>Saúde da aplicação</h2>
+  <div class="grade">
+    <div class="card"><div class="rotulo">Aplicação</div><div class="valor status" id="st-app"><span class="ponto"></span><span>…</span></div></div>
+    <div class="card"><div class="rotulo">Banco Oracle</div><div class="valor status" id="st-db"><span class="ponto"></span><span>…</span></div></div>
+    <div class="card"><div class="rotulo">Versão</div><div class="valor" id="versao">…</div></div>
+    <div class="card"><div class="rotulo">Commit</div><div class="valor peq" id="commit">…</div></div>
+    <div class="card"><div class="rotulo">Build</div><div class="valor peq" id="build">…</div></div>
+  </div>
+
+  <h2>Resumo ESG</h2>
+  <div class="grade">
+    <div class="card"><div class="rotulo">Empresas</div><div class="valor" id="r-empresas">…</div></div>
+    <div class="card"><div class="rotulo">Indicadores</div><div class="valor" id="r-indicadores">…</div></div>
+    <div class="card"><div class="rotulo">Ações ESG</div><div class="valor" id="r-acoes">…</div></div>
+    <div class="card"><div class="rotulo">Ações concluídas</div><div class="valor" id="r-concluidas">…</div></div>
+    <div class="card"><div class="rotulo">Impacto estimado</div><div class="valor" id="r-impacto">…</div></div>
+  </div>
+
+  <h2>Links</h2>
+  <ul class="links">
+    <li><a href="swagger-ui.html" id="lk-swagger">Swagger UI</a></li>
+    <li><a href="actuator/health">Health</a></li>
+    <li><a href="actuator/info">Info</a></li>
+    <li><a href="api/empresas">/api/empresas</a></li>
+    <li><a href="api/relatorios/resumo">/api/relatorios/resumo</a></li>
+  </ul>
+
+  <footer id="rodape">Atualizando…</footer>
+</main>
+<script>
+  const nomes = { local: 'Local', staging: 'Staging', producao: 'Produção' };
+  const $ = (id) => document.getElementById(id);
+  const fmt = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 });
+
+  function status(el, valor) {
+    el.className = 'valor status ' + (valor === 'UP' ? 'up' : 'down');
+    el.lastElementChild.textContent = valor || 'DOWN';
+  }
+
+  async function json(url) {
+    const r = await fetch(url, { headers: { Accept: 'application/json' } });
+    return r.json();
+  }
+
+  async function atualizar() {
+    try {
+      const info = await json('actuator/info');
+      const app = info.app || {};
+      const env = app.ambiente || 'local';
+      document.body.dataset.env = env;
+      $('ambiente').textContent = nomes[env] || env;
+      document.title = 'EcoTrack API · ' + (nomes[env] || env);
+      $('versao').textContent = app.versao || (info.build && info.build.version) || '-';
+      $('commit').textContent = (app.commit || '-').substring(0, 7);
+      $('build').textContent = info.build && info.build.time
+        ? new Date(info.build.time).toLocaleString('pt-BR') : '-';
+    } catch (e) { $('ambiente').textContent = 'indisponível'; }
+
+    try {
+      const h = await json('actuator/health');
+      status($('st-app'), h.status);
+      status($('st-db'), h.components && h.components.db ? h.components.db.status : 'DOWN');
+    } catch (e) { status($('st-app'), 'DOWN'); status($('st-db'), 'DOWN'); }
+
+    try {
+      const r = await json('api/relatorios/resumo');
+      $('r-empresas').textContent = r.totalEmpresas;
+      $('r-indicadores').textContent = r.totalIndicadores;
+      $('r-acoes').textContent = r.totalAcoes;
+      $('r-concluidas').textContent = r.acoesConcluidas;
+      $('r-impacto').textContent = fmt.format(r.impactoTotalEstimado);
+    } catch (e) { /* mantém os valores anteriores */ }
+
+    $('rodape').textContent = 'Atualizado em ' + new Date().toLocaleString('pt-BR') + ' · recarrega a cada 15 s';
+  }
+
+  atualizar();
+  setInterval(atualizar, 15000);
+</script>
+</body>
+</html>

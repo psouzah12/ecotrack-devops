@@ -8,10 +8,12 @@ import br.com.fiap.ecotrack.enums.TipoIndicador;
 import br.com.fiap.ecotrack.exception.RecursoNaoEncontradoException;
 import br.com.fiap.ecotrack.repository.IndicadorESGRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class IndicadorService {
 
     private final IndicadorESGRepository indicadorRepository;
@@ -36,6 +38,7 @@ public class IndicadorService {
         return toResponse(buscarEntidadePorId(id));
     }
 
+    @Transactional
     public IndicadorResponse cadastrar(IndicadorRequest request) {
         Empresa empresa = empresaService.buscarEntidadePorId(request.empresaId());
         IndicadorESG indicador = new IndicadorESG();
@@ -43,6 +46,7 @@ public class IndicadorService {
         return toResponse(indicadorRepository.save(indicador));
     }
 
+    @Transactional
     public IndicadorResponse atualizar(Long id, IndicadorRequest request) {
         IndicadorESG indicador = buscarEntidadePorId(id);
         Empresa empresa = empresaService.buscarEntidadePorId(request.empresaId());
@@ -50,6 +54,7 @@ public class IndicadorService {
         return toResponse(indicadorRepository.save(indicador));
     }
 
+    @Transactional
     public void deletar(Long id) {
         IndicadorESG indicador = buscarEntidadePorId(id);
         indicadorRepository.delete(indicador);

@@ -9,10 +9,15 @@ import br.com.fiap.ecotrack.enums.StatusAcao;
 import br.com.fiap.ecotrack.exception.RecursoNaoEncontradoException;
 import br.com.fiap.ecotrack.repository.AcaoESGRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+// readOnly por padrão; os métodos de escrita abrem transação própria.
+// Com spring.jpa.open-in-view=false a conversão para DTO precisa acontecer
+// dentro da transação, senão o proxy LAZY de empresa não carrega.
 @Service
+@Transactional(readOnly = true)
 public class AcaoService {
 
     private final AcaoESGRepository acaoRepository;
@@ -37,6 +42,7 @@ public class AcaoService {
         return toResponse(buscarEntidadePorId(id));
     }
 
+    @Transactional
     public AcaoResponse cadastrar(AcaoRequest request) {
         Empresa empresa = empresaService.buscarEntidadePorId(request.empresaId());
         AcaoESG acao = new AcaoESG();
@@ -44,6 +50,7 @@ public class AcaoService {
         return toResponse(acaoRepository.save(acao));
     }
 
+    @Transactional
     public AcaoResponse atualizar(Long id, AcaoRequest request) {
         AcaoESG acao = buscarEntidadePorId(id);
         Empresa empresa = empresaService.buscarEntidadePorId(request.empresaId());
@@ -51,12 +58,14 @@ public class AcaoService {
         return toResponse(acaoRepository.save(acao));
     }
 
+    @Transactional
     public AcaoResponse atualizarStatus(Long id, StatusAcaoRequest request) {
         AcaoESG acao = buscarEntidadePorId(id);
         acao.setStatus(request.status());
         return toResponse(acaoRepository.save(acao));
     }
 
+    @Transactional
     public void deletar(Long id) {
         AcaoESG acao = buscarEntidadePorId(id);
         acaoRepository.delete(acao);

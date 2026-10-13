@@ -8,6 +8,7 @@ import br.com.fiap.ecotrack.repository.AcaoESGRepository;
 import br.com.fiap.ecotrack.repository.EmpresaRepository;
 import br.com.fiap.ecotrack.repository.IndicadorESGRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@Transactional(readOnly = true)
 public class RelatorioService {
 
     private final EmpresaRepository empresaRepository;

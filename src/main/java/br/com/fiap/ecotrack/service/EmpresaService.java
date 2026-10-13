@@ -7,10 +7,12 @@ import br.com.fiap.ecotrack.exception.RecursoNaoEncontradoException;
 import br.com.fiap.ecotrack.exception.RegraNegocioException;
 import br.com.fiap.ecotrack.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class EmpresaService {
 
     private final EmpresaRepository empresaRepository;
@@ -27,6 +29,7 @@ public class EmpresaService {
         return toResponse(buscarEntidadePorId(id));
     }
 
+    @Transactional
     public EmpresaResponse cadastrar(EmpresaRequest request) {
         if (empresaRepository.existsByCnpj(request.cnpj())) {
             throw new RegraNegocioException("Já existe uma empresa cadastrada com este CNPJ.");
@@ -36,6 +39,7 @@ public class EmpresaService {
         return toResponse(empresaRepository.save(empresa));
     }
 
+    @Transactional
     public EmpresaResponse atualizar(Long id, EmpresaRequest request) {
         Empresa empresa = buscarEntidadePorId(id);
         if (!empresa.getCnpj().equals(request.cnpj()) && empresaRepository.existsByCnpj(request.cnpj())) {
@@ -45,6 +49,7 @@ public class EmpresaService {
         return toResponse(empresaRepository.save(empresa));
     }
 
+    @Transactional
     public void deletar(Long id) {
         Empresa empresa = buscarEntidadePorId(id);
         empresaRepository.delete(empresa);
