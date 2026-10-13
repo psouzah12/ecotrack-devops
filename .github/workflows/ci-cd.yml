@@ -1,0 +1,271 @@
+# ---------------------------------------------------------------------------
+# Pipeline CI/CD do EcoTrack API
+#
+#   PR para main ........ build -> testes unitários + testes de integração
+#   push em develop ..... ... -> imagem Docker (GHCR) -> deploy staging
+#   push em main ........ ... -> imagem Docker (GHCR) -> deploy staging -> deploy produção
+#   manual .............. Actions > CI/CD EcoTrack > Run workflow
+#
+# Os deploys rodam o scripts/deploy.sh (Docker Compose) seguido do
+# scripts/smoke-test.sh. O runner dos deploys vem da variável DEPLOY_RUNNER:
+#   - não definida  -> ubuntu-latest (ambiente efêmero criado dentro do runner)
+#   - "self-hosted" -> máquina própria registrada como runner (ambiente permanente)
+# ---------------------------------------------------------------------------
+name: CI/CD EcoTrack
+
+on:
+  push:
+    branches: [main, develop]
+    paths-ignore: ["**.md", "docs/**", "evidencias/**", "postman/**"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# nunca cancela um deploy no meio; execuções do mesmo branch entram na fila
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  JAVA_VERSION: "21"
+
+jobs:
+  # -------------------------------------------------------------------------
+  build:
+    name: "1 · Build"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: maven
+
+      - name: Compilar e empacotar
+        run: mvn -B -ntp package -DskipTests
+
+      - name: Publicar o jar como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecotrack-api-jar
+          path: target/ecotrack-api.jar
+          retention-days: 7
+
+  # -------------------------------------------------------------------------
+  unit-tests:
+    name: "2 · Testes unitários"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: maven
+
+      # serviços (Mockito) + controllers com segurança (MockMvc) + cobertura mínima (JaCoCo)
+      - name: Rodar testes unitários
+        run: mvn -B -ntp test
+
+      - name: Resumo dos testes
+        if: always()
+        run: bash scripts/ci/resumo-testes.sh "Testes unitários" target/surefire-reports >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publicar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-testes-unitarios
+          path: |
+            target/surefire-reports/
+            target/site/jacoco/
+          retention-days: 14
+
+  # -------------------------------------------------------------------------
+  integration-tests:
+    name: "3 · Testes de integração (Oracle)"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: maven
+
+      # Testcontainers sobe um Oracle Free real; Flyway cria o schema e a API é testada via HTTP
+      - name: Rodar testes de integração
+        run: mvn -B -ntp verify -DskipUnitTests
+
+      - name: Resumo dos testes
+        if: always()
+        run: bash scripts/ci/resumo-testes.sh "Testes de integração" target/failsafe-reports >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publicar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-testes-integracao
+          path: target/failsafe-reports/
+          retention-days: 14
+
+  # -------------------------------------------------------------------------
+  docker-image:
+    name: "4 · Imagem Docker (GHCR)"
+    needs: [unit-tests, integration-tests]
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Definir nome, versão e tags da imagem
+        id: meta
+        run: |
+          repo="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/ecotrack-api"
+          version=$(python3 -c "import xml.etree.ElementTree as E; print(E.parse('pom.xml').getroot().find('{http://maven.apache.org/POM/4.0.0}version').text)")
+          short="${GITHUB_SHA::7}"
+          tags="$repo:sha-$short,$repo:$version"
+          if [ "$GITHUB_REF" = "refs/heads/main" ]; then tags="$tags,$repo:latest"; fi
+          if [ "$GITHUB_REF" = "refs/heads/develop" ]; then tags="$tags,$repo:develop"; fi
+          echo "image=$repo:sha-$short" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tags=$tags" >> "$GITHUB_OUTPUT"
+          echo "created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+
+      # QEMU + Buildx: imagem para amd64 (servidores/GitHub) e arm64 (Mac M1/M2/M3)
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build e push da imagem
+        id: push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          provenance: false
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            APP_VERSION=${{ steps.meta.outputs.version }}
+            GIT_COMMIT=${{ github.sha }}
+            BUILD_DATE=${{ steps.meta.outputs.created }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Resumo da imagem
+        run: |
+          {
+            echo "### Imagem publicada"
+            echo
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Imagem | \`${{ steps.meta.outputs.image }}\` |"
+            echo "| Versão | \`${{ steps.meta.outputs.version }}\` |"
+            echo "| Digest | \`${{ steps.push.outputs.digest }}\` |"
+            echo "| Tags | \`${{ steps.meta.outputs.tags }}\` |"
+            echo "| Plataformas | linux/amd64, linux/arm64 |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # -------------------------------------------------------------------------
+  deploy-staging:
+    name: "5 · Deploy staging"
+    needs: docker-image
+    runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-latest' }}
+    environment:
+      name: staging
+      url: ${{ vars.STAGING_URL || 'http://localhost:8081' }}
+    permissions:
+      contents: read
+      packages: read
+    env:
+      ECOTRACK_IMAGE: ${{ needs.docker-image.outputs.image }}
+      # secrets do Environment "staging" (se não existirem o deploy.sh gera)
+      ORACLE_ADMIN_PASSWORD: ${{ secrets.ORACLE_ADMIN_PASSWORD }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      ECOTRACK_ADMIN_PASSWORD: ${{ secrets.ECOTRACK_ADMIN_PASSWORD }}
+      ECOTRACK_USER_PASSWORD: ${{ secrets.ECOTRACK_USER_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy com Docker Compose
+        run: bash scripts/deploy.sh staging "$ECOTRACK_IMAGE"
+
+      - name: Smoke test
+        run: bash scripts/smoke-test.sh http://localhost:8081 staging
+
+      - name: Estado do ambiente
+        if: always()
+        run: |
+          bash scripts/ambiente.sh staging status
+          docker logs --tail 40 ecotrack-staging-app-1
+
+  # -------------------------------------------------------------------------
+  deploy-production:
+    name: "6 · Deploy produção"
+    needs: [docker-image, deploy-staging]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-latest' }}
+    # com "Required reviewers" no Environment production, o job espera aprovação manual aqui
+    environment:
+      name: production
+      url: ${{ vars.PRODUCTION_URL || 'http://localhost:8082' }}
+    permissions:
+      contents: read
+      packages: read
+    env:
+      ECOTRACK_IMAGE: ${{ needs.docker-image.outputs.image }}
+      ORACLE_ADMIN_PASSWORD: ${{ secrets.ORACLE_ADMIN_PASSWORD }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      ECOTRACK_ADMIN_PASSWORD: ${{ secrets.ECOTRACK_ADMIN_PASSWORD }}
+      ECOTRACK_USER_PASSWORD: ${{ secrets.ECOTRACK_USER_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy com Docker Compose
+        run: bash scripts/deploy.sh production "$ECOTRACK_IMAGE"
+
+      - name: Smoke test
+        run: bash scripts/smoke-test.sh http://localhost:8082 production
+
+      - name: Estado do ambiente
+        if: always()
+        run: |
+          bash scripts/ambiente.sh production status
+          docker logs --tail 40 ecotrack-production-app-1
