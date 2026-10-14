@@ -1,0 +1,422 @@
+﻿2026-10-14T00:16:00.7498688Z Current runner version: '2.337.0'
+2026-10-14T00:16:00.7527412Z ##[group]Runner Image Provisioner
+2026-10-14T00:16:00.7528364Z Hosted Compute Agent
+2026-10-14T00:16:00.7529162Z Version: 20261002.596
+2026-10-14T00:16:00.7529923Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-14T00:16:00.7531118Z Build Date: 2026-10-02T22:28:27Z
+2026-10-14T00:16:00.7531940Z Worker ID: {cf8aa55a-80f1-4298-9f78-a5afde2cccc2}
+2026-10-14T00:16:00.7532848Z Region: eastus
+2026-10-14T00:16:00.7533643Z Cloud: Azure
+2026-10-14T00:16:00.7534332Z ##[endgroup]
+2026-10-14T00:16:00.7536163Z ##[group]Operating System
+2026-10-14T00:16:00.7536989Z Ubuntu
+2026-10-14T00:16:00.7537619Z 24.04.5
+2026-10-14T00:16:00.7538352Z LTS
+2026-10-14T00:16:00.7539012Z ##[endgroup]
+2026-10-14T00:16:00.7539858Z ##[group]Runner Image
+2026-10-14T00:16:00.7540785Z Image: ubuntu-24.04
+2026-10-14T00:16:00.7541531Z Version: 20261004.327.1
+2026-10-14T00:16:00.7543124Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-14T00:16:00.7545216Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-14T00:16:00.7546464Z ##[endgroup]
+2026-10-14T00:16:00.7547860Z ##[group]GITHUB_TOKEN Permissions
+2026-10-14T00:16:00.7550085Z Contents: read
+2026-10-14T00:16:00.7551058Z Metadata: read
+2026-10-14T00:16:00.7551731Z ##[endgroup]
+2026-10-14T00:16:00.7554185Z Secret source: Actions
+2026-10-14T00:16:00.7555493Z Cache mode: write
+2026-10-14T00:16:00.7556415Z Prepare workflow directory
+2026-10-14T00:16:00.7986405Z Prepare all required actions
+2026-10-14T00:16:00.8041762Z Getting action download info
+2026-10-14T00:16:00.9519930Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-14T00:16:01.1043319Z Download action repository 'actions/setup-java@v6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+2026-10-14T00:16:01.4389025Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-14T00:16:01.7148666Z Complete job name: 3 · Testes de integração (Oracle)
+2026-10-14T00:16:01.7791521Z ##[group]Run actions/checkout@v7
+2026-10-14T00:16:01.7792297Z with:
+2026-10-14T00:16:01.7792704Z   repository: psouzah12/ecotrack-devops
+2026-10-14T00:16:01.7796279Z   token: ***
+2026-10-14T00:16:01.7796691Z   ssh-strict: true
+2026-10-14T00:16:01.7797092Z   ssh-user: git
+2026-10-14T00:16:01.7797493Z   persist-credentials: true
+2026-10-14T00:16:01.7797938Z   clean: true
+2026-10-14T00:16:01.7798340Z   sparse-checkout-cone-mode: true
+2026-10-14T00:16:01.7798793Z   fetch-depth: 1
+2026-10-14T00:16:01.7799175Z   fetch-tags: false
+2026-10-14T00:16:01.7799552Z   show-progress: true
+2026-10-14T00:16:01.7799934Z   lfs: false
+2026-10-14T00:16:01.7800423Z   submodules: false
+2026-10-14T00:16:01.7800825Z   set-safe-directory: true
+2026-10-14T00:16:01.7801273Z   allow-unsafe-pr-checkout: false
+2026-10-14T00:16:01.7801873Z env:
+2026-10-14T00:16:01.7802223Z   JAVA_VERSION: 21
+2026-10-14T00:16:01.7802639Z ##[endgroup]
+2026-10-14T00:16:01.8667461Z Syncing repository: psouzah12/ecotrack-devops
+2026-10-14T00:16:01.8669187Z ##[group]Getting Git version info
+2026-10-14T00:16:01.8669870Z Working directory is '/home/runner/work/ecotrack-devops/ecotrack-devops'
+2026-10-14T00:16:01.8671131Z [command]/usr/bin/git version
+2026-10-14T00:16:01.8734134Z git version 2.55.0
+2026-10-14T00:16:01.8758109Z ##[endgroup]
+2026-10-14T00:16:01.8787877Z Temporarily overriding HOME='/home/runner/work/_temp/a9780a31-19ec-4bd9-b41a-724c7d15397c' before making global git config changes
+2026-10-14T00:16:01.8789961Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-14T00:16:01.8811669Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecotrack-devops/ecotrack-devops
+2026-10-14T00:16:01.8838583Z Deleting the contents of '/home/runner/work/ecotrack-devops/ecotrack-devops'
+2026-10-14T00:16:01.8843137Z ##[group]Determining repository object format
+2026-10-14T00:16:01.8844859Z ##[endgroup]
+2026-10-14T00:16:01.8845957Z ##[group]Initializing the repository
+2026-10-14T00:16:01.8848283Z [command]/usr/bin/git init /home/runner/work/ecotrack-devops/ecotrack-devops
+2026-10-14T00:16:01.8932192Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-14T00:16:01.8935265Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-14T00:16:01.8936650Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-14T00:16:01.8937677Z hint: call:
+2026-10-14T00:16:01.8938215Z hint:
+2026-10-14T00:16:01.8938904Z hint: 	git config --global init.defaultBranch <name>
+2026-10-14T00:16:01.8939767Z hint:
+2026-10-14T00:16:01.8940766Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-14T00:16:01.8942110Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-14T00:16:01.8943147Z hint:
+2026-10-14T00:16:01.8943751Z hint: 	git branch -m <name>
+2026-10-14T00:16:01.8944469Z hint:
+2026-10-14T00:16:01.8945546Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-14T00:16:01.8947143Z Initialized empty Git repository in /home/runner/work/ecotrack-devops/ecotrack-devops/.git/
+2026-10-14T00:16:01.8951690Z [command]/usr/bin/git remote add origin https://github.com/psouzah12/ecotrack-devops
+2026-10-14T00:16:01.8995034Z ##[endgroup]
+2026-10-14T00:16:01.8995907Z ##[group]Disabling automatic garbage collection
+2026-10-14T00:16:01.8999597Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-14T00:16:01.9028867Z ##[endgroup]
+2026-10-14T00:16:01.9029571Z ##[group]Setting up auth
+2026-10-14T00:16:01.9030458Z Removing SSH command configuration
+2026-10-14T00:16:01.9034192Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-14T00:16:01.9063784Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-14T00:16:01.9483623Z Removing HTTP extra header
+2026-10-14T00:16:01.9489826Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-14T00:16:01.9521360Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-14T00:16:01.9707933Z Removing includeIf entries pointing to credentials config files
+2026-10-14T00:16:01.9712704Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-14T00:16:01.9745567Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-14T00:16:01.9943684Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-14T00:16:01.9976932Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path /home/runner/work/_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:16:02.0005784Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:16:02.0038152Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:16:02.0068661Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:16:02.0301529Z ##[endgroup]
+2026-10-14T00:16:02.0302596Z ##[group]Fetching the repository
+2026-10-14T00:16:02.0306581Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +809da10084a5135c6ebf9403a0cc1571faf5e30e:refs/remotes/origin/main
+2026-10-14T00:16:02.2887501Z From https://github.com/psouzah12/ecotrack-devops
+2026-10-14T00:16:02.2888951Z  * [new ref]         809da10084a5135c6ebf9403a0cc1571faf5e30e -> origin/main
+2026-10-14T00:16:02.2895915Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-14T00:16:02.2921050Z   origin/main
+2026-10-14T00:16:02.2926591Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-14T00:16:02.2948911Z 809da10084a5135c6ebf9403a0cc1571faf5e30e
+2026-10-14T00:16:02.2952765Z ##[endgroup]
+2026-10-14T00:16:02.2953892Z ##[group]Determining the checkout info
+2026-10-14T00:16:02.2955049Z ##[endgroup]
+2026-10-14T00:16:02.2956023Z [command]/usr/bin/git sparse-checkout disable
+2026-10-14T00:16:02.3000975Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-14T00:16:02.3030655Z ##[group]Checking out the ref
+2026-10-14T00:16:02.3033307Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-14T00:16:02.3387508Z Switched to a new branch 'main'
+2026-10-14T00:16:02.3391441Z branch 'main' set up to track 'origin/main'.
+2026-10-14T00:16:02.3436473Z ##[endgroup]
+2026-10-14T00:16:02.3439421Z [command]/usr/bin/git log -1 --format=%H
+2026-10-14T00:16:02.3463969Z 809da10084a5135c6ebf9403a0cc1571faf5e30e
+2026-10-14T00:16:02.3918224Z ##[group]Run actions/setup-java@v6
+2026-10-14T00:16:02.3919140Z with:
+2026-10-14T00:16:02.3919814Z   distribution: temurin
+2026-10-14T00:16:02.3920753Z   java-version: 21
+2026-10-14T00:16:02.3921479Z   cache: maven
+2026-10-14T00:16:02.3922194Z   java-package: jdk
+2026-10-14T00:16:02.3922933Z   check-latest: false
+2026-10-14T00:16:02.3923694Z   force-download: false
+2026-10-14T00:16:02.3924465Z   set-default: true
+2026-10-14T00:16:02.3925191Z   server-id: github
+2026-10-14T00:16:02.3925989Z   mvn-repositories-include-central: true
+2026-10-14T00:16:02.3927026Z   mvn-repositories-prioritize-central: true
+2026-10-14T00:16:02.3928060Z   overwrite-settings: true
+2026-10-14T00:16:02.3928884Z   cache-read-only: false
+2026-10-14T00:16:02.3929685Z   job-status: success
+2026-10-14T00:16:02.3937572Z   token: ***
+2026-10-14T00:16:02.3938319Z   show-download-progress: false
+2026-10-14T00:16:02.3939203Z   problem-matcher: true
+2026-10-14T00:16:02.3939958Z env:
+2026-10-14T00:16:02.3940826Z   JAVA_VERSION: 21
+2026-10-14T00:16:02.3941555Z ##[endgroup]
+2026-10-14T00:16:02.4589585Z ##[group]Installed distributions
+2026-10-14T00:16:02.4978776Z Resolved Java 21.0.12+1 from tool-cache
+2026-10-14T00:16:02.4979843Z Setting Java 21.0.12+1 as the default
+2026-10-14T00:16:02.4984842Z 
+2026-10-14T00:16:02.4985310Z Java configuration:
+2026-10-14T00:16:02.4986085Z   Distribution: temurin
+2026-10-14T00:16:02.4986858Z   Version: 21.0.12+1
+2026-10-14T00:16:02.4987872Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:16:02.4988964Z 
+2026-10-14T00:16:02.5018426Z ##[endgroup]
+2026-10-14T00:16:02.5084815Z Creating settings.xml with server-id: github
+2026-10-14T00:16:02.5086064Z Creating toolchains.xml for JDK version 21 from temurin
+2026-10-14T00:16:02.5087366Z Writing to /home/runner/.m2/settings.xml
+2026-10-14T00:16:02.5088389Z Writing to /home/runner/.m2/toolchains.xml
+2026-10-14T00:16:02.5090872Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+2026-10-14T00:16:02.6552145Z Cache hit for: setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8
+2026-10-14T00:16:03.1781481Z Received 108436388 of 108436388 (100.0%), 221.4 MBs/sec
+2026-10-14T00:16:03.1784080Z Cache Size: ~103 MB (108436388 B)
+2026-10-14T00:16:03.1836820Z [command]/usr/bin/tar -xf /home/runner/work/_temp/d374c1b7-fef5-4778-b180-56f4e668c044/cache.tzst -P -C /home/runner/work/ecotrack-devops/ecotrack-devops --use-compress-program unzstd
+2026-10-14T00:16:03.3925976Z Cache restored successfully
+2026-10-14T00:16:03.3974274Z Cache restored from key: setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8
+2026-10-14T00:16:03.4165870Z ##[group]Run mvn -B -ntp verify -DskipUnitTests
+2026-10-14T00:16:03.4167049Z mvn -B -ntp verify -DskipUnitTests
+2026-10-14T00:16:03.4395538Z shell: /usr/bin/bash -e {0}
+2026-10-14T00:16:03.4396400Z env:
+2026-10-14T00:16:03.4397067Z   JAVA_VERSION: 21
+2026-10-14T00:16:03.4398087Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:16:03.4399625Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:16:03.4401037Z   MAVEN_ARGS: -ntp
+2026-10-14T00:16:03.4401764Z ##[endgroup]
+2026-10-14T00:16:07.4624295Z [INFO] Scanning for projects...
+2026-10-14T00:16:07.6313997Z [INFO] Loaded 24077 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+2026-10-14T00:16:07.8365956Z [INFO] 
+2026-10-14T00:16:07.8367077Z [INFO] ----------------------< br.com.fiap:ecotrack-api >----------------------
+2026-10-14T00:16:07.8381128Z [INFO] Building EcoTrack API 1.1.0
+2026-10-14T00:16:07.8391494Z [INFO]   from pom.xml
+2026-10-14T00:16:07.8392425Z [INFO] --------------------------------[ jar ]---------------------------------
+2026-10-14T00:16:07.8692313Z [INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+2026-10-14T00:16:09.5307658Z [INFO] Loaded 24077 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+2026-10-14T00:16:09.6037330Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-repo (https://nexus.flywaydb.org/repository/flyway/): nexus.flywaydb.org: Name or service not known
+2026-10-14T00:16:09.6499450Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to spring-release (https://repo.spring.io/release): HTTP Status: 401
+2026-10-14T00:16:09.6912508Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+2026-10-14T00:16:09.9101759Z [INFO] 
+2026-10-14T00:16:09.9117771Z [INFO] --- jacoco:0.8.15:prepare-agent (prepare-agent) @ ecotrack-api ---
+2026-10-14T00:16:10.0263402Z [INFO] argLine set to -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec,excludes=br/com/fiap/ecotrack/EcotrackApiApplication.class
+2026-10-14T00:16:10.0264599Z [INFO] 
+2026-10-14T00:16:10.0278750Z [INFO] --- spring-boot:3.3.5:build-info (default) @ ecotrack-api ---
+2026-10-14T00:16:10.0676084Z [INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+2026-10-14T00:16:10.1808248Z [INFO] 
+2026-10-14T00:16:10.1808856Z [INFO] --- resources:3.3.1:resources (default-resources) @ ecotrack-api ---
+2026-10-14T00:16:10.2367985Z [INFO] Copying 3 resources from src/main/resources to target/classes
+2026-10-14T00:16:10.2541876Z [INFO] Copying 4 resources from src/main/resources to target/classes
+2026-10-14T00:16:10.2571447Z [INFO] 
+2026-10-14T00:16:10.2581568Z [INFO] --- compiler:3.13.0:compile (default-compile) @ ecotrack-api ---
+2026-10-14T00:16:10.3833588Z [INFO] Recompiling the module because of changed source code.
+2026-10-14T00:16:10.3897198Z [INFO] Compiling 34 source files with javac [debug parameters release 21] to target/classes
+2026-10-14T00:16:11.8148150Z [INFO] 
+2026-10-14T00:16:11.8153695Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ ecotrack-api ---
+2026-10-14T00:16:11.8203474Z [INFO] skip non existing resourceDirectory /home/runner/work/ecotrack-devops/ecotrack-devops/src/test/resources
+2026-10-14T00:16:11.8204788Z [INFO] 
+2026-10-14T00:16:11.8205576Z [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ ecotrack-api ---
+2026-10-14T00:16:11.8273611Z [INFO] Recompiling the module because of changed dependency.
+2026-10-14T00:16:11.8274619Z [INFO] Compiling 11 source files with javac [debug parameters release 21] to target/test-classes
+2026-10-14T00:16:12.5958802Z [INFO] 
+2026-10-14T00:16:12.5982266Z [INFO] --- surefire:3.2.5:test (default-test) @ ecotrack-api ---
+2026-10-14T00:16:12.7118394Z [INFO] Tests are skipped.
+2026-10-14T00:16:12.7140942Z [INFO] 
+2026-10-14T00:16:12.7171231Z [INFO] --- jacoco:0.8.15:report (report) @ ecotrack-api ---
+2026-10-14T00:16:12.7181148Z [INFO] Skipping JaCoCo execution due to missing execution data file.
+2026-10-14T00:16:12.7181833Z [INFO] 
+2026-10-14T00:16:12.7182367Z [INFO] --- jacoco:0.8.15:check (check) @ ecotrack-api ---
+2026-10-14T00:16:12.7183450Z [INFO] Skipping JaCoCo execution due to missing execution data file:/home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec
+2026-10-14T00:16:12.7184383Z [INFO] 
+2026-10-14T00:16:12.7184823Z [INFO] --- jar:3.4.2:jar (default-jar) @ ecotrack-api ---
+2026-10-14T00:16:12.8853351Z [INFO] Building jar: /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar
+2026-10-14T00:16:12.9358489Z [INFO] 
+2026-10-14T00:16:12.9361184Z [INFO] --- spring-boot:3.3.5:repackage (repackage) @ ecotrack-api ---
+2026-10-14T00:16:13.1337237Z [INFO] Replacing main artifact /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+2026-10-14T00:16:13.1351776Z [INFO] The original artifact has been renamed to /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar.original
+2026-10-14T00:16:13.1352681Z [INFO] 
+2026-10-14T00:16:13.1353334Z [INFO] --- failsafe:3.2.5:integration-test (default) @ ecotrack-api ---
+2026-10-14T00:16:13.1955598Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+2026-10-14T00:16:13.2362126Z [INFO] 
+2026-10-14T00:16:13.2362906Z [INFO] -------------------------------------------------------
+2026-10-14T00:16:13.2363645Z [INFO]  T E S T S
+2026-10-14T00:16:13.2364209Z [INFO] -------------------------------------------------------
+2026-10-14T00:16:14.5888593Z 00:16:14.542 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 1.21.4
+2026-10-14T00:16:15.5904345Z 00:16:15.496 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-10-14T00:16:15.5917544Z 00:16:15.505 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+2026-10-14T00:16:15.5931052Z 00:16:15.523 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+2026-10-14T00:16:15.5931677Z   Server Version: 28.0.4
+2026-10-14T00:16:15.5932011Z   API Version: 1.48
+2026-10-14T00:16:15.5932342Z   Operating System: Ubuntu 24.04.5 LTS
+2026-10-14T00:16:15.5932728Z   Total Memory: 15989 MB
+2026-10-14T00:16:15.5933452Z 00:16:15.538 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+2026-10-14T00:16:15.5935131Z 00:16:15.541 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-10-14T00:16:15.5937139Z 00:16:15.582 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling docker image: testcontainers/ryuk:0.12.0. Please be patient; this may take some time but only needs to be done once.
+2026-10-14T00:16:16.3865241Z 00:16:16.303 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Starting to pull image
+2026-10-14T00:16:16.4867499Z 00:16:16.410 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-10-14T00:16:16.5869154Z 00:16:16.567 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (906 KB/? MB)
+2026-10-14T00:16:16.5870673Z 00:16:16.569 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (906 KB/? MB)
+2026-10-14T00:16:16.5872283Z 00:16:16.578 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (923 KB/11 MB)
+2026-10-14T00:16:16.7872642Z 00:16:16.743 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (4 MB/11 MB)
+2026-10-14T00:16:20.7931050Z 00:16:20.739 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (4 MB/11 MB)
+2026-10-14T00:16:20.8944688Z 00:16:20.802 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (11 MB/11 MB)
+2026-10-14T00:16:20.8947360Z 00:16:20.806 [docker-java-stream--1900126211] INFO tc.testcontainers/ryuk:0.12.0 -- Pull complete. 3 layers, pulled in 4s (downloaded 11 MB at 2 MB/s)
+2026-10-14T00:16:20.8951408Z 00:16:20.806 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Image testcontainers/ryuk:0.12.0 pull took PT5.224100416S
+2026-10-14T00:16:20.8953861Z 00:16:20.826 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Creating container for image: testcontainers/ryuk:0.12.0
+2026-10-14T00:16:20.9937139Z 00:16:20.905 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 is starting: f643a563d8c86b10a430542ae43e0be2a0fb136bab10111cd96d337a0da1e1d1
+2026-10-14T00:16:21.1791959Z 00:16:21.164 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 started in PT0.337969424S
+2026-10-14T00:16:21.1801267Z 00:16:21.168 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-10-14T00:16:21.1802360Z 00:16:21.168 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+2026-10-14T00:16:21.1803815Z 00:16:21.169 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+2026-10-14T00:16:21.1804833Z [INFO] Running br.com.fiap.ecotrack.EcotrackApiIT
+2026-10-14T00:16:21.1942896Z 00:16:21.192 [main] INFO tc.gvenzl/oracle-free:23-slim -- Pulling docker image: gvenzl/oracle-free:23-slim. Please be patient; this may take some time but only needs to be done once.
+2026-10-14T00:16:21.4955178Z 00:16:21.419 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Starting to pull image
+2026-10-14T00:16:21.4956371Z 00:16:21.420 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+2026-10-14T00:16:21.6954547Z 00:16:21.686 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  5 pending,  1 downloaded,  0 extracted, (62 MB/? MB)
+2026-10-14T00:16:21.9958863Z 00:16:21.984 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  4 pending,  2 downloaded,  0 extracted, (173 MB/? MB)
+2026-10-14T00:16:22.2966677Z 00:16:22.253 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  3 pending,  3 downloaded,  0 extracted, (397 MB/? MB)
+2026-10-14T00:16:22.4968562Z 00:16:22.417 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  2 pending,  4 downloaded,  0 extracted, (487 MB/? MB)
+2026-10-14T00:16:22.4970076Z 00:16:22.484 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  1 pending,  5 downloaded,  0 extracted, (524 MB/? MB)
+2026-10-14T00:16:23.4981003Z 00:16:23.420 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  0 extracted, (716 MB/808 MB)
+2026-10-14T00:16:23.7991824Z 00:16:23.746 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  1 extracted, (725 MB/808 MB)
+2026-10-14T00:16:30.7087469Z 00:16:30.654 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  2 extracted, (745 MB/808 MB)
+2026-10-14T00:16:35.7157725Z 00:16:35.642 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  3 extracted, (766 MB/808 MB)
+2026-10-14T00:16:40.7229996Z 00:16:40.690 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  4 extracted, (779 MB/808 MB)
+2026-10-14T00:16:43.3255010Z 00:16:43.274 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  5 extracted, (786 MB/808 MB)
+2026-10-14T00:16:45.3289396Z 00:16:45.226 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pulling image layers:  0 pending,  6 downloaded,  6 extracted, (808 MB/808 MB)
+2026-10-14T00:16:45.3291296Z 00:16:45.231 [docker-java-stream--212599887] INFO tc.gvenzl/oracle-free:23-slim -- Pull complete. 6 layers, pulled in 23s (downloaded 808 MB at 35 MB/s)
+2026-10-14T00:16:45.3292616Z 00:16:45.231 [main] INFO tc.gvenzl/oracle-free:23-slim -- Image gvenzl/oracle-free:23-slim pull took PT24.038735936S
+2026-10-14T00:16:45.3293723Z 00:16:45.233 [main] INFO tc.gvenzl/oracle-free:23-slim -- Creating container for image: gvenzl/oracle-free:23-slim
+2026-10-14T00:16:45.3295141Z 00:16:45.249 [main] INFO tc.gvenzl/oracle-free:23-slim -- Container gvenzl/oracle-free:23-slim is starting: f9a51472942524892d8469944e18d6126939b51d0839450c724713eb17c0bd93
+2026-10-14T00:17:00.8509267Z 00:17:00.826 [main] INFO tc.gvenzl/oracle-free:23-slim -- Container gvenzl/oracle-free:23-slim started in PT15.592444339S
+2026-10-14T00:17:00.8540778Z 00:17:00.826 [main] INFO tc.gvenzl/oracle-free:23-slim -- Container is started (JDBC URL: jdbc:oracle:thin:@localhost:32769/freepdb1)
+2026-10-14T00:17:01.0485356Z 00:17:00.954 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [br.com.fiap.ecotrack.EcotrackApiIT]: EcotrackApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-14T00:17:01.1502456Z 00:17:01.137 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.EcotrackApiIT
+2026-10-14T00:17:01.7530836Z 
+2026-10-14T00:17:01.7561193Z   .   ____          _            __ _ _
+2026-10-14T00:17:01.7570898Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-14T00:17:01.7610572Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-14T00:17:01.7620808Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-14T00:17:01.7650826Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-14T00:17:01.7680840Z  =========|_|==============|___/=/_/_/_/
+2026-10-14T00:17:01.7698398Z 
+2026-10-14T00:17:01.7701556Z  :: Spring Boot ::                (v3.3.5)
+2026-10-14T00:17:01.7730746Z 
+2026-10-14T00:17:01.8521583Z 2026-10-14T00:17:01.810Z  INFO 2227 --- [ecotrack-api] [           main] br.com.fiap.ecotrack.EcotrackApiIT       : Starting EcotrackApiIT using Java 21.0.12.1 with PID 2227 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
+2026-10-14T00:17:01.8551690Z 2026-10-14T00:17:01.812Z  INFO 2227 --- [ecotrack-api] [           main] br.com.fiap.ecotrack.EcotrackApiIT       : No active profile set, falling back to 1 default profile: "default"
+2026-10-14T00:17:03.1679577Z 2026-10-14T00:17:03.076Z  INFO 2227 --- [ecotrack-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-14T00:17:03.1683819Z 2026-10-14T00:17:03.133Z  INFO 2227 --- [ecotrack-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 3 JPA repository interfaces.
+2026-10-14T00:17:04.2763481Z 2026-10-14T00:17:04.205Z  INFO 2227 --- [ecotrack-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-10-14T00:17:04.2791418Z 2026-10-14T00:17:04.265Z  INFO 2227 --- [ecotrack-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-14T00:17:04.2821452Z 2026-10-14T00:17:04.265Z  INFO 2227 --- [ecotrack-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-10-14T00:17:04.4770115Z 2026-10-14T00:17:04.385Z  INFO 2227 --- [ecotrack-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-14T00:17:04.4801686Z 2026-10-14T00:17:04.386Z  INFO 2227 --- [ecotrack-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2552 ms
+2026-10-14T00:17:05.8841972Z 2026-10-14T00:17:05.816Z  INFO 2227 --- [ecotrack-api] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:oracle:thin:@localhost:32769/freepdb1 (Oracle 23.0)
+2026-10-14T00:17:06.0836826Z 2026-10-14T00:17:06.062Z  WARN 2227 --- [ecotrack-api] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: Oracle 23.0 is newer than this version of Flyway and support has not been tested. The latest supported version of Oracle is 21.3.
+2026-10-14T00:17:06.2846495Z 2026-10-14T00:17:06.185Z  INFO 2227 --- [ecotrack-api] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "TEST"."flyway_schema_history" does not exist yet
+2026-10-14T00:17:06.2848433Z 2026-10-14T00:17:06.191Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.114s)
+2026-10-14T00:17:06.5843785Z 2026-10-14T00:17:06.542Z  INFO 2227 --- [ecotrack-api] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "TEST"."flyway_schema_history" ...
+2026-10-14T00:17:06.7854924Z 2026-10-14T00:17:06.742Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "TEST": << Empty Schema >>
+2026-10-14T00:17:06.7862291Z 2026-10-14T00:17:06.750Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "TEST" to version "1 - create tables"
+2026-10-14T00:17:07.0912122Z 2026-10-14T00:17:07.001Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "TEST" to version "2 - insert initial data"
+2026-10-14T00:17:07.0914079Z 2026-10-14T00:17:07.029Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "TEST", now at version v2 (execution time 00:00.076s)
+2026-10-14T00:17:07.1872039Z 2026-10-14T00:17:07.139Z  INFO 2227 --- [ecotrack-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-14T00:17:07.2925888Z 2026-10-14T00:17:07.212Z  INFO 2227 --- [ecotrack-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-10-14T00:17:07.2971418Z 2026-10-14T00:17:07.254Z  INFO 2227 --- [ecotrack-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-14T00:17:07.6911917Z 2026-10-14T00:17:07.618Z  INFO 2227 --- [ecotrack-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-14T00:17:07.6913835Z 2026-10-14T00:17:07.657Z  INFO 2227 --- [ecotrack-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-14T00:17:07.7961952Z 2026-10-14T00:17:07.720Z  INFO 2227 --- [ecotrack-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@662f5d78
+2026-10-14T00:17:07.7991482Z 2026-10-14T00:17:07.722Z  INFO 2227 --- [ecotrack-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-14T00:17:07.7993253Z 2026-10-14T00:17:07.773Z  WARN 2227 --- [ecotrack-api] [           main] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-10-14T00:17:08.9940167Z 2026-10-14T00:17:08.923Z  INFO 2227 --- [ecotrack-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-14T00:17:09.2992485Z 2026-10-14T00:17:09.264Z  INFO 2227 --- [ecotrack-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-14T00:17:10.0981788Z 2026-10-14T00:17:10.083Z  INFO 2227 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-14T00:17:10.1985189Z 2026-10-14T00:17:10.153Z  INFO 2227 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-14T00:17:10.4996619Z 2026-10-14T00:17:10.477Z  INFO 2227 --- [ecotrack-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-14T00:17:11.2568460Z 2026-10-14T00:17:11.224Z  INFO 2227 --- [ecotrack-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 45999 (http) with context path '/'
+2026-10-14T00:17:11.2571231Z 2026-10-14T00:17:11.240Z  INFO 2227 --- [ecotrack-api] [           main] br.com.fiap.ecotrack.EcotrackApiIT       : Started EcotrackApiIT in 9.884 seconds (process running for 57.96)
+2026-10-14T00:17:11.5420451Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-14T00:17:11.6048625Z WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
+2026-10-14T00:17:11.6050662Z WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+2026-10-14T00:17:11.6051754Z WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+2026-10-14T00:17:11.6058952Z WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-14T00:17:11.9064486Z 2026-10-14T00:17:11.864Z  INFO 2227 --- [ecotrack-api] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-14T00:17:11.9066326Z 2026-10-14T00:17:11.864Z  INFO 2227 --- [ecotrack-api] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-14T00:17:11.9067875Z 2026-10-14T00:17:11.866Z  INFO 2227 --- [ecotrack-api] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-14T00:17:13.1065713Z 2026-10-14T00:17:13.084Z  WARN 2227 --- [ecotrack-api] [o-auto-1-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 2292, SQLState: 23000
+2026-10-14T00:17:13.1067419Z 2026-10-14T00:17:13.084Z ERROR 2227 --- [ecotrack-api] [o-auto-1-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-02292: integrity constraint (TEST.FK_ACAO_EMPRESA) violated - child record found
+2026-10-14T00:17:13.1068550Z 
+2026-10-14T00:17:13.1070126Z 2026-10-14T00:17:13.090Z  WARN 2227 --- [ecotrack-api] [o-auto-1-exec-6] b.c.f.e.e.GlobalExceptionHandler         : Violação de integridade: ORA-02292: integrity constraint (TEST.FK_ACAO_EMPRESA) violated - child record found
+2026-10-14T00:17:13.1071597Z 
+2026-10-14T00:17:19.0151430Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 57.82 s -- in br.com.fiap.ecotrack.EcotrackApiIT
+2026-10-14T00:17:19.1417781Z [INFO] 
+2026-10-14T00:17:19.1418556Z [INFO] Results:
+2026-10-14T00:17:19.1419627Z [INFO] 
+2026-10-14T00:17:19.1420010Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+2026-10-14T00:17:19.1420599Z [INFO] 
+2026-10-14T00:17:19.1474084Z [INFO] 
+2026-10-14T00:17:19.1474534Z [INFO] --- failsafe:3.2.5:verify (default) @ ecotrack-api ---
+2026-10-14T00:17:19.5232762Z [INFO] ------------------------------------------------------------------------
+2026-10-14T00:17:19.5233128Z [INFO] BUILD SUCCESS
+2026-10-14T00:17:19.5233634Z [INFO] ------------------------------------------------------------------------
+2026-10-14T00:17:19.5234576Z [INFO] Total time:  01:12 min
+2026-10-14T00:17:19.5241156Z [INFO] Finished at: 2026-10-14T00:17:19Z
+2026-10-14T00:17:19.5246697Z [INFO] ------------------------------------------------------------------------
+2026-10-14T00:17:19.5472676Z ##[group]Run bash scripts/ci/resumo-testes.sh "Testes de integração" target/failsafe-reports >> "$GITHUB_STEP_SUMMARY"
+2026-10-14T00:17:19.5473413Z bash scripts/ci/resumo-testes.sh "Testes de integração" target/failsafe-reports >> "$GITHUB_STEP_SUMMARY"
+2026-10-14T00:17:19.5529949Z shell: /usr/bin/bash -e {0}
+2026-10-14T00:17:19.5530173Z env:
+2026-10-14T00:17:19.5530702Z   JAVA_VERSION: 21
+2026-10-14T00:17:19.5531044Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:17:19.5531473Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:17:19.5531782Z   MAVEN_ARGS: -ntp
+2026-10-14T00:17:19.5531963Z ##[endgroup]
+2026-10-14T00:17:19.5838524Z ##[group]Run actions/upload-artifact@v7
+2026-10-14T00:17:19.5838767Z with:
+2026-10-14T00:17:19.5838951Z   name: relatorio-testes-integracao
+2026-10-14T00:17:19.5839181Z   path: target/failsafe-reports/
+2026-10-14T00:17:19.5839404Z   retention-days: 14
+2026-10-14T00:17:19.5839591Z   if-no-files-found: warn
+2026-10-14T00:17:19.5839806Z   compression-level: 6
+2026-10-14T00:17:19.5839988Z   overwrite: false
+2026-10-14T00:17:19.5840179Z   include-hidden-files: false
+2026-10-14T00:17:19.5840583Z   archive: true
+2026-10-14T00:17:19.5840752Z env:
+2026-10-14T00:17:19.5840905Z   JAVA_VERSION: 21
+2026-10-14T00:17:19.5841165Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:17:19.5841556Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T00:17:19.5841864Z   MAVEN_ARGS: -ntp
+2026-10-14T00:17:19.5842041Z ##[endgroup]
+2026-10-14T00:17:19.6961575Z With the provided path, there will be 3 files uploaded
+2026-10-14T00:17:19.6966240Z Artifact name is valid!
+2026-10-14T00:17:19.6966667Z Root directory input is valid!
+2026-10-14T00:17:19.9065537Z Uploading artifact: relatorio-testes-integracao.zip
+2026-10-14T00:17:19.9110703Z Beginning upload of artifact content to blob storage
+2026-10-14T00:17:19.9674172Z Uploaded bytes 8759
+2026-10-14T00:17:19.9779916Z Finished uploading artifact content to blob storage!
+2026-10-14T00:17:19.9781471Z SHA256 digest of uploaded artifact is 62faf47be8ec3c64d72eab7bb1a78da31d852a72b8ee016b01fe297a58452b5b
+2026-10-14T00:17:19.9782419Z Finalizing artifact upload
+2026-10-14T00:17:20.2277075Z Artifact relatorio-testes-integracao successfully finalized. Artifact ID 11860488975
+2026-10-14T00:17:20.2277907Z Artifact relatorio-testes-integracao has been successfully uploaded! Final size is 8759 bytes. Artifact ID is 11860488975
+2026-10-14T00:17:20.2280646Z Artifact download URL: https://github.com/psouzah12/ecotrack-devops/actions/runs/38489083683/artifacts/11860488975
+2026-10-14T00:17:20.2449686Z Post job cleanup.
+2026-10-14T00:17:20.3332861Z Cache hit occurred on the primary key setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8, not saving cache.
+2026-10-14T00:17:20.3472751Z Post job cleanup.
+2026-10-14T00:17:20.4175731Z [command]/usr/bin/git version
+2026-10-14T00:17:20.4222740Z git version 2.55.0
+2026-10-14T00:17:20.4250485Z Temporarily overriding HOME='/home/runner/work/_temp/1fb70137-a59b-45b4-a599-51a2c8fdf5b6' before making global git config changes
+2026-10-14T00:17:20.4253933Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-14T00:17:20.4254935Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecotrack-devops/ecotrack-devops
+2026-10-14T00:17:20.4285777Z Removing SSH command configuration
+2026-10-14T00:17:20.4291364Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-14T00:17:20.4322717Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-14T00:17:20.4537688Z Removing HTTP extra header
+2026-10-14T00:17:20.4540490Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-14T00:17:20.4574073Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-14T00:17:20.4797056Z Removing includeIf entries pointing to credentials config files
+2026-10-14T00:17:20.4803848Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-14T00:17:20.4831972Z includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path
+2026-10-14T00:17:20.4832788Z includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path
+2026-10-14T00:17:20.4833655Z includeif.gitdir:/github/workspace/.git.path
+2026-10-14T00:17:20.4834238Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-14T00:17:20.4839693Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path
+2026-10-14T00:17:20.4876117Z /home/runner/work/_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:17:20.4887579Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-12e89432\-dff2\-47d5\-ada8\-233454f05284\.config
+2026-10-14T00:17:20.4931363Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path
+2026-10-14T00:17:20.4956247Z /home/runner/work/_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:17:20.4971205Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-12e89432\-dff2\-47d5\-ada8\-233454f05284\.config
+2026-10-14T00:17:20.5006073Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-14T00:17:20.5029536Z /github/runner_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:17:20.5035547Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-12e89432\-dff2\-47d5\-ada8\-233454f05284\.config
+2026-10-14T00:17:20.5066502Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-14T00:17:20.5089211Z /github/runner_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config
+2026-10-14T00:17:20.5095580Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-12e89432\-dff2\-47d5\-ada8\-233454f05284\.config
+2026-10-14T00:17:20.5127801Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-14T00:17:20.5316914Z Removing credentials config '/home/runner/work/_temp/git-credentials-12e89432-dff2-47d5-ada8-233454f05284.config'
+2026-10-14T00:17:20.5444157Z Cleaning up orphan processes

@@ -1,0 +1,39 @@
+$ docker ps   (staging e producao)
+NAMES                          IMAGE                                        STATUS                        PORTS
+ecotrack-production-app-1      ghcr.io/psouzah12/ecotrack-api:sha-809da10   Up About a minute (healthy)   0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+ecotrack-staging-app-1         ghcr.io/psouzah12/ecotrack-api:sha-809da10   Up About a minute (healthy)   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+ecotrack-production-oracle-1   gvenzl/oracle-free:23-slim                   Up About an hour (healthy)    
+ecotrack-staging-oracle-1      gvenzl/oracle-free:23-slim                   Up About an hour (healthy)    
+
+$ docker volume ls   (volumes dos dois ambientes)
+DRIVER    VOLUME NAME
+local     ecotrack-production_app-logs
+local     ecotrack-production_oracle-data
+local     ecotrack-staging_app-logs
+local     ecotrack-staging_oracle-data
+
+$ docker network ls   (redes; backend é internal)
+NAME                           DRIVER    INTERNAL
+ecotrack-production_backend    bridge    true
+ecotrack-production_frontend   bridge    false
+ecotrack-staging_backend       bridge    true
+ecotrack-staging_frontend      bridge    false
+
+$ docker stats --no-stream (consumo / limites)
+NAME                           CPU %     MEM USAGE / LIMIT
+ecotrack-production-app-1      0.31%     279.9MiB / 1GiB
+ecotrack-staging-app-1         0.20%     283.4MiB / 768MiB
+ecotrack-production-oracle-1   3.74%     2.364GiB / 7.75GiB
+ecotrack-staging-oracle-1      3.20%     1.433GiB / 7.75GiB
+
+$ curl -s http://localhost:8081/actuator/health
+{"status":"UP","components":{"db":{"status":"UP"},"diskSpace":{"status":"UP"},"livenessState":{"status":"UP"},"ping":{"status":"UP"},"readinessState":{"status":"UP"}},"groups":["liveness","readiness"]}
+
+$ curl -s http://localhost:8082/actuator/info
+{"app":{"ambiente":"producao","nome":"EcoTrack API","descricao":"Gestao de indicadores e acoes ESG","versao":"1.1.0","commit":"809da10084a5135c6ebf9403a0cc1571faf5e30e"},"build":{"artifact":"ecotrack-api","name":"EcoTrack API","ti
+
+
+$ docker exec ecotrack-production-app-1 tail -n 3 /app/logs/ecotrack-prod.log
+2026-10-13T21:33:00.881-03:00  INFO 1 --- [ecotrack-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispa
+2026-10-13T21:33:00.881-03:00  INFO 1 --- [ecotrack-api] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in
+2026-10-13T21:33:08.777-03:00  INFO 1 --- [ecotrack-api] [http-nio-8080-exec-3] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc

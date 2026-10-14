@@ -1,0 +1,30 @@
+$ docker run --rm -v "$PWD":/workspace -w /workspace maven:3.9.9-eclipse-temurin-21 mvn -B test
+[INFO] Building EcoTrack API 1.1.0
+[INFO] --- jacoco:0.8.15:prepare-agent (prepare-agent) @ ecotrack-api ---
+[INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/workspace/target/jacoco.exec,excludes=br/com/fiap/ecotrack/EcotrackApiApplication.class
+[INFO] Running br.com.fiap.ecotrack.controller.AcaoControllerTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.286 s -- in br.com.fiap.ecotrack.controller.AcaoControllerTest
+[INFO] Running br.com.fiap.ecotrack.controller.EmpresaControllerTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.058 s -- in br.com.fiap.ecotrack.controller.EmpresaControllerTest
+[INFO] Running br.com.fiap.ecotrack.controller.RelatorioControllerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.364 s -- in br.com.fiap.ecotrack.controller.RelatorioControllerTest
+[INFO] Running br.com.fiap.ecotrack.controller.IndicadorControllerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.640 s -- in br.com.fiap.ecotrack.controller.IndicadorControllerTest
+[INFO] Running br.com.fiap.ecotrack.EcotrackApiApplicationTests
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in br.com.fiap.ecotrack.EcotrackApiApplicationTests
+[INFO] Running br.com.fiap.ecotrack.service.AcaoServiceTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.182 s -- in br.com.fiap.ecotrack.service.AcaoServiceTest
+[INFO] Running br.com.fiap.ecotrack.service.EmpresaServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.051 s -- in br.com.fiap.ecotrack.service.EmpresaServiceTest
+[INFO] Running br.com.fiap.ecotrack.service.IndicadorServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 s -- in br.com.fiap.ecotrack.service.IndicadorServiceTest
+[INFO] Running br.com.fiap.ecotrack.service.RelatorioServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in br.com.fiap.ecotrack.service.RelatorioServiceTest
+[INFO] Tests run: 49, Failures: 0, Errors: 0, Skipped: 0
+[INFO] --- jacoco:0.8.15:report (report) @ ecotrack-api ---
+[INFO] Loading execution data file /workspace/target/jacoco.exec
+[INFO] --- jacoco:0.8.15:check (check) @ ecotrack-api ---
+[INFO] Loading execution data file /workspace/target/jacoco.exec
+[INFO] All coverage checks have been met.
+[INFO] BUILD SUCCESS
+[INFO] Total time:  8.869 s

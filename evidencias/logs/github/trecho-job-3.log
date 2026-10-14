@@ -1,0 +1,14 @@
+$ GitHub Actions · run 38489083683 · job "3 · Testes de integração (Oracle)" (trecho do log, horário UTC)
+00:16:03 ▶ Run mvn -B -ntp verify -DskipUnitTests
+00:16:20 00:16:20.826 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Creating container for image: testcontainers/ryuk:0.12.0
+00:16:21 00:16:21.164 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 started in PT0.337969424S
+00:16:45 00:16:45.233 [main] INFO tc.gvenzl/oracle-free:23-slim -- Creating container for image: gvenzl/oracle-free:23-slim
+00:17:00 00:17:00.826 [main] INFO tc.gvenzl/oracle-free:23-slim -- Container gvenzl/oracle-free:23-slim started in PT15.592444339S
+00:17:00 00:17:00.826 [main] INFO tc.gvenzl/oracle-free:23-slim -- Container is started (JDBC URL: jdbc:oracle:thin:@localhost:32769/freepdb1)
+00:17:06 2026-10-14T00:17:06.750Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "TEST" to version "1 - create tables"
+00:17:07 2026-10-14T00:17:07.001Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "TEST" to version "2 - insert initial data"
+00:17:07 2026-10-14T00:17:07.029Z  INFO 2227 --- [ecotrack-api] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "TEST", now at version v2 (execution time 00:00.076s)
+00:17:19 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 57.82 s -- in br.com.fiap.ecotrack.EcotrackApiIT
+00:17:19 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+00:17:19 [INFO] BUILD SUCCESS
+00:17:19 [INFO] Total time:  01:12 min

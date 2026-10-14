@@ -31,3 +31,6 @@ target/
 ### Logs ###
 *.log
 logs/
+# logs de execução que fazem parte da entrega
+!evidencias/logs/
+!evidencias/logs/**

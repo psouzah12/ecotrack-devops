@@ -2,6 +2,8 @@
 
 **Aluno:** Paulo Souza · **RM:** 566228
 
+**Repositório:** https://github.com/psouzah12/ecotrack-devops · **Documentação técnica (PDF):** [`docs/EcoTrack_DevOps_RM566228.pdf`](docs/EcoTrack_DevOps_RM566228.pdf)
+
 ## Projeto
 
 O EcoTrack é uma API REST em Java 21 / Spring Boot que centraliza dados ambientais de empresas: cadastro de empresas, indicadores (água, energia, resíduos, CO2), ações ESG e relatórios consolidados. O banco é Oracle, com o schema versionado pelo Flyway.
@@ -230,23 +232,63 @@ ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
 
 ## Prints do funcionamento
 
+- Repositório: https://github.com/psouzah12/ecotrack-devops
+- Execução documentada do pipeline (run #1, disparada por push): https://github.com/psouzah12/ecotrack-devops/actions/runs/38489083683
+- Imagem publicada: https://github.com/users/psouzah12/packages/container/package/ecotrack-api (`docker pull ghcr.io/psouzah12/ecotrack-api:latest`)
+
+### Pipeline no GitHub Actions
+
+Execução completa disparada pelo push do commit `809da10` em `main`: os 6 jobs passaram em 10m42s, contando o tempo em que produção esperou aprovação.
+
+![Pipeline completo](evidencias/img/pipeline-01-execucao.png)
+
+Depois do deploy em staging, o job de produção parou e esperou a aprovação manual do Environment `production`:
+
+![Aprovação de produção](evidencias/img/pipeline-05-aprovacao.png)
+
+**Build e testes:** trechos dos logs reais dos jobs, baixados pela API do GitHub. São 49 testes unitários com cobertura mínima verificada, e 7 testes de integração com o Oracle subindo via Testcontainers e o Flyway aplicando as migrations:
+
+![Build](evidencias/img/terminal-github-job-1.png)
+
+![Testes unitários no CI](evidencias/img/terminal-github-job-2.png)
+
+![Testes de integração no CI](evidencias/img/terminal-github-job-3.png)
+
+**Imagem.** O estágio Maven roda só em `linux/amd64` e o estágio final é montado para `amd64` e `arm64`. Depois, a imagem é publicada no GHCR com as tags `sha-809da10`, `1.1.0` e `latest`:
+
+![Build e push da imagem](evidencias/img/terminal-github-job-4.png)
+
+![Pacote no GHCR](evidencias/img/pipeline-07-pacote.png)
+
+**Deploys.** `scripts/deploy.sh` sobe Oracle + API com a imagem `sha-809da10`, e `scripts/smoke-test.sh` valida cada ambiente:
+
+![Deploy staging no CI](evidencias/img/terminal-github-job-5.png)
+
+![Deploy produção no CI](evidencias/img/terminal-github-job-6.png)
+
+**Histórico.** Além dos pushes em `main`, os PRs abertos pelo Dependabot também passam pelo pipeline (build e testes) antes de qualquer merge:
+
+![Histórico de execuções](evidencias/img/pipeline-08-historico.png)
+
+![Repositório](evidencias/img/pipeline-06-repositorio.png)
+
 ### Ambientes staging e produção no ar
 
-Página de status (`/`) de cada ambiente. Mostra ambiente, saúde da API e do Oracle, versão, commit e o resumo ESG lido do banco:
+Os mesmos scripts do pipeline, rodando numa máquina local com a **mesma imagem publicada pelo pipeline** (`ghcr.io/psouzah12/ecotrack-api:sha-809da10`). Assim os dois ambientes ficam no ar de forma permanente. A página de status (`/`) mostra ambiente, saúde da API e do Oracle, versão, commit e o resumo ESG lido do banco:
 
 | Staging (`:8081`) | Produção (`:8082`) |
 |---|---|
 | ![Staging](evidencias/img/staging-pagina-status.png) | ![Produção](evidencias/img/producao-pagina-status.png) |
 
-Staging mostra os dados de exemplo do `db/seed`. Produção começa vazia; os registros que aparecem foram cadastrados pela própria API com o usuário admin, depois do deploy.
+Staging mostra os dados de exemplo do `db/seed`. Produção começou vazia; os registros que aparecem foram cadastrados pela própria API com o usuário admin e continuaram no volume do Oracle depois do redeploy.
 
-Swagger de cada ambiente:
+Swagger de cada ambiente (o título mostra o ambiente):
 
 | Staging | Produção |
 |---|---|
 | ![Swagger staging](evidencias/img/staging-swagger.png) | ![Swagger produção](evidencias/img/producao-swagger.png) |
 
-### Deploy e smoke test
+Deploy e smoke test de cada ambiente:
 
 ![Deploy staging](evidencias/img/terminal-03-deploy-staging.png)
 
@@ -256,13 +298,13 @@ Containers, volumes, redes (o `backend` é interno), limites de memória, health
 
 ![Ambientes](evidencias/img/terminal-05-ambientes.png)
 
-### Testes e imagem
+### Execução local de testes e build
 
 ![Testes unitários](evidencias/img/terminal-01-testes-unitarios.png)
 
 ![Build da imagem](evidencias/img/terminal-02-docker-build.png)
 
-Os logs em texto estão em [`evidencias/logs/`](evidencias/logs).
+Os logs em texto estão em [`evidencias/logs/`](evidencias/logs). Os logs completos dos jobs do GitHub estão em `evidencias/logs/github/`.
 
 ## Tecnologias utilizadas
 
