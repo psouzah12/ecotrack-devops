@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
-# ---------------------------------------------------------------------------
-# Deploy do EcoTrack em um ambiente (staging ou production) com Docker Compose.
-# É o mesmo script que o pipeline executa nos jobs de deploy.
+# Deploy do EcoTrack em staging ou production com Docker Compose.
+# É o mesmo script que o pipeline roda nos jobs de deploy.
 #
-# Uso:  scripts/deploy.sh <staging|production> [imagem]
+# Uso: scripts/deploy.sh <staging|production> [imagem]
 #   ex: scripts/deploy.sh staging ghcr.io/usuario/ecotrack-api:sha-1a2b3c4
-#       scripts/deploy.sh production                (usa ecotrack-api:local)
 #
-# O que ele faz:
-#   1. carrega a configuração do ambiente (deploy/<ambiente>.env)
-#   2. resolve os segredos: variável de ambiente (secrets do GitHub) >
-#      arquivo ~/.ecotrack/<ambiente>.secrets.env > gera um novo
-#   3. baixa a imagem, sobe os serviços e espera os healthchecks
-#   4. se a API não ficar saudável, volta para a imagem anterior (rollback)
-# Compatível com o bash 3.2 do macOS (runner self-hosted em Mac).
-# ---------------------------------------------------------------------------
+# As senhas vêm das variáveis de ambiente (secrets do GitHub). Se não vierem,
+# usa as de ~/.ecotrack/<ambiente>.secrets.env ou gera novas na primeira vez.
+# Se a API não ficar saudável, volta para a imagem que estava rodando antes.
+# Escrito para funcionar também no bash 3.2 do macOS.
 set -euo pipefail
 
 AMBIENTE="${1:-}"
@@ -36,7 +30,7 @@ PROJETO="$COMPOSE_PROJECT_NAME"
 # função em vez de string: funciona mesmo com espaço no caminho do projeto
 compose() { docker compose --env-file "$ENV_FILE" -p "$PROJETO" -f "$RAIZ/docker-compose.yml" "$@"; }
 
-# --- segredos ---------------------------------------------------------------
+# segredos
 SEGREDOS_DIR="${ECOTRACK_SECRETS_DIR:-$HOME/.ecotrack}"
 SEGREDOS_FILE="$SEGREDOS_DIR/$AMBIENTE.secrets.env"
 SEGREDOS="ORACLE_ADMIN_PASSWORD DB_PASSWORD ECOTRACK_ADMIN_PASSWORD ECOTRACK_USER_PASSWORD"
@@ -58,7 +52,7 @@ done
 ( umask 077
   for nome in $SEGREDOS; do echo "$nome=${!nome}"; done > "$SEGREDOS_FILE" )
 
-# --- deploy -----------------------------------------------------------------
+# deploy
 echo "==> Deploy em $AMBIENTE"
 echo "    projeto: $PROJETO | porta: $APP_PORT | profile: $SPRING_PROFILES_ACTIVE"
 echo "    imagem:  $ECOTRACK_IMAGE"

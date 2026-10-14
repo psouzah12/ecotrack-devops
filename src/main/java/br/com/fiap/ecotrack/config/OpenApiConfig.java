@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-// título, versão e ambiente no Swagger, para saber em qual ambiente se está
+// mostra versão e ambiente no título do Swagger
 @Configuration
 public class OpenApiConfig {
 
@@ -17,7 +17,7 @@ public class OpenApiConfig {
                                    @Value("${info.app.ambiente}") String ambiente) {
         return new OpenAPI()
                 .info(new Info()
-                        .title("EcoTrack API · " + ambiente)
+                        .title("EcoTrack API (" + ambiente + ")")
                         .version(versao)
                         .description("Gestão de indicadores e ações ESG. Leitura pública; "
                                 + "escrita exige usuário ADMIN (Basic Auth)."))

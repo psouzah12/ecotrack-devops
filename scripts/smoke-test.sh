@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-# ---------------------------------------------------------------------------
-# Smoke test pós-deploy. Confere se o ambiente está de pé e funcionando:
-# health (API + banco), ambiente correto, leitura pública, bloqueio de
-# escrita sem login e um ciclo de escrita real no banco (cria e apaga).
+# Smoke test depois do deploy: health da API e do banco, ambiente certo,
+# leitura pública, escrita bloqueada sem login e uma escrita real no banco
+# (cria uma empresa e apaga em seguida).
 #
 # Uso: scripts/smoke-test.sh <url-base> <ambiente>
 #   ex: scripts/smoke-test.sh http://localhost:8081 staging
-# ---------------------------------------------------------------------------
 set -euo pipefail
 
 URL="${1:?informe a URL base, ex: http://localhost:8081}"
@@ -29,10 +27,10 @@ RESULTADOS=""
 registrar() {  # registrar <ok|falha> <descrição> <detalhe>
   if [ "$1" = ok ]; then
     printf '  [OK]    %s (%s)\n' "$2" "$3"
-    RESULTADOS="$RESULTADOS| ✅ | $2 | $3 |"$'\n'
+    RESULTADOS="$RESULTADOS| OK | $2 | $3 |"$'\n'
   else
     printf '  [FALHA] %s (%s)\n' "$2" "$3"
-    RESULTADOS="$RESULTADOS| ❌ | $2 | $3 |"$'\n'
+    RESULTADOS="$RESULTADOS| FALHA | $2 | $3 |"$'\n'
     FALHAS=$((FALHAS + 1))
   fi
 }
@@ -48,7 +46,7 @@ esperar() {  # espera o código esperado
 
 echo "==> Smoke test em $URL ($AMBIENTE)"
 
-# 1. aguarda a API responder (até ~3 min)
+# espera a API responder (até 3 minutos)
 for i in $(seq 1 36); do
   [ "$(http GET /actuator/health/readiness)" = 200 ] && break
   sleep 5
@@ -94,9 +92,9 @@ if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
   {
     echo "### Smoke test: $AMBIENTE"
     echo
-    echo "URL: \`$URL\` · versão \`$versao\` · commit \`${commit:0:7}\`"
+    echo "URL \`$URL\`, versão \`$versao\`, commit \`${commit:0:7}\`"
     echo
-    echo "| | Verificação | Resultado |"
+    echo "| Status | Verificação | Resultado |"
     echo "|---|---|---|"
     printf '%s' "$RESULTADOS"
   } >> "$GITHUB_STEP_SUMMARY"

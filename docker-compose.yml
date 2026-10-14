@@ -1,15 +1,10 @@
-# ---------------------------------------------------------------------------
-# EcoTrack - orquestração da API + Oracle
-#
-# Este arquivo é a base usada em TODOS os ambientes. O que muda entre eles
-# vem de variáveis de ambiente:
-#   - local:      docker compose up --build   (usa também docker-compose.override.yml)
-#   - staging:    scripts/deploy.sh staging    (deploy/staging.env, porta 8081)
-#   - produção:   scripts/deploy.sh production (deploy/production.env, porta 8082)
-#
-# Cada ambiente roda com um nome de projeto diferente (-p ecotrack-staging,
-# -p ecotrack-production), então containers, redes e volumes ficam isolados.
-# ---------------------------------------------------------------------------
+# EcoTrack: API + Oracle. O mesmo arquivo serve para todos os ambientes e o
+# que muda entre eles vem de variáveis de ambiente.
+#   local:    docker compose up --build (junto com o docker-compose.override.yml)
+#   staging:  scripts/deploy.sh staging (deploy/staging.env, porta 8081)
+#   produção: scripts/deploy.sh production (deploy/production.env, porta 8082)
+# Cada ambiente roda com um nome de projeto próprio (-p ecotrack-staging,
+# -p ecotrack-production), então containers, redes e volumes não se misturam.
 name: ecotrack
 
 services:

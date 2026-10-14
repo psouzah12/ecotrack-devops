@@ -3,119 +3,235 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EcoTrack API · Status</title>
+<title>EcoTrack API - Status</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  :root {
-    --bg: #f4f6f3; --surface: #ffffff; --text: #17201b; --muted: #5d6b63; --line: #dfe5e0;
-    --ok: #1f7a4d; --down: #b42318; --env: #6b7280; --env-bg: #eef0f2;
+  @font-face {
+    font-family: "Montserrat";
+    src: url("fonts/montserrat-latin-wght-normal.woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
-  body[data-env="staging"]  { --env: #b45309; --env-bg: #fef3e2; }
-  body[data-env="producao"] { --env: #1f6f4a; --env-bg: #e3f3ea; }
+  @font-face {
+    font-family: "Montserrat";
+    src: url("fonts/montserrat-latin-ext-wght-normal.woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-display: swap;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  :root {
+    /* identidade visual FIAP */
+    --fiap-rosa: #ED145B;
+    --preto: #000000;
+    --grafite: #0E0F10;
+    --linha: #24262A;
+    --cinza: #75838B;
+    --cinza-claro: #BDBFC7;
+    --branco: #FFFFFF;
+    --ok: #2FBF71;
+    --erro: #FF4D4F;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  .faixa { height: 6px; background: var(--env); }
-  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 48px; }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  h1 { margin: 0; font-size: 26px; letter-spacing: -0.01em; }
-  .sub { margin: 2px 0 0; color: var(--muted); }
-  .ambiente { padding: 8px 16px; border-radius: 999px; background: var(--env-bg); color: var(--env);
-              font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px;
-              border: 1px solid var(--env); }
-  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
-       margin: 32px 0 12px; font-weight: 600; }
-  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
-  .rotulo { color: var(--muted); font-size: 13px; }
-  .valor { font-size: 22px; font-weight: 650; margin-top: 2px; font-variant-numeric: tabular-nums;
-           overflow-wrap: anywhere; }
-  .valor.peq { font-size: 15px; font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .status { display: inline-flex; align-items: center; gap: 8px; }
-  .ponto { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
-  .up .ponto { background: var(--ok); } .up { color: var(--ok); }
-  .down .ponto { background: var(--down); } .down { color: var(--down); }
-  ul.links { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  ul.links a { display: inline-block; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line);
-               background: var(--surface); color: var(--text); text-decoration: none; font-weight: 500; }
-  ul.links a:hover { border-color: var(--env); color: var(--env); }
-  footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
+  html { background: var(--preto); color-scheme: dark; scrollbar-color: var(--linha) var(--preto); }
+  body {
+    margin: 0; background: var(--preto); color: var(--branco);
+    font: 500 16px/1.55 "Montserrat", system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--fiap-rosa); color: var(--branco); }
+  a { color: inherit; text-decoration-color: var(--fiap-rosa); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  a:hover { color: var(--fiap-rosa); }
+  a:focus-visible { outline: 2px solid var(--fiap-rosa); outline-offset: 4px; }
+
+  /* barra do topo: tempo até a próxima leitura */
+  .ciclo { position: fixed; inset: 0 0 auto 0; height: 3px; background: var(--grafite); }
+  .ciclo span { display: block; height: 100%; width: 100%; background: var(--fiap-rosa); transform-origin: left; transform: scaleX(0); }
+  .ciclo span.rodando { animation: ciclo 15s linear forwards; }
+  @keyframes ciclo { to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .ciclo span.rodando { animation: none; transform: scaleX(1); } }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 32px 32px 40px; }
+
+  .topo { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--linha); }
+  .topo img { height: 22px; width: auto; display: block; }
+  .topo small { color: var(--cinza); font-size: 13px; font-weight: 600; }
+
+  header.titulo { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; padding: 40px 0 36px; }
+  h1 { margin: 0; font-size: clamp(40px, 7vw, 72px); line-height: 1; font-weight: 800; letter-spacing: -0.03em; }
+  .descricao { margin: 14px 0 0; color: var(--cinza-claro); font-size: 17px; max-width: 46ch; }
+  .ambiente { padding: 14px 22px 12px; font-size: clamp(20px, 3vw, 30px); font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; white-space: nowrap; }
+  .ambiente[data-env="producao"] { background: var(--fiap-rosa); color: var(--branco); }
+  .ambiente[data-env="staging"] { background: var(--branco); color: var(--preto); }
+  .ambiente[data-env="local"], .ambiente[data-env="indisponivel"] { background: var(--grafite); color: var(--cinza-claro); box-shadow: inset 0 0 0 1px var(--linha); }
+
+  section { padding: 28px 0; border-top: 1px solid var(--linha); }
+  .colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .colunas > section { border-top: 0; padding-top: 0; }
+  .colunas-wrap { padding: 28px 0; border-top: 1px solid var(--linha); }
+  h2 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+
+  dl { margin: 0; display: grid; grid-template-columns: 150px 1fr; }
+  dt, dd { margin: 0; padding: 11px 0; border-top: 1px solid var(--grafite); }
+  dt:first-of-type, dd:first-of-type { border-top: 0; }
+  dt { color: var(--cinza); font-weight: 600; font-size: 15px; }
+  dd { font-weight: 600; font-size: 18px; overflow-wrap: anywhere; }
+  dd code { font-family: var(--mono); font-size: 16px; color: var(--cinza-claro); }
+  .estado { display: inline-flex; align-items: center; gap: 10px; }
+  .estado::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--cinza); }
+  .estado.up::before { background: var(--ok); }
+  .estado.down { color: var(--erro); }
+  .estado.down::before { background: var(--erro); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; color: var(--cinza); font-weight: 600; font-size: 14px; padding: 0 16px 10px 0; border-bottom: 1px solid var(--linha); }
+  td { padding: 12px 16px 0 0; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .vazio { color: var(--cinza); font-size: 15px; font-weight: 500; }
+
+  ul.links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 14px 32px; font-weight: 600; }
+
+  footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 28px; border-top: 1px solid var(--linha); color: var(--cinza); font-size: 13px; font-weight: 500; }
+
+  @media (max-width: 860px) {
+    .colunas { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 720px) {
+    main { padding: 28px 16px 40px; }
+    header.titulo { grid-template-columns: 1fr; padding: 32px 0 28px; }
+    .ambiente { justify-self: start; }
+    dl { grid-template-columns: 1fr; }
+    dt { padding-bottom: 0; }
+    dd { padding-top: 2px; border-top: 0; }
+    table, thead, tbody, tr, th, td { display: block; }
+    thead { display: none; }
+    tbody tr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    td { padding: 0; font-size: 26px; }
+    td::before { content: attr(data-rotulo); display: block; color: var(--cinza); font-size: 13px; font-weight: 600; letter-spacing: 0; }
+  }
 </style>
 </head>
-<body data-env="local">
-<div class="faixa"></div>
+<body>
+<div class="ciclo" aria-hidden="true"><span id="ciclo"></span></div>
 <main>
-  <header>
+  <div class="topo">
+    <img src="img/fiap.svg" alt="FIAP">
+    <small>Projeto acadêmico</small>
+  </div>
+
+  <header class="titulo">
     <div>
       <h1>EcoTrack API</h1>
-      <p class="sub">Gestão de indicadores e ações ESG</p>
+      <p class="descricao">Indicadores ambientais e ações ESG de empresas, com Spring Boot e Oracle.</p>
     </div>
-    <span class="ambiente" id="ambiente">carregando…</span>
+    <div class="ambiente" id="ambiente" data-env="local">carregando</div>
   </header>
 
-  <h2>Saúde da aplicação</h2>
-  <div class="grade">
-    <div class="card"><div class="rotulo">Aplicação</div><div class="valor status" id="st-app"><span class="ponto"></span><span>…</span></div></div>
-    <div class="card"><div class="rotulo">Banco Oracle</div><div class="valor status" id="st-db"><span class="ponto"></span><span>…</span></div></div>
-    <div class="card"><div class="rotulo">Versão</div><div class="valor" id="versao">…</div></div>
-    <div class="card"><div class="rotulo">Commit</div><div class="valor peq" id="commit">…</div></div>
-    <div class="card"><div class="rotulo">Build</div><div class="valor peq" id="build">…</div></div>
-  </div>
+  <div class="colunas-wrap"><div class="colunas">
+  <section aria-labelledby="t-saude">
+    <h2 id="t-saude">Saúde</h2>
+    <dl>
+      <dt>Aplicação</dt><dd><span class="estado" id="st-app">verificando</span></dd>
+      <dt>Banco Oracle</dt><dd><span class="estado" id="st-db">verificando</span></dd>
+    </dl>
+  </section>
 
-  <h2>Resumo ESG</h2>
-  <div class="grade">
-    <div class="card"><div class="rotulo">Empresas</div><div class="valor" id="r-empresas">…</div></div>
-    <div class="card"><div class="rotulo">Indicadores</div><div class="valor" id="r-indicadores">…</div></div>
-    <div class="card"><div class="rotulo">Ações ESG</div><div class="valor" id="r-acoes">…</div></div>
-    <div class="card"><div class="rotulo">Ações concluídas</div><div class="valor" id="r-concluidas">…</div></div>
-    <div class="card"><div class="rotulo">Impacto estimado</div><div class="valor" id="r-impacto">…</div></div>
-  </div>
+  <section aria-labelledby="t-versao">
+    <h2 id="t-versao">Versão em execução</h2>
+    <dl>
+      <dt>Versão</dt><dd id="versao">-</dd>
+      <dt>Commit</dt><dd><code id="commit">-</code></dd>
+      <dt>Build</dt><dd id="build">-</dd>
+    </dl>
+  </section>
+  </div></div>
 
-  <h2>Links</h2>
-  <ul class="links">
-    <li><a href="swagger-ui.html" id="lk-swagger">Swagger UI</a></li>
-    <li><a href="actuator/health">Health</a></li>
-    <li><a href="actuator/info">Info</a></li>
-    <li><a href="api/empresas">/api/empresas</a></li>
-    <li><a href="api/relatorios/resumo">/api/relatorios/resumo</a></li>
-  </ul>
+  <section aria-labelledby="t-esg">
+    <h2 id="t-esg">Resumo ESG</h2>
+    <table>
+      <thead><tr><th>Empresas</th><th>Indicadores</th><th>Ações</th><th>Concluídas</th><th>Impacto estimado</th></tr></thead>
+      <tbody><tr>
+        <td id="r-empresas" data-rotulo="Empresas">-</td>
+        <td id="r-indicadores" data-rotulo="Indicadores">-</td>
+        <td id="r-acoes" data-rotulo="Ações">-</td>
+        <td id="r-concluidas" data-rotulo="Concluídas">-</td>
+        <td id="r-impacto" data-rotulo="Impacto estimado">-</td>
+      </tr></tbody>
+    </table>
+  </section>
 
-  <footer id="rodape">Atualizando…</footer>
+  <section aria-labelledby="t-links">
+    <h2 id="t-links">Links</h2>
+    <ul class="links">
+      <li><a href="swagger-ui.html">Swagger UI</a></li>
+      <li><a href="actuator/health">/actuator/health</a></li>
+      <li><a href="actuator/info">/actuator/info</a></li>
+      <li><a href="api/empresas">/api/empresas</a></li>
+      <li><a href="api/relatorios/resumo">/api/relatorios/resumo</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span id="rodape">Lendo os dados da API</span>
+    <span>Nova leitura a cada 15 segundos</span>
+  </footer>
 </main>
 <script>
   const nomes = { local: 'Local', staging: 'Staging', producao: 'Produção' };
   const $ = (id) => document.getElementById(id);
-  const fmt = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 });
+  const numero = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 });
+  const resumo = ['r-empresas', 'r-indicadores', 'r-acoes', 'r-concluidas', 'r-impacto'];
 
-  function status(el, valor) {
-    el.className = 'valor status ' + (valor === 'UP' ? 'up' : 'down');
-    el.lastElementChild.textContent = valor || 'DOWN';
+  function estado(el, valor) {
+    const up = valor === 'UP';
+    el.className = 'estado ' + (up ? 'up' : 'down');
+    el.textContent = up ? 'UP' : 'DOWN';
   }
 
   async function json(url) {
-    const r = await fetch(url, { headers: { Accept: 'application/json' } });
+    const r = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+    if (!r.ok && r.status !== 503) throw new Error(r.status);
     return r.json();
   }
 
+  function reiniciarCiclo() {
+    const barra = $('ciclo');
+    barra.classList.remove('rodando');
+    void barra.offsetWidth;
+    barra.classList.add('rodando');
+  }
+
   async function atualizar() {
+    reiniciarCiclo();
+
     try {
       const info = await json('actuator/info');
       const app = info.app || {};
       const env = app.ambiente || 'local';
-      document.body.dataset.env = env;
+      $('ambiente').dataset.env = env;
       $('ambiente').textContent = nomes[env] || env;
-      document.title = 'EcoTrack API · ' + (nomes[env] || env);
+      document.title = 'EcoTrack API - ' + (nomes[env] || env);
       $('versao').textContent = app.versao || (info.build && info.build.version) || '-';
       $('commit').textContent = (app.commit || '-').substring(0, 7);
       $('build').textContent = info.build && info.build.time
-        ? new Date(info.build.time).toLocaleString('pt-BR') : '-';
-    } catch (e) { $('ambiente').textContent = 'indisponível'; }
+        ? new Date(info.build.time).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '-';
+    } catch (e) {
+      $('ambiente').dataset.env = 'indisponivel';
+      $('ambiente').textContent = 'Sem resposta';
+    }
 
     try {
       const h = await json('actuator/health');
-      status($('st-app'), h.status);
-      status($('st-db'), h.components && h.components.db ? h.components.db.status : 'DOWN');
-    } catch (e) { status($('st-app'), 'DOWN'); status($('st-db'), 'DOWN'); }
+      estado($('st-app'), h.status);
+      estado($('st-db'), h.components && h.components.db ? h.components.db.status : 'DOWN');
+    } catch (e) {
+      estado($('st-app'), 'DOWN');
+      estado($('st-db'), 'DOWN');
+    }
 
     try {
       const r = await json('api/relatorios/resumo');
@@ -123,10 +239,12 @@
       $('r-indicadores').textContent = r.totalIndicadores;
       $('r-acoes').textContent = r.totalAcoes;
       $('r-concluidas').textContent = r.acoesConcluidas;
-      $('r-impacto').textContent = fmt.format(r.impactoTotalEstimado);
-    } catch (e) { /* mantém os valores anteriores */ }
+      $('r-impacto').textContent = numero.format(r.impactoTotalEstimado);
+    } catch (e) {
+      resumo.forEach((id) => { $(id).innerHTML = '<span class="vazio">sem dados</span>'; });
+    }
 
-    $('rodape').textContent = 'Atualizado em ' + new Date().toLocaleString('pt-BR') + ' · recarrega a cada 15 s';
+    $('rodape').textContent = 'Última leitura às ' + new Date().toLocaleTimeString('pt-BR');
   }
 
   atualizar();

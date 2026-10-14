@@ -23,11 +23,9 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Teste de integração ponta a ponta: sobe um Oracle Free de verdade em container
- * (Testcontainers), roda as migrations do Flyway e chama a API via HTTP.
- * Roda na fase "verify" do Maven (failsafe) e no job integration-tests do pipeline.
- */
+// Sobe um Oracle Free em container (Testcontainers), roda as migrations do Flyway
+// e testa a API via HTTP. Roda no "mvn verify" e no job de integração do pipeline.
+
 @Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class EcotrackApiIT {

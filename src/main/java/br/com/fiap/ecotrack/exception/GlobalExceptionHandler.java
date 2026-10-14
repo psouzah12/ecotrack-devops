@@ -73,7 +73,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErroResponse> tratarErroGeral(Exception ex) {
-        // antes o erro era engolido sem log; em produção isso deixava o 500 sem rastro
         log.error("Erro não tratado", ex);
         return erro(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno no servidor");
     }

@@ -1,9 +1,6 @@
 # syntax=docker/dockerfile:1
-# ---------------------------------------------------------------------------
-# EcoTrack API - imagem de produção (multi-stage)
-#   estágio 1 (build):   compila com Maven + JDK 21 e separa o jar em camadas
-#   estágio 2 (runtime): só o JRE 21 Alpine + as camadas, rodando sem root
-# ---------------------------------------------------------------------------
+# EcoTrack API: imagem em dois estágios. O primeiro compila com Maven e JDK 21
+# e separa o jar em camadas; o segundo tem só o JRE 21 Alpine e roda sem root.
 
 # O build roda na arquitetura de quem está construindo ($BUILDPLATFORM).
 # O jar é o mesmo para amd64 e arm64, então o Maven executa uma vez só

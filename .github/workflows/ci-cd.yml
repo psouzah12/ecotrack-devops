@@ -1,16 +1,12 @@
-# ---------------------------------------------------------------------------
 # Pipeline CI/CD do EcoTrack API
 #
-#   PR para main ........ build -> testes unitários + testes de integração
-#   push em develop ..... ... -> imagem Docker (GHCR) -> deploy staging
-#   push em main ........ ... -> imagem Docker (GHCR) -> deploy staging -> deploy produção
-#   manual .............. Actions > CI/CD EcoTrack > Run workflow
+# PR para main: build e testes.
+# Push em develop: build, testes, imagem no GHCR e deploy em staging.
+# Push em main: tudo isso e depois o deploy em produção (com aprovação).
 #
-# Os deploys rodam o scripts/deploy.sh (Docker Compose) seguido do
-# scripts/smoke-test.sh. O runner dos deploys vem da variável DEPLOY_RUNNER:
-#   - não definida  -> ubuntu-24.04 (ambiente efêmero criado dentro do runner)
-#   - "self-hosted" -> máquina própria registrada como runner (ambiente permanente)
-# ---------------------------------------------------------------------------
+# Os deploys usam scripts/deploy.sh e scripts/smoke-test.sh. Por padrão rodam
+# no ubuntu-24.04 (o ambiente sobe dentro do runner e some no fim do job).
+# Com a variável DEPLOY_RUNNER=self-hosted rodam numa máquina própria.
 name: CI/CD EcoTrack
 
 on:
@@ -21,7 +17,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# nunca cancela um deploy no meio; execuções do mesmo branch entram na fila
+# não cancela deploy no meio: execuções do mesmo branch esperam na fila
 concurrency:
   group: ci-cd-${{ github.ref }}
   cancel-in-progress: false
@@ -33,9 +29,8 @@ env:
   JAVA_VERSION: "21"
 
 jobs:
-  # -------------------------------------------------------------------------
   build:
-    name: "1 · Build"
+    name: "1. Build"
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -57,9 +52,8 @@ jobs:
           path: target/ecotrack-api.jar
           retention-days: 7
 
-  # -------------------------------------------------------------------------
   unit-tests:
-    name: "2 · Testes unitários"
+    name: "2. Testes unitários"
     needs: build
     runs-on: ubuntu-24.04
     steps:
@@ -71,7 +65,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
 
-      # serviços (Mockito) + controllers com segurança (MockMvc) + cobertura mínima (JaCoCo)
+      # services com Mockito, controllers com MockMvc e cobertura mínima do JaCoCo
       - name: Rodar testes unitários
         run: mvn -B -ntp test
 
@@ -89,9 +83,8 @@ jobs:
             target/site/jacoco/
           retention-days: 14
 
-  # -------------------------------------------------------------------------
   integration-tests:
-    name: "3 · Testes de integração (Oracle)"
+    name: "3. Testes de integração (Oracle)"
     needs: build
     runs-on: ubuntu-24.04
     steps:
@@ -103,7 +96,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
 
-      # Testcontainers sobe um Oracle Free real; Flyway cria o schema e a API é testada via HTTP
+      # o Testcontainers sobe um Oracle Free, o Flyway cria o schema e a API é testada via HTTP
       - name: Rodar testes de integração
         run: mvn -B -ntp verify -DskipUnitTests
 
@@ -119,9 +112,8 @@ jobs:
           path: target/failsafe-reports/
           retention-days: 14
 
-  # -------------------------------------------------------------------------
   docker-image:
-    name: "4 · Imagem Docker (GHCR)"
+    name: "4. Imagem Docker (GHCR)"
     needs: [unit-tests, integration-tests]
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
@@ -148,7 +140,7 @@ jobs:
           echo "tags=$tags" >> "$GITHUB_OUTPUT"
           echo "created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
 
-      # QEMU + Buildx: imagem para amd64 (servidores/GitHub) e arm64 (Mac M1/M2/M3)
+      # imagem para amd64 (servidores e runners do GitHub) e arm64 (Mac com chip M)
       - uses: docker/setup-qemu-action@v4
       - uses: docker/setup-buildx-action@v4
 
@@ -189,9 +181,8 @@ jobs:
             echo "| Plataformas | linux/amd64, linux/arm64 |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-  # -------------------------------------------------------------------------
   deploy-staging:
-    name: "5 · Deploy staging"
+    name: "5. Deploy staging"
     needs: docker-image
     runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-24.04' }}
     environment:
@@ -229,9 +220,8 @@ jobs:
           bash scripts/ambiente.sh staging status
           docker logs --tail 40 ecotrack-staging-app-1
 
-  # -------------------------------------------------------------------------
   deploy-production:
-    name: "6 · Deploy produção"
+    name: "6. Deploy produção"
     needs: [docker-image, deploy-staging]
     if: github.ref == 'refs/heads/main'
     runs-on: ${{ vars.DEPLOY_RUNNER || 'ubuntu-24.04' }}

@@ -24,10 +24,10 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // página de status do ambiente
-                        .requestMatchers("/", "/index.html", "/favicon.svg").permitAll()
+                        // página de status do ambiente e seus arquivos
+                        .requestMatchers("/", "/index.html", "/favicon.svg", "/fonts/**", "/img/**").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        // usados pelo healthcheck do Docker e pelo smoke test do pipeline
+                        // healthcheck do Docker e smoke test do pipeline
                         .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
                         .requestMatchers("/actuator/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
@@ -41,9 +41,7 @@ public class SecurityConfig {
                 .build();
     }
 
-    // as credenciais vêm do application.properties, que lê das variáveis de ambiente
-    // (ECOTRACK_ADMIN_USER, ECOTRACK_ADMIN_PASSWORD...). Em staging e produção
-    // elas são injetadas pelo pipeline, então a senha não fica no código.
+    // usuários e senhas vêm das variáveis de ambiente (ECOTRACK_ADMIN_USER, ECOTRACK_ADMIN_PASSWORD...)
     @Bean
     public UserDetailsService userDetailsService(
             PasswordEncoder encoder,

@@ -13,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-// readOnly por padrão; os métodos de escrita abrem transação própria.
-// Com spring.jpa.open-in-view=false a conversão para DTO precisa acontecer
-// dentro da transação, senão o proxy LAZY de empresa não carrega.
+// a conversão para DTO acessa a empresa (LAZY), então precisa rodar dentro da transação
 @Service
 @Transactional(readOnly = true)
 public class AcaoService {
