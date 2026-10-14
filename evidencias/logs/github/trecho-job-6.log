@@ -1,23 +1,23 @@
-$ GitHub Actions · run 38489083683 · job "6 · Deploy produção" (trecho do log, horário UTC)
-00:24:48 ▶ Run bash scripts/deploy.sh production "$ECOTRACK_IMAGE"
-00:24:48 ==> Deploy em production
-00:24:48     projeto: ecotrack-production | porta: 8082 | profile: prod
-00:24:48     imagem:  ghcr.io/psouzah12/ecotrack-api:sha-809da10
-00:25:18  Container ecotrack-production-oracle-1  Created
-00:25:18  Container ecotrack-production-app-1  Created
-00:25:18  Container ecotrack-production-oracle-1  Started
-00:25:38  Container ecotrack-production-oracle-1  Healthy
-00:25:38  Container ecotrack-production-app-1  Started
-00:25:49  Container ecotrack-production-app-1  Healthy
-00:25:49 ==> production no ar: http://localhost:8082
-00:25:49 ▶ Run bash scripts/smoke-test.sh http://localhost:8082 production
-00:25:49 ==> Smoke test em http://localhost:8082 (production)
-00:25:49   [OK]    Health da API e do banco Oracle (UP)
-00:25:49   [OK]    Ambiente correto (producao, versão 1.1.0, commit 809da10)
-00:25:49   [OK]    GET /api/empresas (público) (HTTP 200)
-00:25:49   [OK]    GET /api/relatorios/resumo (HTTP 200)
-00:25:49   [OK]    POST sem login é bloqueado (HTTP 401)
-00:25:50   [OK]    POST /api/empresas com admin (grava no Oracle) (HTTP 201)
-00:25:50   [OK]    DELETE /api/empresas/1 (limpa o teste) (HTTP 204)
-00:25:50 ==> Smoke test OK
-00:25:50 ▶ Run bash scripts/ambiente.sh production status
+$ GitHub Actions, run 38493315480, job "6. Deploy produção" (trecho do log, horário UTC)
+01:05:29 > Run bash scripts/deploy.sh production "$ECOTRACK_IMAGE"
+01:05:29 ==> Deploy em production
+01:05:29     projeto: ecotrack-production | porta: 8082 | profile: prod
+01:05:29     imagem:  ghcr.io/psouzah12/ecotrack-api:sha-92e76ea
+01:05:47  Container ecotrack-production-oracle-1  Created
+01:05:47  Container ecotrack-production-app-1  Created
+01:05:47  Container ecotrack-production-oracle-1  Started
+01:06:02  Container ecotrack-production-oracle-1  Healthy
+01:06:02  Container ecotrack-production-app-1  Started
+01:06:18  Container ecotrack-production-app-1  Healthy
+01:06:18 ==> production no ar: http://localhost:8082
+01:06:18 > Run bash scripts/smoke-test.sh http://localhost:8082 production
+01:06:18 ==> Smoke test em http://localhost:8082 (production)
+01:06:18   [OK]    Health da API e do banco Oracle (UP)
+01:06:18   [OK]    Ambiente correto (producao, versão 1.1.0, commit 92e76ea)
+01:06:18   [OK]    GET /api/empresas (público) (HTTP 200)
+01:06:19   [OK]    GET /api/relatorios/resumo (HTTP 200)
+01:06:19   [OK]    POST sem login é bloqueado (HTTP 401)
+01:06:19   [OK]    POST /api/empresas com admin (grava no Oracle) (HTTP 201)
+01:06:19   [OK]    DELETE /api/empresas/1 (limpa o teste) (HTTP 204)
+01:06:19 ==> Smoke test OK
+01:06:19 > Run bash scripts/ambiente.sh production status

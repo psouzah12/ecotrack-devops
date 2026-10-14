@@ -1,15 +1,15 @@
-$ GitHub Actions · run 38489083683 · job "2 · Testes unitários" (trecho do log, horário UTC)
-00:16:04 ▶ Run mvn -B -ntp test
-00:16:16 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 s -- in br.com.fiap.ecotrack.EcotrackApiApplicationTests
-00:16:18 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.968 s -- in br.com.fiap.ecotrack.service.IndicadorServiceTest
-00:16:18 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.209 s -- in br.com.fiap.ecotrack.service.AcaoServiceTest
-00:16:18 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.147 s -- in br.com.fiap.ecotrack.service.EmpresaServiceTest
-00:16:18 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 s -- in br.com.fiap.ecotrack.service.RelatorioServiceTest
-00:16:23 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.537 s -- in br.com.fiap.ecotrack.controller.EmpresaControllerTest
-00:16:24 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.807 s -- in br.com.fiap.ecotrack.controller.AcaoControllerTest
-00:16:25 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.848 s -- in br.com.fiap.ecotrack.controller.IndicadorControllerTest
-00:16:25 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.517 s -- in br.com.fiap.ecotrack.controller.RelatorioControllerTest
-00:16:25 [INFO] Tests run: 49, Failures: 0, Errors: 0, Skipped: 0
-00:16:25 [INFO] All coverage checks have been met.
-00:16:25 [INFO] BUILD SUCCESS
-00:16:25 [INFO] Total time:  17.317 s
+$ GitHub Actions, run 38493315480, job "2. Testes unitários" (trecho do log, horário UTC)
+01:00:56 > Run mvn -B -ntp test
+01:01:18 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 s -- in br.com.fiap.ecotrack.EcotrackApiApplicationTests
+01:01:20 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.998 s -- in br.com.fiap.ecotrack.service.IndicadorServiceTest
+01:01:20 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.141 s -- in br.com.fiap.ecotrack.service.AcaoServiceTest
+01:01:20 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.098 s -- in br.com.fiap.ecotrack.service.EmpresaServiceTest
+01:01:20 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in br.com.fiap.ecotrack.service.RelatorioServiceTest
+01:01:24 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.946 s -- in br.com.fiap.ecotrack.controller.EmpresaControllerTest
+01:01:25 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.658 s -- in br.com.fiap.ecotrack.controller.AcaoControllerTest
+01:01:26 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.697 s -- in br.com.fiap.ecotrack.controller.IndicadorControllerTest
+01:01:26 [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.402 s -- in br.com.fiap.ecotrack.controller.RelatorioControllerTest
+01:01:26 [INFO] Tests run: 49, Failures: 0, Errors: 0, Skipped: 0
+01:01:26 [INFO] All coverage checks have been met.
+01:01:26 [INFO] BUILD SUCCESS
+01:01:26 [INFO] Total time:  19.415 s

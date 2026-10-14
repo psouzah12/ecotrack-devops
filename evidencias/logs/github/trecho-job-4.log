@@ -1,28 +1,32 @@
-$ GitHub Actions · run 38489083683 · job "4 · Imagem Docker (GHCR)" (trecho do log, horário UTC)
-00:17:42 ▶ Run docker/build-push-action@v7
-00:17:45 #13 [linux/amd64 build 1/6] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
-00:17:45 #14 [linux/arm64 runtime 1/7] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:51ab5e3302e7141ce665ca3ea85e8b5cd648eafbc3c0c90dd79d6537684e4555
-00:17:45 #15 [linux/amd64 runtime 1/7] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:51ab5e3302e7141ce665ca3ea85e8b5cd648eafbc3c0c90dd79d6537684e4555
-00:17:49 #16 [linux/arm64 runtime 2/7] RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack  && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
-00:17:52 #17 [linux/amd64 runtime 2/7] RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack  && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
-00:17:55 #18 [linux/arm64 runtime 3/7] WORKDIR /app
-00:17:55 #19 [linux/amd64 build 2/6] WORKDIR /workspace
-00:17:55 #20 [linux/amd64 build 3/6] COPY pom.xml .
-00:17:55 #21 [linux/amd64 runtime 3/7] WORKDIR /app
-00:17:55 #22 [linux/amd64 build 4/6] RUN mvn -B -ntp dependency:go-offline
-00:18:58 #23 [linux/amd64 build 5/6] COPY src ./src
-00:18:58 #24 [linux/amd64 build 6/6] RUN mvn -B -ntp package -DskipTests  && java -Djarmode=tools -jar target/ecotrack-api.jar extract --layers --launcher --destination target/extracted
-00:19:18 #25 [linux/amd64 runtime 4/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
-00:19:19 #26 [linux/arm64 runtime 4/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
-00:19:19 #27 [linux/amd64 runtime 5/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
-00:19:19 #28 [linux/arm64 runtime 5/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
-00:19:19 #29 [linux/amd64 runtime 6/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
-00:19:19 #30 [linux/arm64 runtime 6/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
-00:19:19 #31 [linux/arm64 runtime 7/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/application/ ./
-00:19:19 #32 [linux/amd64 runtime 7/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/application/ ./
-00:19:21 #33 exporting manifest list sha256:fd852f880c3c107104c2c6bfe395c531434e0abf15c2e04c05e364b44c7b8c89 done
-00:19:26 #33 pushing manifest for ghcr.io/psouzah12/ecotrack-api:sha-809da10@sha256:fd852f880c3c107104c2c6bfe395c531434e0abf15c2e04c05e364b44c7b8c89 1.3s done
-00:19:26 #33 pushing manifest for ghcr.io/psouzah12/ecotrack-api:1.1.0@sha256:fd852f880c3c107104c2c6bfe395c531434e0abf15c2e04c05e364b44c7b8c89 0.5s done
-00:19:27 #33 pushing layers 1.3s done
-00:19:27 #33 pushing manifest for ghcr.io/psouzah12/ecotrack-api:latest@sha256:fd852f880c3c107104c2c6bfe395c531434e0abf15c2e04c05e364b44c7b8c89
-00:19:28 #33 pushing manifest for ghcr.io/psouzah12/ecotrack-api:latest@sha256:fd852f880c3c107104c2c6bfe395c531434e0abf15c2e04c05e364b44c7b8c89 0.5s done
+$ GitHub Actions, run 38493315480, job "4. Imagem Docker (GHCR)" (trecho do log, horário UTC)
+01:02:29 > Run docker/build-push-action@v7
+01:02:31 #13 [linux/amd64 runtime 1/7] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:51ab5e3302e7141ce665ca3ea85e8b5cd648eafbc3c0c90dd79d6537684e4555
+01:02:31 #14 [linux/arm64 runtime 1/7] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:51ab5e3302e7141ce665ca3ea85e8b5cd648eafbc3c0c90dd79d6537684e4555
+01:02:31 #15 [linux/amd64 build 1/6] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+01:02:31 #16 [linux/amd64 build 2/6] WORKDIR /workspace
+01:02:31 #17 [linux/amd64 build 3/6] COPY pom.xml .
+01:02:31 #18 [linux/amd64 build 4/6] RUN mvn -B -ntp dependency:go-offline
+01:02:43 #19 [linux/amd64 build 5/6] COPY src ./src
+01:02:48 #20 [linux/amd64 build 6/6] RUN mvn -B -ntp package -DskipTests  && java -Djarmode=tools -jar target/ecotrack-api.jar extract --layers --launcher --destination target/extracted
+01:03:04 #21 [linux/arm64 runtime 4/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
+01:03:04 #22 [linux/arm64 runtime 2/7] RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack  && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
+01:03:04 #23 [linux/arm64 runtime 5/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
+01:03:04 #24 [linux/arm64 runtime 3/7] WORKDIR /app
+01:03:04 #25 [linux/amd64 runtime 2/7] RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack  && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
+01:03:04 #26 [linux/amd64 runtime 4/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
+01:03:04 #27 [linux/amd64 runtime 3/7] WORKDIR /app
+01:03:04 #28 [linux/amd64 runtime 5/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
+01:03:04 #29 [linux/arm64 runtime 6/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
+01:03:04 #30 [linux/amd64 runtime 6/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
+01:03:09 #31 [linux/arm64 runtime 7/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/application/ ./
+01:03:11 #32 [linux/amd64 runtime 7/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/application/ ./
+01:03:12 #34 exporting manifest list sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072 done
+01:03:13 #34 pushing layers 1.5s done
+01:03:13 #34 pushing manifest for ghcr.io/psouzah12/ecotrack-api:sha-92e76ea@sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072
+01:03:14 #34 pushing manifest for ghcr.io/psouzah12/ecotrack-api:sha-92e76ea@sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072 1.2s done
+01:03:14 #34 pushing layers 0.3s done
+01:03:14 #34 pushing manifest for ghcr.io/psouzah12/ecotrack-api:1.1.0@sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072
+01:03:15 #34 pushing manifest for ghcr.io/psouzah12/ecotrack-api:1.1.0@sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072 0.6s done
+01:03:15 #34 pushing layers 0.2s done
+01:03:15 #34 pushing manifest for ghcr.io/psouzah12/ecotrack-api:latest@sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072
+01:03:16 #34 pushing manifest for ghcr.io/psouzah12/ecotrack-api:latest@sha256:e46b2f1382f61fe95855e6a511de8a333296580efdf761be55d0f37cf7da6072 0.6s done

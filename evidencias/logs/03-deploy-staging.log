@@ -1,28 +1,31 @@
-$ scripts/deploy.sh staging ghcr.io/psouzah12/ecotrack-api:sha-809da10
+$ scripts/deploy.sh staging ghcr.io/psouzah12/ecotrack-api:sha-92e76ea
 ==> Deploy em staging
     projeto: ecotrack-staging | porta: 8081 | profile: staging
-    imagem:  ghcr.io/psouzah12/ecotrack-api:sha-809da10
+    imagem:  ghcr.io/psouzah12/ecotrack-api:sha-92e76ea
     imagem em execução antes do deploy: ghcr.io/psouzah12/ecotrack-api:sha-809da10
  Container ecotrack-staging-oracle-1 Running 
- Container ecotrack-staging-app-1 Running 
+ Container ecotrack-staging-app-1 Recreate 
+ Container ecotrack-staging-app-1 Recreated 
  Container ecotrack-staging-oracle-1 Waiting 
  Container ecotrack-staging-oracle-1 Healthy 
- Container ecotrack-staging-app-1 Waiting 
+ Container ecotrack-staging-app-1 Starting 
+ Container ecotrack-staging-app-1 Started 
  Container ecotrack-staging-oracle-1 Waiting 
+ Container ecotrack-staging-app-1 Waiting 
  Container ecotrack-staging-oracle-1 Healthy 
  Container ecotrack-staging-app-1 Healthy 
 ==> staging no ar: http://localhost:8081
-NAME                        IMAGE                                        COMMAND                  SERVICE   CREATED              STATUS                        PORTS
-ecotrack-staging-app-1      ghcr.io/psouzah12/ecotrack-api:sha-809da10   "java org.springfram…"   app       About a minute ago   Up About a minute (healthy)   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
-ecotrack-staging-oracle-1   gvenzl/oracle-free:23-slim                   "container-entrypoin…"   oracle    About an hour ago    Up About an hour (healthy)    
+NAME                        IMAGE                                        COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+ecotrack-staging-app-1      ghcr.io/psouzah12/ecotrack-api:sha-92e76ea   "java org.springfram…"   app       11 seconds ago   Up 10 seconds (healthy)   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+ecotrack-staging-oracle-1   gvenzl/oracle-free:23-slim                   "container-entrypoin…"   oracle    2 hours ago      Up 2 hours (healthy)      
 
 $ scripts/smoke-test.sh http://localhost:8081 staging
 ==> Smoke test em http://localhost:8081 (staging)
   [OK]    Health da API e do banco Oracle (UP)
-  [OK]    Ambiente correto (staging, versão 1.1.0, commit 809da10)
+  [OK]    Ambiente correto (staging, versão 1.1.0, commit 92e76ea)
   [OK]    GET /api/empresas (público) (HTTP 200)
   [OK]    GET /api/relatorios/resumo (HTTP 200)
   [OK]    POST sem login é bloqueado (HTTP 401)
   [OK]    POST /api/empresas com admin (grava no Oracle) (HTTP 201)
-  [OK]    DELETE /api/empresas/23 (limpa o teste) (HTTP 204)
+  [OK]    DELETE /api/empresas/41 (limpa o teste) (HTTP 204)
 ==> Smoke test OK

@@ -1,8 +1,8 @@
-$ GitHub Actions · run 38489083683 · job "1 · Build" (trecho do log, horário UTC)
-00:15:16 ▶ Run mvn -B -ntp package -DskipTests
-00:15:25 [INFO] Building EcoTrack API 1.1.0
-00:15:51 [INFO] --- spring-boot:3.3.5:repackage (repackage) @ ecotrack-api ---
-00:15:51 [INFO] BUILD SUCCESS
-00:15:51 [INFO] Total time:  29.998 s
-00:15:54 Artifact ecotrack-api-jar has been successfully uploaded! Final size is 57434002 bytes. Artifact ID is 11860463938
-00:15:54 Artifact download URL: https://github.com/psouzah12/ecotrack-devops/actions/runs/38489083683/artifacts/11860463938
+$ GitHub Actions, run 38493315480, job "1. Build" (trecho do log, horário UTC)
+01:00:25 > Run mvn -B -ntp package -DskipTests
+01:00:27 [INFO] Building EcoTrack API 1.1.0
+01:00:40 [INFO] --- spring-boot:3.3.5:repackage (repackage) @ ecotrack-api ---
+01:00:40 [INFO] BUILD SUCCESS
+01:00:40 [INFO] Total time:  13.442 s
+01:00:42 Artifact ecotrack-api-jar has been successfully uploaded! Final size is 57584338 bytes. Artifact ID is 11862896878
+01:00:42 Artifact download URL: https://github.com/psouzah12/ecotrack-devops/actions/runs/38493315480/artifacts/11862896878

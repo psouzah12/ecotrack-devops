@@ -1,5 +1,4 @@
-$ docker build -t ecotrack-api:local --build-arg APP_VERSION=1.1.0 --build-arg GIT_COMMIT=809da10084a5135c6ebf9403a0cc1571faf5e30e .
-#1 [internal] load build definition from Dockerfile
+$ docker build -t ecotrack-api:local --build-arg APP_VERSION=1.1.0 --build-arg GIT_COMMIT=92e76ea5ffda0f5a00542f2721d994720389ec69 .
 #1 [internal] load build definition from Dockerfile
 #3 CACHED
 #4 [internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
@@ -9,33 +8,31 @@ $ docker build -t ecotrack-api:local --build-arg APP_VERSION=1.1.0 --build-arg G
 #7 [build 1/6] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
 #8 [runtime 1/7] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:51ab5e3302e7141ce665ca3ea85e8b5cd648eafbc3c0c90dd79d6537684e4555
 #9 [internal] load build context
-#10 [build 4/6] RUN mvn -B -ntp dependency:go-offline
+#10 [build 2/6] WORKDIR /workspace
 #10 CACHED
-#11 [runtime 4/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
+#11 [build 3/6] COPY pom.xml .
 #11 CACHED
-#12 [build 6/6] RUN mvn -B -ntp package -DskipTests  && java -Djarmode=tools -jar target/ecotrack-api.jar extract --layers --launcher --destination target/extracted
+#12 [build 4/6] RUN mvn -B -ntp dependency:go-offline
 #12 CACHED
-#13 [runtime 6/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
-#13 CACHED
-#14 [runtime 5/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
-#14 CACHED
-#15 [runtime 3/7] WORKDIR /app
+#13 [build 5/6] COPY src ./src
+#14 [build 6/6] RUN mvn -B -ntp package -DskipTests  && java -Djarmode=tools -jar target/ecotrack-api.jar extract --layers --launcher --destination target/extracted
+#14 DONE 11.4s
+#15 [runtime 4/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/dependencies/ ./
 #15 CACHED
-#16 [build 2/6] WORKDIR /workspace
+#16 [runtime 5/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/spring-boot-loader/ ./
 #16 CACHED
-#17 [build 3/6] COPY pom.xml .
+#17 [runtime 2/7] RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack  && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
 #17 CACHED
-#18 [runtime 2/7] RUN addgroup -S ecotrack && adduser -S -G ecotrack -u 1001 ecotrack  && mkdir -p /app/logs && chown -R ecotrack:ecotrack /app
+#18 [runtime 3/7] WORKDIR /app
 #18 CACHED
-#19 [build 5/6] COPY src ./src
+#19 [runtime 6/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/snapshot-dependencies/ ./
 #19 CACHED
 #20 [runtime 7/7] COPY --from=build --chown=ecotrack:ecotrack /workspace/target/extracted/application/ ./
-#20 CACHED
 #21 naming to docker.io/library/ecotrack-api:local done
 
 $ docker image ls ecotrack-api
 REPOSITORY     TAG       IMAGE ID       SIZE
-ecotrack-api   local     ffb071668c6f   408MB
+ecotrack-api   local     b93c1af6554f   408MB
 
 $ docker image inspect ecotrack-api:local
 Arquitetura: linux/arm64
@@ -44,7 +41,7 @@ Entrypoint:  ["java","org.springframework.boot.loader.launch.JarLauncher"]
 Healthcheck: ["CMD-SHELL","wget -q -O /dev/null http://127.0.0.1:8080/actuator/health/readiness || exit 1"]
 Porta:       {"8080/tcp":{}}
 Versao:      1.1.0
-Commit:      809da10084a5135c6ebf9403a0cc1571faf5e30e
+Commit:      92e76ea5ffda0f5a00542f2721d994720389ec69
 
 $ docker history ecotrack-api:local  (camadas)
 SIZE      CREATED BY
@@ -52,12 +49,12 @@ SIZE      CREATED BY
 0B        HEALTHCHECK {Test:[CMD-SHELL wget -q -O /dev…
 0B        EXPOSE [8080/tcp]
 0B        USER ecotrack
-0B        ENV APP_COMMIT=809da10084a5135c6ebf9403a0cc1…
+0B        ENV APP_COMMIT=92e76ea5ffda0f5a00542f2721d99…
 0B        LABEL org.opencontainers.image.title=EcoTrac…
-0B        ARG BUILD_DATE=2026-10-14T00:33:50Z
-0B        ARG GIT_COMMIT=809da10084a5135c6ebf9403a0cc1…
+0B        ARG BUILD_DATE=2026-10-14T01:12:49Z
+0B        ARG GIT_COMMIT=92e76ea5ffda0f5a00542f2721d99…
 0B        ARG APP_VERSION=1.1.0
-352kB     COPY --chown=ecotrack:ecotrack /workspace/ta…
+532kB     COPY --chown=ecotrack:ecotrack /workspace/ta…
 4.1kB     COPY --chown=ecotrack:ecotrack /workspace/ta…
 688kB     COPY --chown=ecotrack:ecotrack /workspace/ta…
 63.5MB    COPY --chown=ecotrack:ecotrack /workspace/ta…

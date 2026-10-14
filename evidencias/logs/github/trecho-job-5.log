@@ -1,23 +1,23 @@
-$ GitHub Actions · run 38489083683 · job "5 · Deploy staging" (trecho do log, horário UTC)
-00:20:48 ▶ Run bash scripts/deploy.sh staging "$ECOTRACK_IMAGE"
-00:20:48 ==> Deploy em staging
-00:20:48     projeto: ecotrack-staging | porta: 8081 | profile: staging
-00:20:48     imagem:  ghcr.io/psouzah12/ecotrack-api:sha-809da10
-00:21:15  Container ecotrack-staging-oracle-1  Created
-00:21:15  Container ecotrack-staging-app-1  Created
-00:21:15  Container ecotrack-staging-oracle-1  Started
-00:21:30  Container ecotrack-staging-oracle-1  Healthy
-00:21:30  Container ecotrack-staging-app-1  Started
-00:21:46  Container ecotrack-staging-app-1  Healthy
-00:21:46 ==> staging no ar: http://localhost:8081
-00:21:46 ▶ Run bash scripts/smoke-test.sh http://localhost:8081 staging
-00:21:46 ==> Smoke test em http://localhost:8081 (staging)
-00:21:46   [OK]    Health da API e do banco Oracle (UP)
-00:21:46   [OK]    Ambiente correto (staging, versão 1.1.0, commit 809da10)
-00:21:46   [OK]    GET /api/empresas (público) (HTTP 200)
-00:21:46   [OK]    GET /api/relatorios/resumo (HTTP 200)
-00:21:46   [OK]    POST sem login é bloqueado (HTTP 401)
-00:21:47   [OK]    POST /api/empresas com admin (grava no Oracle) (HTTP 201)
-00:21:47   [OK]    DELETE /api/empresas/4 (limpa o teste) (HTTP 204)
-00:21:47 ==> Smoke test OK
-00:21:47 ▶ Run bash scripts/ambiente.sh staging status
+$ GitHub Actions, run 38493315480, job "5. Deploy staging" (trecho do log, horário UTC)
+01:03:39 > Run bash scripts/deploy.sh staging "$ECOTRACK_IMAGE"
+01:03:39 ==> Deploy em staging
+01:03:39     projeto: ecotrack-staging | porta: 8081 | profile: staging
+01:03:39     imagem:  ghcr.io/psouzah12/ecotrack-api:sha-92e76ea
+01:03:58  Container ecotrack-staging-oracle-1  Created
+01:03:58  Container ecotrack-staging-app-1  Created
+01:03:58  Container ecotrack-staging-oracle-1  Started
+01:04:14  Container ecotrack-staging-oracle-1  Healthy
+01:04:14  Container ecotrack-staging-app-1  Started
+01:04:35  Container ecotrack-staging-app-1  Healthy
+01:04:35 ==> staging no ar: http://localhost:8081
+01:04:35 > Run bash scripts/smoke-test.sh http://localhost:8081 staging
+01:04:35 ==> Smoke test em http://localhost:8081 (staging)
+01:04:35   [OK]    Health da API e do banco Oracle (UP)
+01:04:35   [OK]    Ambiente correto (staging, versão 1.1.0, commit 92e76ea)
+01:04:35   [OK]    GET /api/empresas (público) (HTTP 200)
+01:04:36   [OK]    GET /api/relatorios/resumo (HTTP 200)
+01:04:36   [OK]    POST sem login é bloqueado (HTTP 401)
+01:04:36   [OK]    POST /api/empresas com admin (grava no Oracle) (HTTP 201)
+01:04:37   [OK]    DELETE /api/empresas/4 (limpa o teste) (HTTP 204)
+01:04:37 ==> Smoke test OK
+01:04:37 > Run bash scripts/ambiente.sh staging status

@@ -1,409 +1,413 @@
-﻿2026-10-14T00:15:14.8904507Z Current runner version: '2.337.0'
-2026-10-14T00:15:14.8929987Z ##[group]Runner Image Provisioner
-2026-10-14T00:15:14.8930795Z Hosted Compute Agent
-2026-10-14T00:15:14.8931479Z Version: 20261002.596
-2026-10-14T00:15:14.8932160Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
-2026-10-14T00:15:14.8932927Z Build Date: 2026-10-02T22:28:27Z
-2026-10-14T00:15:14.8933644Z Worker ID: {79ee15bf-94ae-4ffc-b887-d6f8e86ab9ec}
-2026-10-14T00:15:14.8934331Z Region: eastus2
-2026-10-14T00:15:14.8934932Z Cloud: Azure
-2026-10-14T00:15:14.8935676Z ##[endgroup]
-2026-10-14T00:15:14.8937579Z ##[group]Operating System
-2026-10-14T00:15:14.8938644Z Ubuntu
-2026-10-14T00:15:14.8939571Z 24.04.5
-2026-10-14T00:15:14.8940437Z LTS
-2026-10-14T00:15:14.8941283Z ##[endgroup]
-2026-10-14T00:15:14.8941951Z ##[group]Runner Image
-2026-10-14T00:15:14.8942592Z Image: ubuntu-24.04
-2026-10-14T00:15:14.8943141Z Version: 20261004.327.1
-2026-10-14T00:15:14.8944444Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
-2026-10-14T00:15:14.8946411Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
-2026-10-14T00:15:14.8947441Z ##[endgroup]
-2026-10-14T00:15:14.8948517Z ##[group]GITHUB_TOKEN Permissions
-2026-10-14T00:15:14.8950838Z Contents: read
-2026-10-14T00:15:14.8951438Z Metadata: read
-2026-10-14T00:15:14.8952103Z ##[endgroup]
-2026-10-14T00:15:14.8954110Z Secret source: Actions
-2026-10-14T00:15:14.8955350Z Cache mode: write
-2026-10-14T00:15:14.8956318Z Prepare workflow directory
-2026-10-14T00:15:14.9336904Z Prepare all required actions
-2026-10-14T00:15:14.9383755Z Getting action download info
-2026-10-14T00:15:15.1423543Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
-2026-10-14T00:15:15.2300433Z Download action repository 'actions/setup-java@v6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
-2026-10-14T00:15:15.5916461Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
-2026-10-14T00:15:15.9540486Z Complete job name: 1 · Build
-2026-10-14T00:15:16.0333292Z ##[group]Run actions/checkout@v7
-2026-10-14T00:15:16.0334272Z with:
-2026-10-14T00:15:16.0334808Z   repository: psouzah12/ecotrack-devops
-2026-10-14T00:15:16.0339265Z   token: ***
-2026-10-14T00:15:16.0339755Z   ssh-strict: true
-2026-10-14T00:15:16.0340254Z   ssh-user: git
-2026-10-14T00:15:16.0340757Z   persist-credentials: true
-2026-10-14T00:15:16.0341314Z   clean: true
-2026-10-14T00:15:16.0341816Z   sparse-checkout-cone-mode: true
-2026-10-14T00:15:16.0342396Z   fetch-depth: 1
-2026-10-14T00:15:16.0342886Z   fetch-tags: false
-2026-10-14T00:15:16.0343377Z   show-progress: true
-2026-10-14T00:15:16.0343872Z   lfs: false
-2026-10-14T00:15:16.0344331Z   submodules: false
-2026-10-14T00:15:16.0344834Z   set-safe-directory: true
-2026-10-14T00:15:16.0345565Z   allow-unsafe-pr-checkout: false
-2026-10-14T00:15:16.0346428Z env:
-2026-10-14T00:15:16.0346890Z   JAVA_VERSION: 21
-2026-10-14T00:15:16.0347383Z ##[endgroup]
-2026-10-14T00:15:16.1361090Z Syncing repository: psouzah12/ecotrack-devops
-2026-10-14T00:15:16.1363961Z ##[group]Getting Git version info
-2026-10-14T00:15:16.1365630Z Working directory is '/home/runner/work/ecotrack-devops/ecotrack-devops'
-2026-10-14T00:15:16.1367636Z [command]/usr/bin/git version
-2026-10-14T00:15:16.1437167Z git version 2.55.0
-2026-10-14T00:15:16.1461232Z ##[endgroup]
-2026-10-14T00:15:16.1473781Z Temporarily overriding HOME='/home/runner/work/_temp/efe263b7-8514-4a59-b18e-19a9c5465b42' before making global git config changes
-2026-10-14T00:15:16.1476418Z Adding repository directory to the temporary git global config as a safe directory
-2026-10-14T00:15:16.1480267Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecotrack-devops/ecotrack-devops
-2026-10-14T00:15:16.1529718Z Deleting the contents of '/home/runner/work/ecotrack-devops/ecotrack-devops'
-2026-10-14T00:15:16.1533061Z ##[group]Determining repository object format
-2026-10-14T00:15:16.1534783Z ##[endgroup]
-2026-10-14T00:15:16.1536759Z ##[group]Initializing the repository
-2026-10-14T00:15:16.1540155Z [command]/usr/bin/git init /home/runner/work/ecotrack-devops/ecotrack-devops
-2026-10-14T00:15:16.1649340Z hint: Using 'master' as the name for the initial branch. This default branch name
-2026-10-14T00:15:16.1651670Z hint: will change to "main" in Git 3.0. To configure the initial branch name
-2026-10-14T00:15:16.1653913Z hint: to use in all of your new repositories, which will suppress this warning,
-2026-10-14T00:15:16.1658112Z hint: call:
-2026-10-14T00:15:16.1658701Z hint:
-2026-10-14T00:15:16.1659288Z hint: 	git config --global init.defaultBranch <name>
-2026-10-14T00:15:16.1659952Z hint:
-2026-10-14T00:15:16.1660602Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-2026-10-14T00:15:16.1661807Z hint: 'development'. The just-created branch can be renamed via this command:
-2026-10-14T00:15:16.1662870Z hint:
-2026-10-14T00:15:16.1663403Z hint: 	git branch -m <name>
-2026-10-14T00:15:16.1663932Z hint:
-2026-10-14T00:15:16.1664650Z hint: Disable this message with "git config set advice.defaultBranchName false"
-2026-10-14T00:15:16.1667196Z Initialized empty Git repository in /home/runner/work/ecotrack-devops/ecotrack-devops/.git/
-2026-10-14T00:15:16.1672158Z [command]/usr/bin/git remote add origin https://github.com/psouzah12/ecotrack-devops
-2026-10-14T00:15:16.1720447Z ##[endgroup]
-2026-10-14T00:15:16.1721861Z ##[group]Disabling automatic garbage collection
-2026-10-14T00:15:16.1724031Z [command]/usr/bin/git config --local gc.auto 0
-2026-10-14T00:15:16.1766083Z ##[endgroup]
-2026-10-14T00:15:16.1768270Z ##[group]Setting up auth
-2026-10-14T00:15:16.1769535Z Removing SSH command configuration
-2026-10-14T00:15:16.1772288Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-10-14T00:15:16.1809617Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-10-14T00:15:16.2176419Z Removing HTTP extra header
-2026-10-14T00:15:16.2182542Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-10-14T00:15:16.2223027Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-10-14T00:15:16.2443510Z Removing includeIf entries pointing to credentials config files
-2026-10-14T00:15:16.2449642Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-10-14T00:15:16.2488011Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-10-14T00:15:16.2709859Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-10-14T00:15:16.2749837Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path /home/runner/work/_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:16.2784562Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:16.2821474Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:16.2857010Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:16.2889310Z ##[endgroup]
-2026-10-14T00:15:16.2890976Z ##[group]Fetching the repository
-2026-10-14T00:15:16.2897660Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +809da10084a5135c6ebf9403a0cc1571faf5e30e:refs/remotes/origin/main
-2026-10-14T00:15:16.5645432Z From https://github.com/psouzah12/ecotrack-devops
-2026-10-14T00:15:16.5646565Z  * [new ref]         809da10084a5135c6ebf9403a0cc1571faf5e30e -> origin/main
-2026-10-14T00:15:16.5655626Z [command]/usr/bin/git branch --list --remote origin/main
-2026-10-14T00:15:16.5685721Z   origin/main
-2026-10-14T00:15:16.5693867Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
-2026-10-14T00:15:16.5719432Z 809da10084a5135c6ebf9403a0cc1571faf5e30e
-2026-10-14T00:15:16.5724263Z ##[endgroup]
-2026-10-14T00:15:16.5725904Z ##[group]Determining the checkout info
-2026-10-14T00:15:16.5727523Z ##[endgroup]
-2026-10-14T00:15:16.5728951Z [command]/usr/bin/git sparse-checkout disable
-2026-10-14T00:15:16.5781519Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-10-14T00:15:16.5815380Z ##[group]Checking out the ref
-2026-10-14T00:15:16.5818946Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-10-14T00:15:16.6071214Z Switched to a new branch 'main'
-2026-10-14T00:15:16.6077541Z branch 'main' set up to track 'origin/main'.
-2026-10-14T00:15:16.6086041Z ##[endgroup]
-2026-10-14T00:15:16.6136500Z [command]/usr/bin/git log -1 --format=%H
-2026-10-14T00:15:16.6166060Z 809da10084a5135c6ebf9403a0cc1571faf5e30e
-2026-10-14T00:15:16.6619066Z ##[group]Run actions/setup-java@v6
-2026-10-14T00:15:16.6619650Z with:
-2026-10-14T00:15:16.6620072Z   distribution: temurin
-2026-10-14T00:15:16.6620540Z   java-version: 21
-2026-10-14T00:15:16.6620968Z   cache: maven
-2026-10-14T00:15:16.6621390Z   java-package: jdk
-2026-10-14T00:15:16.6621830Z   check-latest: false
-2026-10-14T00:15:16.6622287Z   force-download: false
-2026-10-14T00:15:16.6622744Z   set-default: true
-2026-10-14T00:15:16.6623173Z   server-id: github
-2026-10-14T00:15:16.6623663Z   mvn-repositories-include-central: true
-2026-10-14T00:15:16.6624274Z   mvn-repositories-prioritize-central: true
-2026-10-14T00:15:16.6624872Z   overwrite-settings: true
-2026-10-14T00:15:16.6625546Z   cache-read-only: false
-2026-10-14T00:15:16.6626003Z   job-status: success
-2026-10-14T00:15:16.6629686Z   token: ***
-2026-10-14T00:15:16.6630135Z   show-download-progress: false
-2026-10-14T00:15:16.6630662Z   problem-matcher: true
-2026-10-14T00:15:16.6631111Z env:
-2026-10-14T00:15:16.6631531Z   JAVA_VERSION: 21
-2026-10-14T00:15:16.6631967Z ##[endgroup]
-2026-10-14T00:15:16.7332825Z ##[group]Installed distributions
-2026-10-14T00:15:16.7954577Z Resolved Java 21.0.12+1 from tool-cache
-2026-10-14T00:15:16.7955837Z Setting Java 21.0.12+1 as the default
-2026-10-14T00:15:16.7963304Z 
-2026-10-14T00:15:16.7963809Z Java configuration:
-2026-10-14T00:15:16.7964592Z   Distribution: temurin
-2026-10-14T00:15:16.7965592Z   Version: 21.0.12+1
-2026-10-14T00:15:16.7966592Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
-2026-10-14T00:15:16.7967458Z 
-2026-10-14T00:15:16.8007927Z ##[endgroup]
-2026-10-14T00:15:16.8069381Z Creating settings.xml with server-id: github
-2026-10-14T00:15:16.8073537Z Creating toolchains.xml for JDK version 21 from temurin
-2026-10-14T00:15:16.8088432Z Writing to /home/runner/.m2/settings.xml
-2026-10-14T00:15:16.8093745Z Writing to /home/runner/.m2/toolchains.xml
-2026-10-14T00:15:16.8103143Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
-2026-10-14T00:15:16.9440903Z maven cache is not found
-2026-10-14T00:15:16.9593448Z ##[group]Run mvn -B -ntp package -DskipTests
-2026-10-14T00:15:16.9594207Z mvn -B -ntp package -DskipTests
-2026-10-14T00:15:16.9873962Z shell: /usr/bin/bash -e {0}
-2026-10-14T00:15:16.9874497Z env:
-2026-10-14T00:15:16.9874897Z   JAVA_VERSION: 21
-2026-10-14T00:15:16.9875863Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
-2026-10-14T00:15:16.9876781Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
-2026-10-14T00:15:16.9877767Z   MAVEN_ARGS: -ntp
-2026-10-14T00:15:16.9878197Z ##[endgroup]
-2026-10-14T00:15:21.4884412Z [INFO] Scanning for projects...
-2026-10-14T00:15:23.4542904Z [INFO] Loaded 24077 auto-discovered prefixes for remote repository central (prefixes-central.txt)
-2026-10-14T00:15:25.8858529Z [INFO] 
-2026-10-14T00:15:25.8863391Z [INFO] ----------------------< br.com.fiap:ecotrack-api >----------------------
-2026-10-14T00:15:25.8864527Z [INFO] Building EcoTrack API 1.1.0
-2026-10-14T00:15:25.8865602Z [INFO]   from pom.xml
-2026-10-14T00:15:25.8866392Z [INFO] --------------------------------[ jar ]---------------------------------
-2026-10-14T00:15:26.5396719Z [INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
-2026-10-14T00:15:27.9138104Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to spring-release (https://repo.spring.io/release): HTTP Status: 401
-2026-10-14T00:15:28.2545470Z [INFO] Loaded 24077 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
-2026-10-14T00:15:28.5517965Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-repo (https://nexus.flywaydb.org/repository/flyway/): nexus.flywaydb.org: Name or service not known
-2026-10-14T00:15:28.6118292Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
-2026-10-14T00:15:32.2004689Z [INFO] 
-2026-10-14T00:15:32.2056275Z [INFO] --- jacoco:0.8.15:prepare-agent (prepare-agent) @ ecotrack-api ---
-2026-10-14T00:15:32.8166533Z [INFO] argLine set to -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec,excludes=br/com/fiap/ecotrack/EcotrackApiApplication.class
-2026-10-14T00:15:32.8169003Z [INFO] 
-2026-10-14T00:15:32.8176298Z [INFO] --- spring-boot:3.3.5:build-info (default) @ ecotrack-api ---
-2026-10-14T00:15:33.7137576Z [INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
-2026-10-14T00:15:34.1762146Z [INFO] 
-2026-10-14T00:15:34.1763181Z [INFO] --- resources:3.3.1:resources (default-resources) @ ecotrack-api ---
-2026-10-14T00:15:34.4776186Z [INFO] Copying 3 resources from src/main/resources to target/classes
-2026-10-14T00:15:34.4953376Z [INFO] Copying 4 resources from src/main/resources to target/classes
-2026-10-14T00:15:34.4975882Z [INFO] 
-2026-10-14T00:15:34.4976613Z [INFO] --- compiler:3.13.0:compile (default-compile) @ ecotrack-api ---
-2026-10-14T00:15:34.9972898Z [INFO] Recompiling the module because of changed source code.
-2026-10-14T00:15:35.0036483Z [INFO] Compiling 34 source files with javac [debug parameters release 21] to target/classes
-2026-10-14T00:15:36.7666266Z [INFO] 
-2026-10-14T00:15:36.7667188Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ ecotrack-api ---
-2026-10-14T00:15:36.7726221Z [INFO] skip non existing resourceDirectory /home/runner/work/ecotrack-devops/ecotrack-devops/src/test/resources
-2026-10-14T00:15:36.7755884Z [INFO] 
-2026-10-14T00:15:36.7815925Z [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ ecotrack-api ---
-2026-10-14T00:15:36.7816995Z [INFO] Recompiling the module because of changed dependency.
-2026-10-14T00:15:36.7862681Z [INFO] Compiling 11 source files with javac [debug parameters release 21] to target/test-classes
-2026-10-14T00:15:37.6824007Z [INFO] 
-2026-10-14T00:15:37.6837137Z [INFO] --- surefire:3.2.5:test (default-test) @ ecotrack-api ---
-2026-10-14T00:15:38.5356713Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-2026-10-14T00:15:38.9043404Z [INFO] 
-2026-10-14T00:15:38.9043811Z [INFO] -------------------------------------------------------
-2026-10-14T00:15:38.9044243Z [INFO]  T E S T S
-2026-10-14T00:15:38.9044594Z [INFO] -------------------------------------------------------
-2026-10-14T00:15:40.2032053Z [INFO] Running br.com.fiap.ecotrack.EcotrackApiApplicationTests
-2026-10-14T00:15:40.3186945Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.058 s -- in br.com.fiap.ecotrack.EcotrackApiApplicationTests
-2026-10-14T00:15:40.3216125Z [INFO] Running br.com.fiap.ecotrack.service.IndicadorServiceTest
-2026-10-14T00:15:40.7416992Z WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
-2026-10-14T00:15:40.7430094Z WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
-2026-10-14T00:15:40.7431167Z WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
-2026-10-14T00:15:40.7431979Z WARNING: Dynamic loading of agents will be disallowed by default in a future release
-2026-10-14T00:15:40.7459406Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2026-10-14T00:15:42.7966946Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.493 s -- in br.com.fiap.ecotrack.service.IndicadorServiceTest
-2026-10-14T00:15:42.7986348Z [INFO] Running br.com.fiap.ecotrack.service.AcaoServiceTest
-2026-10-14T00:15:42.9598095Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 s -- in br.com.fiap.ecotrack.service.AcaoServiceTest
-2026-10-14T00:15:42.9600838Z [INFO] Running br.com.fiap.ecotrack.service.EmpresaServiceTest
-2026-10-14T00:15:43.1106835Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.148 s -- in br.com.fiap.ecotrack.service.EmpresaServiceTest
-2026-10-14T00:15:43.1108490Z [INFO] Running br.com.fiap.ecotrack.service.RelatorioServiceTest
-2026-10-14T00:15:43.3954380Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.283 s -- in br.com.fiap.ecotrack.service.RelatorioServiceTest
-2026-10-14T00:15:43.4026231Z [INFO] Running br.com.fiap.ecotrack.controller.EmpresaControllerTest
-2026-10-14T00:15:43.7438469Z 00:15:43.663 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.EmpresaControllerTest]: EmpresaControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-14T00:15:44.0427234Z 00:15:43.961 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.EmpresaControllerTest
-2026-10-14T00:15:44.5445652Z 
-2026-10-14T00:15:44.5455888Z   .   ____          _            __ _ _
-2026-10-14T00:15:44.5458974Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2026-10-14T00:15:44.5459826Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2026-10-14T00:15:44.5460704Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2026-10-14T00:15:44.5461407Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2026-10-14T00:15:44.5462100Z  =========|_|==============|___/=/_/_/_/
-2026-10-14T00:15:44.5462639Z 
-2026-10-14T00:15:44.5463197Z  :: Spring Boot ::                (v3.3.5)
-2026-10-14T00:15:44.5463739Z 
-2026-10-14T00:15:44.7445854Z 2026-10-14T00:15:44.677Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.EmpresaControllerTest          : Starting EmpresaControllerTest using Java 21.0.12.1 with PID 2445 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
-2026-10-14T00:15:44.7479661Z 2026-10-14T00:15:44.679Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.EmpresaControllerTest          : No active profile set, falling back to 1 default profile: "default"
-2026-10-14T00:15:46.1508339Z 2026-10-14T00:15:46.112Z  INFO 2445 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-10-14T00:15:46.2517559Z 2026-10-14T00:15:46.235Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-10-14T00:15:46.9107167Z 2026-10-14T00:15:46.866Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-10-14T00:15:46.9116535Z 2026-10-14T00:15:46.867Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-10-14T00:15:46.9146662Z 2026-10-14T00:15:46.868Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2026-10-14T00:15:46.9176303Z 2026-10-14T00:15:46.897Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.EmpresaControllerTest          : Started EmpresaControllerTest in 2.831 seconds (process running for 7.944)
-2026-10-14T00:15:47.9862123Z [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.575 s -- in br.com.fiap.ecotrack.controller.EmpresaControllerTest
-2026-10-14T00:15:47.9864121Z [INFO] Running br.com.fiap.ecotrack.controller.AcaoControllerTest
-2026-10-14T00:15:48.1598201Z 2026-10-14T00:15:47.980Z  INFO 2445 --- [ecotrack-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.AcaoControllerTest]: AcaoControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-14T00:15:48.1617547Z 2026-10-14T00:15:47.992Z  INFO 2445 --- [ecotrack-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.AcaoControllerTest
-2026-10-14T00:15:48.1619430Z 
-2026-10-14T00:15:48.1645617Z   .   ____          _            __ _ _
-2026-10-14T00:15:48.1646138Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2026-10-14T00:15:48.1646624Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2026-10-14T00:15:48.1647138Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2026-10-14T00:15:48.1647621Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2026-10-14T00:15:48.1648103Z  =========|_|==============|___/=/_/_/_/
-2026-10-14T00:15:48.1648429Z 
-2026-10-14T00:15:48.1648728Z  :: Spring Boot ::                (v3.3.5)
-2026-10-14T00:15:48.1649061Z 
-2026-10-14T00:15:48.1650476Z 2026-10-14T00:15:48.024Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.controller.AcaoControllerTest    : Starting AcaoControllerTest using Java 21.0.12.1 with PID 2445 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
-2026-10-14T00:15:48.1653048Z 2026-10-14T00:15:48.025Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.controller.AcaoControllerTest    : No active profile set, falling back to 1 default profile: "default"
-2026-10-14T00:15:48.4610742Z 2026-10-14T00:15:48.409Z  INFO 2445 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-10-14T00:15:48.4636605Z 2026-10-14T00:15:48.415Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-10-14T00:15:48.5173535Z 2026-10-14T00:15:48.505Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-10-14T00:15:48.5193211Z 2026-10-14T00:15:48.505Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-10-14T00:15:48.5194789Z 2026-10-14T00:15:48.506Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2026-10-14T00:15:48.5196943Z 2026-10-14T00:15:48.513Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.controller.AcaoControllerTest    : Started AcaoControllerTest in 0.519 seconds (process running for 9.559)
-2026-10-14T00:15:48.8206903Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.825 s -- in br.com.fiap.ecotrack.controller.AcaoControllerTest
-2026-10-14T00:15:48.8235927Z [INFO] Running br.com.fiap.ecotrack.controller.IndicadorControllerTest
-2026-10-14T00:15:48.9678506Z 2026-10-14T00:15:48.806Z  INFO 2445 --- [ecotrack-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.IndicadorControllerTest]: IndicadorControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-14T00:15:48.9708786Z 2026-10-14T00:15:48.818Z  INFO 2445 --- [ecotrack-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.IndicadorControllerTest
-2026-10-14T00:15:48.9725414Z 
-2026-10-14T00:15:48.9725628Z   .   ____          _            __ _ _
-2026-10-14T00:15:48.9726193Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2026-10-14T00:15:48.9762528Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2026-10-14T00:15:48.9788189Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2026-10-14T00:15:48.9799284Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2026-10-14T00:15:48.9845539Z  =========|_|==============|___/=/_/_/_/
-2026-10-14T00:15:48.9845941Z 
-2026-10-14T00:15:48.9875734Z  :: Spring Boot ::                (v3.3.5)
-2026-10-14T00:15:48.9885923Z 
-2026-10-14T00:15:48.9887041Z 2026-10-14T00:15:48.845Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.IndicadorControllerTest        : Starting IndicadorControllerTest using Java 21.0.12.1 with PID 2445 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
-2026-10-14T00:15:48.9888469Z 2026-10-14T00:15:48.845Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.IndicadorControllerTest        : No active profile set, falling back to 1 default profile: "default"
-2026-10-14T00:15:49.2630937Z 2026-10-14T00:15:49.196Z  INFO 2445 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-10-14T00:15:49.2686383Z 2026-10-14T00:15:49.201Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-10-14T00:15:49.2846623Z 2026-10-14T00:15:49.274Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-10-14T00:15:49.2876321Z 2026-10-14T00:15:49.274Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-10-14T00:15:49.2896525Z 2026-10-14T00:15:49.275Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2026-10-14T00:15:49.2924366Z 2026-10-14T00:15:49.281Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.IndicadorControllerTest        : Started IndicadorControllerTest in 0.46 seconds (process running for 10.327)
-2026-10-14T00:15:49.6508516Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.836 s -- in br.com.fiap.ecotrack.controller.IndicadorControllerTest
-2026-10-14T00:15:49.6536126Z [INFO] Running br.com.fiap.ecotrack.controller.RelatorioControllerTest
-2026-10-14T00:15:49.6637150Z 2026-10-14T00:15:49.644Z  INFO 2445 --- [ecotrack-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.RelatorioControllerTest]: RelatorioControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-14T00:15:49.6667316Z 2026-10-14T00:15:49.654Z  INFO 2445 --- [ecotrack-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.RelatorioControllerTest
-2026-10-14T00:15:49.7638598Z 
-2026-10-14T00:15:49.7665978Z   .   ____          _            __ _ _
-2026-10-14T00:15:49.7695829Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-2026-10-14T00:15:49.7726352Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-2026-10-14T00:15:49.7756646Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-2026-10-14T00:15:49.7793806Z   '  |____| .__|_| |_|_| |_\__, | / / / /
-2026-10-14T00:15:49.7806188Z  =========|_|==============|___/=/_/_/_/
-2026-10-14T00:15:49.7815447Z 
-2026-10-14T00:15:49.7837011Z  :: Spring Boot ::                (v3.3.5)
-2026-10-14T00:15:49.7864599Z 
-2026-10-14T00:15:49.7873818Z 2026-10-14T00:15:49.676Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.RelatorioControllerTest        : Starting RelatorioControllerTest using Java 21.0.12.1 with PID 2445 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
-2026-10-14T00:15:49.7876817Z 2026-10-14T00:15:49.676Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.RelatorioControllerTest        : No active profile set, falling back to 1 default profile: "default"
-2026-10-14T00:15:50.0617615Z 2026-10-14T00:15:49.984Z  INFO 2445 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2026-10-14T00:15:50.0636475Z 2026-10-14T00:15:49.987Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-10-14T00:15:50.0638664Z 2026-10-14T00:15:50.051Z  INFO 2445 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-10-14T00:15:50.0640540Z 2026-10-14T00:15:50.051Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-10-14T00:15:50.0642263Z 2026-10-14T00:15:50.052Z  INFO 2445 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2026-10-14T00:15:50.0644324Z 2026-10-14T00:15:50.057Z  INFO 2445 --- [ecotrack-api] [           main] b.c.f.e.c.RelatorioControllerTest        : Started RelatorioControllerTest in 0.401 seconds (process running for 11.103)
-2026-10-14T00:15:50.1136782Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.460 s -- in br.com.fiap.ecotrack.controller.RelatorioControllerTest
-2026-10-14T00:15:50.1764461Z [INFO] 
-2026-10-14T00:15:50.1764878Z [INFO] Results:
-2026-10-14T00:15:50.1765453Z [INFO] 
-2026-10-14T00:15:50.1765942Z [INFO] Tests run: 49, Failures: 0, Errors: 0, Skipped: 0
-2026-10-14T00:15:50.1766511Z [INFO] 
-2026-10-14T00:15:50.1788537Z [INFO] 
-2026-10-14T00:15:50.1789517Z [INFO] --- jacoco:0.8.15:report (report) @ ecotrack-api ---
-2026-10-14T00:15:50.1841375Z [INFO] Loading execution data file /home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec
-2026-10-14T00:15:50.2826350Z [INFO] Analyzed bundle 'EcoTrack API' with 30 classes
-2026-10-14T00:15:50.4200502Z [INFO] 
-2026-10-14T00:15:50.4216432Z [INFO] --- jacoco:0.8.15:check (check) @ ecotrack-api ---
-2026-10-14T00:15:50.4246233Z [INFO] Loading execution data file /home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec
-2026-10-14T00:15:50.4514467Z [INFO] Analyzed bundle 'ecotrack-api' with 30 classes
-2026-10-14T00:15:50.4515676Z [INFO] All coverage checks have been met.
-2026-10-14T00:15:50.4516747Z [INFO] 
-2026-10-14T00:15:50.4517445Z [INFO] --- jar:3.4.2:jar (default-jar) @ ecotrack-api ---
-2026-10-14T00:15:51.1243147Z [INFO] Building jar: /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar
-2026-10-14T00:15:51.1706100Z [INFO] 
-2026-10-14T00:15:51.1726104Z [INFO] --- spring-boot:3.3.5:repackage (repackage) @ ecotrack-api ---
-2026-10-14T00:15:51.4128889Z [INFO] Replacing main artifact /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
-2026-10-14T00:15:51.4131094Z [INFO] The original artifact has been renamed to /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar.original
-2026-10-14T00:15:51.4138083Z [INFO] ------------------------------------------------------------------------
-2026-10-14T00:15:51.4139166Z [INFO] BUILD SUCCESS
-2026-10-14T00:15:51.4139930Z [INFO] ------------------------------------------------------------------------
-2026-10-14T00:15:51.4140938Z [INFO] Total time:  29.998 s
-2026-10-14T00:15:51.4142234Z [INFO] Finished at: 2026-10-14T00:15:51Z
-2026-10-14T00:15:51.4144196Z [INFO] ------------------------------------------------------------------------
-2026-10-14T00:15:51.4581746Z ##[group]Run actions/upload-artifact@v7
-2026-10-14T00:15:51.4582040Z with:
-2026-10-14T00:15:51.4582241Z   name: ecotrack-api-jar
-2026-10-14T00:15:51.4582487Z   path: target/ecotrack-api.jar
-2026-10-14T00:15:51.4582726Z   retention-days: 7
-2026-10-14T00:15:51.4582938Z   if-no-files-found: warn
-2026-10-14T00:15:51.4583177Z   compression-level: 6
-2026-10-14T00:15:51.4583385Z   overwrite: false
-2026-10-14T00:15:51.4583597Z   include-hidden-files: false
-2026-10-14T00:15:51.4583830Z   archive: true
-2026-10-14T00:15:51.4584020Z env:
-2026-10-14T00:15:51.4584195Z   JAVA_VERSION: 21
-2026-10-14T00:15:51.4584500Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
-2026-10-14T00:15:51.4585325Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
-2026-10-14T00:15:51.4585745Z   MAVEN_ARGS: -ntp
-2026-10-14T00:15:51.4585946Z ##[endgroup]
-2026-10-14T00:15:51.5974506Z With the provided path, there will be 1 file uploaded
-2026-10-14T00:15:51.5981403Z Artifact name is valid!
-2026-10-14T00:15:51.6016102Z Root directory input is valid!
-2026-10-14T00:15:51.8075893Z Uploading artifact: ecotrack-api-jar.zip
-2026-10-14T00:15:51.8136442Z Beginning upload of artifact content to blob storage
-2026-10-14T00:15:52.3435025Z Uploaded bytes 8388608
-2026-10-14T00:15:52.6176220Z Uploaded bytes 16777216
-2026-10-14T00:15:52.8864585Z Uploaded bytes 25165824
-2026-10-14T00:15:53.1672991Z Uploaded bytes 33554432
-2026-10-14T00:15:53.4456657Z Uploaded bytes 41943040
-2026-10-14T00:15:53.7132322Z Uploaded bytes 50331648
-2026-10-14T00:15:53.9281880Z Uploaded bytes 57434002
-2026-10-14T00:15:53.9440446Z Finished uploading artifact content to blob storage!
-2026-10-14T00:15:53.9444073Z SHA256 digest of uploaded artifact is 67d21e485bdc5d74f5e1e5f4536f762da4f417e8240e71eac71e9281fac5c321
-2026-10-14T00:15:53.9445940Z Finalizing artifact upload
-2026-10-14T00:15:54.1768716Z Artifact ecotrack-api-jar successfully finalized. Artifact ID 11860463938
-2026-10-14T00:15:54.1770018Z Artifact ecotrack-api-jar has been successfully uploaded! Final size is 57434002 bytes. Artifact ID is 11860463938
-2026-10-14T00:15:54.1776279Z Artifact download URL: https://github.com/psouzah12/ecotrack-devops/actions/runs/38489083683/artifacts/11860463938
-2026-10-14T00:15:54.2001695Z Post job cleanup.
-2026-10-14T00:15:54.3382686Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/ecotrack-devops/ecotrack-devops --files-from manifest.txt --use-compress-program zstdmt
-2026-10-14T00:15:55.7558933Z Sent 108436388 of 108436388 (100.0%), 107.5 MBs/sec
-2026-10-14T00:15:55.8781969Z Cache saved with the key: setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8
-2026-10-14T00:15:55.8939951Z Post job cleanup.
-2026-10-14T00:15:55.9759132Z [command]/usr/bin/git version
-2026-10-14T00:15:55.9813233Z git version 2.55.0
-2026-10-14T00:15:55.9854856Z Temporarily overriding HOME='/home/runner/work/_temp/9a53a971-178e-4a6e-89bb-8f5cf556e838' before making global git config changes
-2026-10-14T00:15:55.9856648Z Adding repository directory to the temporary git global config as a safe directory
-2026-10-14T00:15:55.9860897Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecotrack-devops/ecotrack-devops
-2026-10-14T00:15:55.9892678Z Removing SSH command configuration
-2026-10-14T00:15:55.9899543Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-10-14T00:15:55.9935756Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-10-14T00:15:56.0186105Z Removing HTTP extra header
-2026-10-14T00:15:56.0192151Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-10-14T00:15:56.0228244Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-10-14T00:15:56.0472642Z Removing includeIf entries pointing to credentials config files
-2026-10-14T00:15:56.0479952Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-10-14T00:15:56.0512361Z includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path
-2026-10-14T00:15:56.0514112Z includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path
-2026-10-14T00:15:56.0516028Z includeif.gitdir:/github/workspace/.git.path
-2026-10-14T00:15:56.0517166Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
-2026-10-14T00:15:56.0522901Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path
-2026-10-14T00:15:56.0549719Z /home/runner/work/_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:56.0559478Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-2f15a5f9\-9b97\-425b\-a160\-190cea65ce4c\.config
-2026-10-14T00:15:56.0600773Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path
-2026-10-14T00:15:56.0632125Z /home/runner/work/_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:56.0664093Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-2f15a5f9\-9b97\-425b\-a160\-190cea65ce4c\.config
-2026-10-14T00:15:56.0710494Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
-2026-10-14T00:15:56.0738597Z /github/runner_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:56.0745948Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-2f15a5f9\-9b97\-425b\-a160\-190cea65ce4c\.config
-2026-10-14T00:15:56.0783946Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
-2026-10-14T00:15:56.0812617Z /github/runner_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config
-2026-10-14T00:15:56.0820819Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-2f15a5f9\-9b97\-425b\-a160\-190cea65ce4c\.config
-2026-10-14T00:15:56.0860639Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-10-14T00:15:56.1101672Z Removing credentials config '/home/runner/work/_temp/git-credentials-2f15a5f9-9b97-425b-a160-190cea65ce4c.config'
-2026-10-14T00:15:56.1261425Z Cleaning up orphan processes
+﻿2026-10-14T01:00:20.9222861Z Current runner version: '2.337.0'
+2026-10-14T01:00:20.9242249Z ##[group]Runner Image Provisioner
+2026-10-14T01:00:20.9243085Z Hosted Compute Agent
+2026-10-14T01:00:20.9243538Z Version: 20261002.596
+2026-10-14T01:00:20.9244029Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-14T01:00:20.9244640Z Build Date: 2026-10-02T22:28:27Z
+2026-10-14T01:00:20.9245183Z Worker ID: {a0d3ecb8-dd34-454c-b5e6-06456dce56c9}
+2026-10-14T01:00:20.9245728Z Region: centralus
+2026-10-14T01:00:20.9246164Z Cloud: Azure
+2026-10-14T01:00:20.9246599Z ##[endgroup]
+2026-10-14T01:00:20.9248122Z ##[group]Operating System
+2026-10-14T01:00:20.9248611Z Ubuntu
+2026-10-14T01:00:20.9249057Z 24.04.5
+2026-10-14T01:00:20.9249471Z LTS
+2026-10-14T01:00:20.9249882Z ##[endgroup]
+2026-10-14T01:00:20.9250315Z ##[group]Runner Image
+2026-10-14T01:00:20.9250776Z Image: ubuntu-24.04
+2026-10-14T01:00:20.9251197Z Version: 20261004.327.1
+2026-10-14T01:00:20.9252234Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-14T01:00:20.9253481Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-14T01:00:20.9254222Z ##[endgroup]
+2026-10-14T01:00:20.9255465Z ##[group]GITHUB_TOKEN Permissions
+2026-10-14T01:00:20.9257622Z Contents: read
+2026-10-14T01:00:20.9258074Z Metadata: read
+2026-10-14T01:00:20.9258541Z ##[endgroup]
+2026-10-14T01:00:20.9260196Z Secret source: Actions
+2026-10-14T01:00:20.9260951Z Cache mode: write
+2026-10-14T01:00:20.9261483Z Prepare workflow directory
+2026-10-14T01:00:20.9548162Z Prepare all required actions
+2026-10-14T01:00:20.9585055Z Getting action download info
+2026-10-14T01:00:21.2007974Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-14T01:00:21.3181485Z Download action repository 'actions/setup-java@v6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+2026-10-14T01:00:22.1501801Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-14T01:00:22.8099223Z Complete job name: 1. Build
+2026-10-14T01:00:22.8677951Z ##[group]Run actions/checkout@v7
+2026-10-14T01:00:22.8679009Z with:
+2026-10-14T01:00:22.8679696Z   repository: psouzah12/ecotrack-devops
+2026-10-14T01:00:22.8685306Z   token: ***
+2026-10-14T01:00:22.8685945Z   ssh-strict: true
+2026-10-14T01:00:22.8686597Z   ssh-user: git
+2026-10-14T01:00:22.8687263Z   persist-credentials: true
+2026-10-14T01:00:22.8688216Z   clean: true
+2026-10-14T01:00:22.8688899Z   sparse-checkout-cone-mode: true
+2026-10-14T01:00:22.8689670Z   fetch-depth: 1
+2026-10-14T01:00:22.8690311Z   fetch-tags: false
+2026-10-14T01:00:22.8690982Z   show-progress: true
+2026-10-14T01:00:22.8691695Z   lfs: false
+2026-10-14T01:00:22.8692311Z   submodules: false
+2026-10-14T01:00:22.8692961Z   set-safe-directory: true
+2026-10-14T01:00:22.8693699Z   allow-unsafe-pr-checkout: false
+2026-10-14T01:00:22.8694732Z env:
+2026-10-14T01:00:22.8695495Z   JAVA_VERSION: 21
+2026-10-14T01:00:22.8696188Z ##[endgroup]
+2026-10-14T01:00:22.9471226Z Syncing repository: psouzah12/ecotrack-devops
+2026-10-14T01:00:22.9474340Z ##[group]Getting Git version info
+2026-10-14T01:00:22.9475767Z Working directory is '/home/runner/work/ecotrack-devops/ecotrack-devops'
+2026-10-14T01:00:22.9478381Z [command]/usr/bin/git version
+2026-10-14T01:00:22.9589526Z git version 2.55.0
+2026-10-14T01:00:22.9609409Z ##[endgroup]
+2026-10-14T01:00:22.9635245Z Temporarily overriding HOME='/home/runner/work/_temp/d3ae5b67-d16d-48f8-9782-9b59463e2f28' before making global git config changes
+2026-10-14T01:00:22.9638824Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-14T01:00:22.9652157Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecotrack-devops/ecotrack-devops
+2026-10-14T01:00:22.9710434Z Deleting the contents of '/home/runner/work/ecotrack-devops/ecotrack-devops'
+2026-10-14T01:00:22.9716726Z ##[group]Determining repository object format
+2026-10-14T01:00:22.9719375Z ##[endgroup]
+2026-10-14T01:00:22.9721575Z ##[group]Initializing the repository
+2026-10-14T01:00:22.9723930Z [command]/usr/bin/git init /home/runner/work/ecotrack-devops/ecotrack-devops
+2026-10-14T01:00:22.9837949Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-14T01:00:22.9840388Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-14T01:00:22.9842637Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-14T01:00:22.9844404Z hint: call:
+2026-10-14T01:00:22.9845559Z hint:
+2026-10-14T01:00:22.9846817Z hint: 	git config --global init.defaultBranch <name>
+2026-10-14T01:00:22.9848508Z hint:
+2026-10-14T01:00:22.9849857Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-14T01:00:22.9852441Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-14T01:00:22.9854268Z hint:
+2026-10-14T01:00:22.9855413Z hint: 	git branch -m <name>
+2026-10-14T01:00:22.9856674Z hint:
+2026-10-14T01:00:22.9858580Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-14T01:00:22.9861114Z Initialized empty Git repository in /home/runner/work/ecotrack-devops/ecotrack-devops/.git/
+2026-10-14T01:00:22.9865433Z [command]/usr/bin/git remote add origin https://github.com/psouzah12/ecotrack-devops
+2026-10-14T01:00:22.9937192Z ##[endgroup]
+2026-10-14T01:00:22.9939447Z ##[group]Disabling automatic garbage collection
+2026-10-14T01:00:22.9944128Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-14T01:00:22.9960956Z ##[endgroup]
+2026-10-14T01:00:22.9962658Z ##[group]Setting up auth
+2026-10-14T01:00:22.9963822Z Removing SSH command configuration
+2026-10-14T01:00:22.9965591Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-14T01:00:22.9990008Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-14T01:00:23.0273779Z Removing HTTP extra header
+2026-10-14T01:00:23.0278218Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-14T01:00:23.0299762Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-14T01:00:23.0439954Z Removing includeIf entries pointing to credentials config files
+2026-10-14T01:00:23.0443422Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-14T01:00:23.0465501Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-14T01:00:23.0616095Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-14T01:00:23.0642249Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path /home/runner/work/_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:23.0664823Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:23.0690151Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:23.0713966Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:23.0738531Z ##[endgroup]
+2026-10-14T01:00:23.0740296Z ##[group]Fetching the repository
+2026-10-14T01:00:23.0744620Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +92e76ea5ffda0f5a00542f2721d994720389ec69:refs/remotes/origin/main
+2026-10-14T01:00:23.9070227Z From https://github.com/psouzah12/ecotrack-devops
+2026-10-14T01:00:23.9071442Z  * [new ref]         92e76ea5ffda0f5a00542f2721d994720389ec69 -> origin/main
+2026-10-14T01:00:23.9076565Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-14T01:00:23.9098563Z   origin/main
+2026-10-14T01:00:23.9103978Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-14T01:00:23.9123607Z 92e76ea5ffda0f5a00542f2721d994720389ec69
+2026-10-14T01:00:23.9125137Z ##[endgroup]
+2026-10-14T01:00:23.9125750Z ##[group]Determining the checkout info
+2026-10-14T01:00:23.9128586Z ##[endgroup]
+2026-10-14T01:00:23.9129336Z [command]/usr/bin/git sparse-checkout disable
+2026-10-14T01:00:23.9172242Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-14T01:00:23.9196377Z ##[group]Checking out the ref
+2026-10-14T01:00:23.9199041Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-14T01:00:23.9849044Z Switched to a new branch 'main'
+2026-10-14T01:00:23.9850740Z branch 'main' set up to track 'origin/main'.
+2026-10-14T01:00:23.9859666Z ##[endgroup]
+2026-10-14T01:00:23.9896797Z [command]/usr/bin/git log -1 --format=%H
+2026-10-14T01:00:23.9915903Z 92e76ea5ffda0f5a00542f2721d994720389ec69
+2026-10-14T01:00:24.0188101Z ##[group]Run actions/setup-java@v6
+2026-10-14T01:00:24.0188469Z with:
+2026-10-14T01:00:24.0188763Z   distribution: temurin
+2026-10-14T01:00:24.0189055Z   java-version: 21
+2026-10-14T01:00:24.0189312Z   cache: maven
+2026-10-14T01:00:24.0189660Z   java-package: jdk
+2026-10-14T01:00:24.0189952Z   check-latest: false
+2026-10-14T01:00:24.0190253Z   force-download: false
+2026-10-14T01:00:24.0190533Z   set-default: true
+2026-10-14T01:00:24.0190786Z   server-id: github
+2026-10-14T01:00:24.0191141Z   mvn-repositories-include-central: true
+2026-10-14T01:00:24.0191517Z   mvn-repositories-prioritize-central: true
+2026-10-14T01:00:24.0191920Z   overwrite-settings: true
+2026-10-14T01:00:24.0192231Z   cache-read-only: false
+2026-10-14T01:00:24.0192532Z   job-status: success
+2026-10-14T01:00:24.0194436Z   token: ***
+2026-10-14T01:00:24.0194726Z   show-download-progress: false
+2026-10-14T01:00:24.0195015Z   problem-matcher: true
+2026-10-14T01:00:24.0195280Z env:
+2026-10-14T01:00:24.0195626Z   JAVA_VERSION: 21
+2026-10-14T01:00:24.0195894Z ##[endgroup]
+2026-10-14T01:00:24.0751652Z ##[group]Installed distributions
+2026-10-14T01:00:24.1120423Z Resolved Java 21.0.12+1 from tool-cache
+2026-10-14T01:00:24.1120986Z Setting Java 21.0.12+1 as the default
+2026-10-14T01:00:24.1125563Z 
+2026-10-14T01:00:24.1126299Z Java configuration:
+2026-10-14T01:00:24.1126715Z   Distribution: temurin
+2026-10-14T01:00:24.1127005Z   Version: 21.0.12+1
+2026-10-14T01:00:24.1127509Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T01:00:24.1127845Z 
+2026-10-14T01:00:24.1154947Z ##[endgroup]
+2026-10-14T01:00:24.1199577Z Creating settings.xml with server-id: github
+2026-10-14T01:00:24.1201892Z Creating toolchains.xml for JDK version 21 from temurin
+2026-10-14T01:00:24.1211342Z Writing to /home/runner/.m2/settings.xml
+2026-10-14T01:00:24.1215830Z Writing to /home/runner/.m2/toolchains.xml
+2026-10-14T01:00:24.1223064Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+2026-10-14T01:00:24.2873785Z Cache hit for: setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8
+2026-10-14T01:00:25.4738836Z Received 92274688 of 108436388 (85.1%), 88.0 MBs/sec
+2026-10-14T01:00:25.5364910Z Received 108436388 of 108436388 (100.0%), 96.8 MBs/sec
+2026-10-14T01:00:25.5365750Z Cache Size: ~103 MB (108436388 B)
+2026-10-14T01:00:25.5399077Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9fe6813c-0014-4483-a59f-7f7d40db1ef8/cache.tzst -P -C /home/runner/work/ecotrack-devops/ecotrack-devops --use-compress-program unzstd
+2026-10-14T01:00:25.6740644Z Cache restored successfully
+2026-10-14T01:00:25.6782761Z Cache restored from key: setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8
+2026-10-14T01:00:25.6904657Z ##[group]Run mvn -B -ntp package -DskipTests
+2026-10-14T01:00:25.6905059Z mvn -B -ntp package -DskipTests
+2026-10-14T01:00:25.7064651Z shell: /usr/bin/bash -e {0}
+2026-10-14T01:00:25.7064987Z env:
+2026-10-14T01:00:25.7065261Z   JAVA_VERSION: 21
+2026-10-14T01:00:25.7065565Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T01:00:25.7065973Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T01:00:25.7066367Z   MAVEN_ARGS: -ntp
+2026-10-14T01:00:25.7066587Z ##[endgroup]
+2026-10-14T01:00:26.9545723Z [INFO] Scanning for projects...
+2026-10-14T01:00:27.0611185Z [INFO] Loaded 24077 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+2026-10-14T01:00:27.2506965Z [INFO] 
+2026-10-14T01:00:27.2513160Z [INFO] ----------------------< br.com.fiap:ecotrack-api >----------------------
+2026-10-14T01:00:27.2513994Z [INFO] Building EcoTrack API 1.1.0
+2026-10-14T01:00:27.2548025Z [INFO]   from pom.xml
+2026-10-14T01:00:27.2549044Z [INFO] --------------------------------[ jar ]---------------------------------
+2026-10-14T01:00:27.2812202Z [INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+2026-10-14T01:00:28.7940624Z [INFO] Loaded 24077 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+2026-10-14T01:00:28.9069325Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-repo (https://nexus.flywaydb.org/repository/flyway/): nexus.flywaydb.org: Name or service not known
+2026-10-14T01:00:29.0003919Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to spring-release (https://repo.spring.io/release): HTTP Status: 401
+2026-10-14T01:00:29.0709836Z [WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+2026-10-14T01:00:29.2288875Z [INFO] 
+2026-10-14T01:00:29.2318950Z [INFO] --- jacoco:0.8.15:prepare-agent (prepare-agent) @ ecotrack-api ---
+2026-10-14T01:00:29.3372810Z [INFO] argLine set to -javaagent:/home/runner/.m2/repository/org/jacoco/org.jacoco.agent/0.8.15/org.jacoco.agent-0.8.15-runtime.jar=destfile=/home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec,excludes=br/com/fiap/ecotrack/EcotrackApiApplication.class
+2026-10-14T01:00:29.3398597Z [INFO] 
+2026-10-14T01:00:29.3408823Z [INFO] --- spring-boot:3.3.5:build-info (default) @ ecotrack-api ---
+2026-10-14T01:00:29.3978739Z [INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+2026-10-14T01:00:29.4882756Z [INFO] 
+2026-10-14T01:00:29.4883927Z [INFO] --- resources:3.3.1:resources (default-resources) @ ecotrack-api ---
+2026-10-14T01:00:29.5369347Z [INFO] Copying 3 resources from src/main/resources to target/classes
+2026-10-14T01:00:29.5488740Z [INFO] Copying 9 resources from src/main/resources to target/classes
+2026-10-14T01:00:29.5511513Z [INFO] 
+2026-10-14T01:00:29.5541954Z [INFO] --- compiler:3.13.0:compile (default-compile) @ ecotrack-api ---
+2026-10-14T01:00:29.6562481Z [INFO] Recompiling the module because of changed source code.
+2026-10-14T01:00:29.6607136Z [INFO] Compiling 34 source files with javac [debug parameters release 21] to target/classes
+2026-10-14T01:00:30.9249138Z [INFO] 
+2026-10-14T01:00:30.9268300Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ ecotrack-api ---
+2026-10-14T01:00:30.9311001Z [INFO] skip non existing resourceDirectory /home/runner/work/ecotrack-devops/ecotrack-devops/src/test/resources
+2026-10-14T01:00:30.9342414Z [INFO] 
+2026-10-14T01:00:30.9345868Z [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ ecotrack-api ---
+2026-10-14T01:00:30.9448336Z [INFO] Recompiling the module because of changed dependency.
+2026-10-14T01:00:30.9463198Z [INFO] Compiling 11 source files with javac [debug parameters release 21] to target/test-classes
+2026-10-14T01:00:31.5618003Z [INFO] 
+2026-10-14T01:00:31.5619063Z [INFO] --- surefire:3.2.5:test (default-test) @ ecotrack-api ---
+2026-10-14T01:00:31.6766079Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+2026-10-14T01:00:31.7152480Z [INFO] 
+2026-10-14T01:00:31.7153656Z [INFO] -------------------------------------------------------
+2026-10-14T01:00:31.7154289Z [INFO]  T E S T S
+2026-10-14T01:00:31.7154789Z [INFO] -------------------------------------------------------
+2026-10-14T01:00:32.6767815Z [INFO] Running br.com.fiap.ecotrack.EcotrackApiApplicationTests
+2026-10-14T01:00:32.7669092Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.055 s -- in br.com.fiap.ecotrack.EcotrackApiApplicationTests
+2026-10-14T01:00:32.7670023Z [INFO] Running br.com.fiap.ecotrack.service.IndicadorServiceTest
+2026-10-14T01:00:33.1209556Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-10-14T01:00:33.1293115Z WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
+2026-10-14T01:00:33.1308889Z WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+2026-10-14T01:00:33.1310011Z WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+2026-10-14T01:00:33.1311061Z WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-14T01:00:34.4661826Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.713 s -- in br.com.fiap.ecotrack.service.IndicadorServiceTest
+2026-10-14T01:00:34.4688657Z [INFO] Running br.com.fiap.ecotrack.service.AcaoServiceTest
+2026-10-14T01:00:34.5879910Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 s -- in br.com.fiap.ecotrack.service.AcaoServiceTest
+2026-10-14T01:00:34.5881121Z [INFO] Running br.com.fiap.ecotrack.service.EmpresaServiceTest
+2026-10-14T01:00:34.6902758Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 s -- in br.com.fiap.ecotrack.service.EmpresaServiceTest
+2026-10-14T01:00:34.6918712Z [INFO] Running br.com.fiap.ecotrack.service.RelatorioServiceTest
+2026-10-14T01:00:34.7471378Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.062 s -- in br.com.fiap.ecotrack.service.RelatorioServiceTest
+2026-10-14T01:00:34.7547119Z [INFO] Running br.com.fiap.ecotrack.controller.EmpresaControllerTest
+2026-10-14T01:00:35.0306638Z 01:00:34.978 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.EmpresaControllerTest]: EmpresaControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-14T01:00:35.2391408Z 01:00:35.187 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.EmpresaControllerTest
+2026-10-14T01:00:35.6418439Z 
+2026-10-14T01:00:35.6419615Z   .   ____          _            __ _ _
+2026-10-14T01:00:35.6449704Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-14T01:00:35.6474607Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-14T01:00:35.6500957Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-14T01:00:35.6501550Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-14T01:00:35.6501906Z  =========|_|==============|___/=/_/_/_/
+2026-10-14T01:00:35.6502126Z 
+2026-10-14T01:00:35.6529462Z  :: Spring Boot ::                (v3.3.5)
+2026-10-14T01:00:35.6547774Z 
+2026-10-14T01:00:35.7429724Z 2026-10-14T01:00:35.698Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.EmpresaControllerTest          : Starting EmpresaControllerTest using Java 21.0.12.1 with PID 2202 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
+2026-10-14T01:00:35.7459107Z 2026-10-14T01:00:35.700Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.EmpresaControllerTest          : No active profile set, falling back to 1 default profile: "default"
+2026-10-14T01:00:36.8471770Z 2026-10-14T01:00:36.771Z  INFO 2202 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-14T01:00:36.9472695Z 2026-10-14T01:00:36.846Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-14T01:00:37.2486351Z 2026-10-14T01:00:37.228Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-14T01:00:37.2491218Z 2026-10-14T01:00:37.228Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-14T01:00:37.2500638Z 2026-10-14T01:00:37.229Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-14T01:00:37.2579965Z 2026-10-14T01:00:37.250Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.EmpresaControllerTest          : Started EmpresaControllerTest in 1.989 seconds (process running for 5.496)
+2026-10-14T01:00:38.0558246Z [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.295 s -- in br.com.fiap.ecotrack.controller.EmpresaControllerTest
+2026-10-14T01:00:38.0560739Z [INFO] Running br.com.fiap.ecotrack.controller.AcaoControllerTest
+2026-10-14T01:00:38.2522465Z 2026-10-14T01:00:38.053Z  INFO 2202 --- [ecotrack-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.AcaoControllerTest]: AcaoControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-14T01:00:38.2526336Z 2026-10-14T01:00:38.063Z  INFO 2202 --- [ecotrack-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.AcaoControllerTest
+2026-10-14T01:00:38.2528111Z 
+2026-10-14T01:00:38.2528419Z   .   ____          _            __ _ _
+2026-10-14T01:00:38.2528900Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-14T01:00:38.2529465Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-14T01:00:38.2529917Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-14T01:00:38.2530375Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-14T01:00:38.2530890Z  =========|_|==============|___/=/_/_/_/
+2026-10-14T01:00:38.2531196Z 
+2026-10-14T01:00:38.2531646Z  :: Spring Boot ::                (v3.3.5)
+2026-10-14T01:00:38.2532033Z 
+2026-10-14T01:00:38.2532989Z 2026-10-14T01:00:38.087Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.controller.AcaoControllerTest    : Starting AcaoControllerTest using Java 21.0.12.1 with PID 2202 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
+2026-10-14T01:00:38.2534552Z 2026-10-14T01:00:38.088Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.controller.AcaoControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-10-14T01:00:38.3536886Z 2026-10-14T01:00:38.344Z  INFO 2202 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-14T01:00:38.3545012Z 2026-10-14T01:00:38.350Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-14T01:00:38.4252081Z 2026-10-14T01:00:38.417Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-14T01:00:38.4260107Z 2026-10-14T01:00:38.417Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-14T01:00:38.4261181Z 2026-10-14T01:00:38.417Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-14T01:00:38.4262489Z 2026-10-14T01:00:38.422Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.controller.AcaoControllerTest    : Started AcaoControllerTest in 0.356 seconds (process running for 6.667)
+2026-10-14T01:00:38.6629507Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.600 s -- in br.com.fiap.ecotrack.controller.AcaoControllerTest
+2026-10-14T01:00:38.6644080Z [INFO] Running br.com.fiap.ecotrack.controller.IndicadorControllerTest
+2026-10-14T01:00:38.7640404Z 2026-10-14T01:00:38.654Z  INFO 2202 --- [ecotrack-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.IndicadorControllerTest]: IndicadorControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-14T01:00:38.7675053Z 2026-10-14T01:00:38.662Z  INFO 2202 --- [ecotrack-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.IndicadorControllerTest
+2026-10-14T01:00:38.7688187Z 
+2026-10-14T01:00:38.7688762Z   .   ____          _            __ _ _
+2026-10-14T01:00:38.7689415Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-14T01:00:38.7690110Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-14T01:00:38.7690609Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-14T01:00:38.7691089Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-14T01:00:38.7691654Z  =========|_|==============|___/=/_/_/_/
+2026-10-14T01:00:38.7691989Z 
+2026-10-14T01:00:38.7692359Z  :: Spring Boot ::                (v3.3.5)
+2026-10-14T01:00:38.7692782Z 
+2026-10-14T01:00:38.7693810Z 2026-10-14T01:00:38.692Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.IndicadorControllerTest        : Starting IndicadorControllerTest using Java 21.0.12.1 with PID 2202 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
+2026-10-14T01:00:38.7695446Z 2026-10-14T01:00:38.693Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.IndicadorControllerTest        : No active profile set, falling back to 1 default profile: "default"
+2026-10-14T01:00:39.0360891Z 2026-10-14T01:00:38.964Z  INFO 2202 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-14T01:00:39.0378982Z 2026-10-14T01:00:38.968Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-14T01:00:39.0380171Z 2026-10-14T01:00:39.027Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-14T01:00:39.0381326Z 2026-10-14T01:00:39.027Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-14T01:00:39.0392369Z 2026-10-14T01:00:39.028Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-14T01:00:39.0399665Z 2026-10-14T01:00:39.032Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.IndicadorControllerTest        : Started IndicadorControllerTest in 0.367 seconds (process running for 7.278)
+2026-10-14T01:00:39.3234752Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.661 s -- in br.com.fiap.ecotrack.controller.IndicadorControllerTest
+2026-10-14T01:00:39.3263382Z [INFO] Running br.com.fiap.ecotrack.controller.RelatorioControllerTest
+2026-10-14T01:00:39.3586652Z 2026-10-14T01:00:39.317Z  INFO 2202 --- [ecotrack-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.fiap.ecotrack.controller.RelatorioControllerTest]: RelatorioControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-14T01:00:39.3622732Z 2026-10-14T01:00:39.323Z  INFO 2202 --- [ecotrack-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.fiap.ecotrack.EcotrackApiApplication for test class br.com.fiap.ecotrack.controller.RelatorioControllerTest
+2026-10-14T01:00:39.3636945Z 
+2026-10-14T01:00:39.3638023Z   .   ____          _            __ _ _
+2026-10-14T01:00:39.3638630Z  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-10-14T01:00:39.3639238Z ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-10-14T01:00:39.3639752Z  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-10-14T01:00:39.3640197Z   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-10-14T01:00:39.3640721Z  =========|_|==============|___/=/_/_/_/
+2026-10-14T01:00:39.3641074Z 
+2026-10-14T01:00:39.3641489Z  :: Spring Boot ::                (v3.3.5)
+2026-10-14T01:00:39.3641803Z 
+2026-10-14T01:00:39.3642804Z 2026-10-14T01:00:39.339Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.RelatorioControllerTest        : Starting RelatorioControllerTest using Java 21.0.12.1 with PID 2202 (started by runner in /home/runner/work/ecotrack-devops/ecotrack-devops)
+2026-10-14T01:00:39.3644476Z 2026-10-14T01:00:39.340Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.RelatorioControllerTest        : No active profile set, falling back to 1 default profile: "default"
+2026-10-14T01:00:39.6421225Z 2026-10-14T01:00:39.583Z  INFO 2202 --- [ecotrack-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-10-14T01:00:39.6422233Z 2026-10-14T01:00:39.587Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-14T01:00:39.6423120Z 2026-10-14T01:00:39.633Z  INFO 2202 --- [ecotrack-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-14T01:00:39.6423774Z 2026-10-14T01:00:39.633Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-14T01:00:39.6424439Z 2026-10-14T01:00:39.633Z  INFO 2202 --- [ecotrack-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-14T01:00:39.6425207Z 2026-10-14T01:00:39.636Z  INFO 2202 --- [ecotrack-api] [           main] b.c.f.e.c.RelatorioControllerTest        : Started RelatorioControllerTest in 0.31 seconds (process running for 7.882)
+2026-10-14T01:00:39.6804423Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.358 s -- in br.com.fiap.ecotrack.controller.RelatorioControllerTest
+2026-10-14T01:00:39.7246107Z [INFO] 
+2026-10-14T01:00:39.7246654Z [INFO] Results:
+2026-10-14T01:00:39.7248450Z [INFO] 
+2026-10-14T01:00:39.7250480Z [INFO] Tests run: 49, Failures: 0, Errors: 0, Skipped: 0
+2026-10-14T01:00:39.7250866Z [INFO] 
+2026-10-14T01:00:39.7276030Z [INFO] 
+2026-10-14T01:00:39.7276590Z [INFO] --- jacoco:0.8.15:report (report) @ ecotrack-api ---
+2026-10-14T01:00:39.7326117Z [INFO] Loading execution data file /home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec
+2026-10-14T01:00:39.8099125Z [INFO] Analyzed bundle 'EcoTrack API' with 30 classes
+2026-10-14T01:00:39.9235542Z [INFO] 
+2026-10-14T01:00:39.9236709Z [INFO] --- jacoco:0.8.15:check (check) @ ecotrack-api ---
+2026-10-14T01:00:39.9292054Z [INFO] Loading execution data file /home/runner/work/ecotrack-devops/ecotrack-devops/target/jacoco.exec
+2026-10-14T01:00:39.9625835Z [INFO] Analyzed bundle 'ecotrack-api' with 30 classes
+2026-10-14T01:00:39.9636017Z [INFO] All coverage checks have been met.
+2026-10-14T01:00:39.9649216Z [INFO] 
+2026-10-14T01:00:39.9649810Z [INFO] --- jar:3.4.2:jar (default-jar) @ ecotrack-api ---
+2026-10-14T01:00:40.1295258Z [INFO] Building jar: /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar
+2026-10-14T01:00:40.1817546Z [INFO] 
+2026-10-14T01:00:40.1848720Z [INFO] --- spring-boot:3.3.5:repackage (repackage) @ ecotrack-api ---
+2026-10-14T01:00:40.3610341Z [INFO] Replacing main artifact /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+2026-10-14T01:00:40.3619102Z [INFO] The original artifact has been renamed to /home/runner/work/ecotrack-devops/ecotrack-devops/target/ecotrack-api.jar.original
+2026-10-14T01:00:40.3620157Z [INFO] ------------------------------------------------------------------------
+2026-10-14T01:00:40.3620634Z [INFO] BUILD SUCCESS
+2026-10-14T01:00:40.3621097Z [INFO] ------------------------------------------------------------------------
+2026-10-14T01:00:40.3621636Z [INFO] Total time:  13.442 s
+2026-10-14T01:00:40.3628714Z [INFO] Finished at: 2026-10-14T01:00:40Z
+2026-10-14T01:00:40.3629419Z [INFO] ------------------------------------------------------------------------
+2026-10-14T01:00:40.3959901Z ##[group]Run actions/upload-artifact@v7
+2026-10-14T01:00:40.3960210Z with:
+2026-10-14T01:00:40.3960466Z   name: ecotrack-api-jar
+2026-10-14T01:00:40.3960811Z   path: target/ecotrack-api.jar
+2026-10-14T01:00:40.3961127Z   retention-days: 7
+2026-10-14T01:00:40.3961407Z   if-no-files-found: warn
+2026-10-14T01:00:40.3961755Z   compression-level: 6
+2026-10-14T01:00:40.3962028Z   overwrite: false
+2026-10-14T01:00:40.3962275Z   include-hidden-files: false
+2026-10-14T01:00:40.3962595Z   archive: true
+2026-10-14T01:00:40.3962844Z env:
+2026-10-14T01:00:40.3963099Z   JAVA_VERSION: 21
+2026-10-14T01:00:40.3963431Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T01:00:40.3963880Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+2026-10-14T01:00:40.3964295Z   MAVEN_ARGS: -ntp
+2026-10-14T01:00:40.3964540Z ##[endgroup]
+2026-10-14T01:00:40.5139748Z With the provided path, there will be 1 file uploaded
+2026-10-14T01:00:40.5147149Z Artifact name is valid!
+2026-10-14T01:00:40.5149139Z Root directory input is valid!
+2026-10-14T01:00:40.7808890Z Uploading artifact: ecotrack-api-jar.zip
+2026-10-14T01:00:40.7841995Z Beginning upload of artifact content to blob storage
+2026-10-14T01:00:41.5634436Z Uploaded bytes 8388608
+2026-10-14T01:00:41.8033759Z Uploaded bytes 16777216
+2026-10-14T01:00:41.9516403Z Uploaded bytes 25165824
+2026-10-14T01:00:42.0928979Z Uploaded bytes 33554432
+2026-10-14T01:00:42.2130354Z Uploaded bytes 41943040
+2026-10-14T01:00:42.4808585Z Uploaded bytes 50331648
+2026-10-14T01:00:42.6363351Z Uploaded bytes 57584338
+2026-10-14T01:00:42.6808652Z Finished uploading artifact content to blob storage!
+2026-10-14T01:00:42.6809418Z SHA256 digest of uploaded artifact is 5d6c24296143bff6b406e1fe4837e7223e6d3ffa7ec089028953407e7775ec20
+2026-10-14T01:00:42.6812418Z Finalizing artifact upload
+2026-10-14T01:00:42.9929879Z Artifact ecotrack-api-jar successfully finalized. Artifact ID 11862896878
+2026-10-14T01:00:42.9930753Z Artifact ecotrack-api-jar has been successfully uploaded! Final size is 57584338 bytes. Artifact ID is 11862896878
+2026-10-14T01:00:42.9936289Z Artifact download URL: https://github.com/psouzah12/ecotrack-devops/actions/runs/38493315480/artifacts/11862896878
+2026-10-14T01:00:43.0106380Z Post job cleanup.
+2026-10-14T01:00:43.1019578Z Cache hit occurred on the primary key setup-java-Linux-x64-maven-3368547dba600d47f1697ae981a279c8ff8d11ddd6e25e48c3a232317d1f47a8, not saving cache.
+2026-10-14T01:00:43.1129466Z Post job cleanup.
+2026-10-14T01:00:43.1816852Z [command]/usr/bin/git version
+2026-10-14T01:00:43.1854708Z git version 2.55.0
+2026-10-14T01:00:43.1892103Z Temporarily overriding HOME='/home/runner/work/_temp/e23594e5-2b68-4d1c-83fb-6855134e2491' before making global git config changes
+2026-10-14T01:00:43.1892725Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-14T01:00:43.1896393Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ecotrack-devops/ecotrack-devops
+2026-10-14T01:00:43.1924040Z Removing SSH command configuration
+2026-10-14T01:00:43.1929146Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-14T01:00:43.1957097Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-14T01:00:43.2169786Z Removing HTTP extra header
+2026-10-14T01:00:43.2200108Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-14T01:00:43.2222665Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-14T01:00:43.2421807Z Removing includeIf entries pointing to credentials config files
+2026-10-14T01:00:43.2439974Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-14T01:00:43.2470324Z includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path
+2026-10-14T01:00:43.2471290Z includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path
+2026-10-14T01:00:43.2472220Z includeif.gitdir:/github/workspace/.git.path
+2026-10-14T01:00:43.2472893Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-14T01:00:43.2479179Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path
+2026-10-14T01:00:43.2506164Z /home/runner/work/_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:43.2520111Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-066f6637\-cc94\-4604\-83b0\-9c5c239e7540\.config
+2026-10-14T01:00:43.2579007Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path
+2026-10-14T01:00:43.2598973Z /home/runner/work/_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:43.2619006Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ecotrack-devops/ecotrack-devops/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-066f6637\-cc94\-4604\-83b0\-9c5c239e7540\.config
+2026-10-14T01:00:43.2648947Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-14T01:00:43.2664633Z /github/runner_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:43.2669725Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-066f6637\-cc94\-4604\-83b0\-9c5c239e7540\.config
+2026-10-14T01:00:43.2694488Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-14T01:00:43.2709923Z /github/runner_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config
+2026-10-14T01:00:43.2715463Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-066f6637\-cc94\-4604\-83b0\-9c5c239e7540\.config
+2026-10-14T01:00:43.2742338Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-14T01:00:43.2889439Z Removing credentials config '/home/runner/work/_temp/git-credentials-066f6637-cc94-4604-83b0-9c5c239e7540.config'
+2026-10-14T01:00:43.3013288Z Cleaning up orphan processes
