@@ -2,7 +2,7 @@
 
 # EcoTrack API - DevOps
 
-Paulo Souza, RM 566228
+Paulo Gabriel de Souza, RM 566228
 
 Repositório: https://github.com/psouzah12/ecotrack-devops
 Documentação técnica em PDF: [docs/EcoTrack_DevOps_RM566228.pdf](docs/EcoTrack_DevOps_RM566228.pdf)

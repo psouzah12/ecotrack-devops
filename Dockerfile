@@ -40,7 +40,7 @@ LABEL org.opencontainers.image.title="EcoTrack API" \
       org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.revision="${GIT_COMMIT}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
-      org.opencontainers.image.authors="Paulo Souza - RM566228"
+      org.opencontainers.image.authors="Paulo Gabriel de Souza - RM566228"
 
 ENV APP_COMMIT=${GIT_COMMIT} \
     JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75 -XX:+ExitOnOutOfMemoryError -Duser.timezone=America/Sao_Paulo -Djava.security.egd=file:/dev/./urandom"
